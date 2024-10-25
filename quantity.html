@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quantity Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+            <h1>QUANTITY CALCULATOR</h1>
+
+            <form>
+                <p><label>Lowest Quantity: </label><input type="text" id="lowestQuantity"></p>
+                <p><label>Lowest Quantity Price: £</label><input type="text" id="lowestQuantityPrice"></p>
+                <p><label>Highest Quantity: </label><input type="text" id="highestQuantity"></p>
+                <p><label>Highest Quantity Price: £</label><input type="text" id="highestQuantityPrice"></p>
+                <p><label>Required quantity: </label><input type="text" id="requiredQuantity"></p>
+        <br>
+                <button>CALCULATE</button>
+                <br></br>
+                <div class="results"></div>
+        
+            </form>
+        
+            <script>
+
+
+const form = document.querySelector('form');
+
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const lowestQuantity = parseInt(document.querySelector('#lowestQuantity').value);
+    const lowestQuantityPrice = parseInt(document.querySelector('#lowestQuantityPrice').value);
+    const highestQuantity = parseInt(document.querySelector('#highestQuantity').value);
+    const highestQuantityPrice = parseInt(document.querySelector('#highestQuantityPrice').value);
+    const requiredQuantity = parseInt(document.querySelector('#requiredQuantity').value);
+    const results = document.querySelector('#results');
+
+
+    const quantityDiff = (highestQuantity - lowestQuantity);
+    const priceDiff = (highestQuantityPrice - lowestQuantityPrice);
+    const unitCost = (priceDiff / quantityDiff);
+    const setupCost = (lowestQuantityPrice - (unitCost * lowestQuantity));
+    const thouCost = (unitCost * 1000);
+    const required = (setupCost + (unitCost * requiredQuantity));
+
+    
+    //display the results
+
+    document.querySelector('.results').innerHTML = "Setup Cost: £" + setupCost + "<br>" + "Unit Cost: £" + unitCost + "<br>" + "£/1000: £" + thouCost + "<br>" + requiredQuantity + ": £" + required;
+
+});
+
+
+
+
+
+            </script>
+            <br>
+
+            <a href="runon.html">
+                <h3>&lt&lt&lt RUN ON CALCULATOR &gt&gt&gt
+            </a></h3>
+        
+
+
+        </div>
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Is it VATable?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+                <h1>IS IT VATABLE</h1>
+            
+            
+                <p><strong>VATABLE:</strong></p>
+                <p>Stationery items: Letterheads, Comp Slips, Business Cards etc.</p>
+                <p>Stickers / Labels</p>
+                <p>Folders</p>
+                <p>Posters</p>
+                <p>Leaflets / Flyers – above 250gsm/over 25% area to be filled in (eg. Coupon)</p>
+                <p>Brochures (with pockets)</p>
+                <p>Cellobags</p>
+                <p>---</p>
+                <p><strong>NON-VATABLE:</strong></p>
+                <p>Brochures (without pockets)</p>
+                <p>Catalogues</p>
+                <p>Newsletters</p>
+                <p>Books</p>
+                <p>Leaflets/Flyers – under 250gms</p>
+                </p>
+            
+            
+            
+            
+            
+        </div>
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

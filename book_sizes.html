@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Standard Book Sizes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+            <h1>STANDARD BOOK SIZES</h1>
+
+
+            <table>
+                <tr>
+                    <td style="padding-right:50px">A6</td>
+                    <td style="padding-right:50px">148 x 105mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">A Format</td>
+                    <td style="padding-right:50px">178 x 111mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">B Format (UK)</td>
+                    <td style="padding-right:50px">198 x 129mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">B Format (US)</td>
+                    <td style="padding-right:50px">203 x 127mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">A5</td>
+                    <td style="padding-right:50px">210 x 148mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">Demy</td>
+                    <td style="padding-right:50px">216 x 138mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">American Royal</td>
+                    <td style="padding-right:50px">229 x 152mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">Royal</td>
+                    <td style="padding-right:50px">234 x 156mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">Pinched Crown Quarto</td>
+                    <td style="padding-right:50px">248 x 171mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">Crown Quarto</td>
+                    <td style="padding-right:50px">246 x 189mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">A4</td>
+                    <td style="padding-right:50px">297 x 210mm</td>
+                </tr>
+            </table>
+        
+            
+        </div>
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

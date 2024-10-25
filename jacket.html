@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dustjacket Grid Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+            <h1>DUSTJACKET GRID BUILDER</h1>
+
+            
+            
+            <form>
+                <p><label>Text Height: </label><input type="text" id="textHeight"></p>
+                <p><label>Text Width: </label><input type="text" id="textWidth"></p>
+                <p><label>No. of text pages: </label><input type="text" id="text_pp"></p>
+                <p><label>Text microns: </label><input type="text" id="text_mic"></p>
+                <p><label>Cover: </label><input type="radio" name="cover" value="thin"checked>2.25mm
+                    <input type="radio" name="cover" value="thick">3mm
+                </p>
+                <br>
+                <button>Calculate</button>
+                <br></br>
+                <div class="results"></div>
+                <canvas id="canvas" ;></canvas>
+            </form>
+        
+            <script src="jacket_script.js"></script>
+            <br>
+            <a href="grid.html">
+                <H4>&lt&lt&ltCOVER GRID BUILDER&gt&gt&gt
+            </a></H4>
+            <br>
+        
+            <P><strong>GSM to MIC conversions</strong></P>
+            <p onclick="silk()" style="cursor:pointer;">SILK</p>
+            <div id="silk"> </div>
+            <p onclick="gloss()" style="cursor:pointer;">GLOSS</p>
+            <div id="gloss"> </div>
+            <p onclick="uncoated()" style="cursor:pointer;">UNCOATED</p>
+            <div id="uncoated"> </div>
+        
+        
+        
+        
+        </div>                   
+
+            
+
+
+
+
+
+
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

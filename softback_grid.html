@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Softback Cover Grid Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+            <h1>SOFTBACK COVER BUILDER</h1>
+            <style>
+                #diagram {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: flex-start;
+                    /* Align to the left */
+                }
+
+                #measurements {
+                    margin-top: 30px;
+                    /* Reduced the margin to minimize the gap */
+                    font-weight: bold;
+                }
+            </style>
+
+
+            <label for="textHeight">Text Height (mm):</label>
+            <input type="number" id="textHeight" placeholder="Height in mm">
+            <br><br>
+            <label for="textWidth">Text Width (mm):</label>
+            <input type="number" id="textWidth" placeholder="Width in mm">
+            <br><br>
+            <label for="textPages">Number of Text Pages:</label>
+            <input type="number" id="textPages" placeholder="Number of pages">
+            <br><br>
+            <label for="coverThickness">Cover Thickness (microns):</label>
+            <input type="number" id="coverThickness" placeholder="Thickness in microns">
+            <br><br>
+            <label for="paperThickness">Text Paper Thickness (microns):</label>
+            <input type="number" id="paperThickness" placeholder="Thickness in microns">
+            <br>
+            <br>
+                       <!-- Button to draw the diagram (moved below inputs) -->
+            <button onclick="drawDiagram()">Draw Diagram</button>
+            <br>
+            <!-- Display the measurements just above the diagram -->
+            <div id="measurements"></div>
+
+            <div id="diagram">
+                <canvas id="canvas"></canvas> <!-- Height will be dynamically set -->
+            </div>
+
+            <script>
+                function drawDiagram() {
+                    // Get input values
+                    let textHeight = Math.round(parseFloat(document.getElementById('textHeight').value));
+                    let textWidth = Math.round(parseFloat(document.getElementById('textWidth').value));
+                    let textPages = parseFloat(document.getElementById('textPages').value);
+                    let coverThickness = parseFloat(document.getElementById('coverThickness').value);
+                    let paperThickness = parseFloat(document.getElementById('paperThickness').value);
+
+                    // Calculate spine width in mm and round it
+                    let spineWidth = Math.round(((textPages / 2) * paperThickness / 1000) + (coverThickness * 2 / 1000));
+
+                    // Total width of the book cover (front cover + back cover + spine)
+                    let totalWidth = textWidth * 2 + spineWidth;
+
+                    // Display the measurements
+                    document.getElementById('measurements').innerHTML = `
+                        Page Width: ${textWidth}mm<br>
+                        Total Width: ${totalWidth}mm<br>
+                        Page Height: ${textHeight}mm<br>
+                        Spine Width: ${spineWidth}mm<br>
+                        + 3mm bleed required on all edges
+                    `;
+
+                    // Get canvas and context
+                    let canvas = document.getElementById('canvas');
+                    let ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+                    // Set the canvas width and height dynamically based on the total width and height
+                    canvas.width = totalWidth + 100; // Add padding to avoid cropping
+                    canvas.height = textHeight + 50; // Add padding for height
+
+                    // Set starting position (diagram aligned to the left)
+                    let startX = 50; // Diagram starts 50px from the left side
+                    let startY = 25; // Diagram starts 25px from the top side (padding)
+
+                    // Draw back cover
+                    ctx.fillStyle = "#d5eef5"; // Light blue
+                    ctx.fillRect(startX, startY, textWidth, textHeight);
+                    ctx.strokeRect(startX, startY, textWidth, textHeight);
+                    ctx.fillStyle = "black";
+                    ctx.font = "10px Arial"; // Smaller text
+                    ctx.textAlign = "center";
+                    // Measurements moved to the top
+                    ctx.fillText(`${textWidth}mm`, startX + textWidth / 2, startY + 15);
+                    ctx.fillText("Back Cover", startX + textWidth / 2, startY + textHeight / 2);
+
+                    // Draw spine (no text for spine, only the width displayed)
+                    ctx.fillStyle = "#f2f0eb"; // Grey
+                    ctx.fillRect(startX + textWidth, startY, spineWidth, textHeight);
+                    ctx.strokeRect(startX + textWidth, startY, spineWidth, textHeight);
+                    ctx.fillStyle = "black";
+                    ctx.fillText(`${spineWidth}`, startX + textWidth + spineWidth / 2, startY + 15); // Spine measurement at the top
+
+                    // Draw front cover
+                    ctx.fillStyle = "#d5eef5"; // Light blue
+                    ctx.fillRect(startX + textWidth + spineWidth, startY, textWidth, textHeight);
+                    ctx.strokeRect(startX + textWidth + spineWidth, startY, textWidth, textHeight);
+                    ctx.fillStyle = "black";
+                    ctx.fillText(`${textWidth}mm`, startX + textWidth + spineWidth + textWidth / 2, startY + 15); // Front cover measurement at the top
+                    ctx.fillText("Front Cover", startX + textWidth + spineWidth + textWidth / 2, startY + textHeight / 2);
+
+                    // Draw height inside the back cover, close to the left edge
+                    ctx.textAlign = "right";
+                    ctx.fillText(`${textHeight}mm`, startX + 40, startY + textHeight / 2);
+                }
+            </script>
+
+            <script src="jacket_script.js"></script>
+            <P><strong>GSM to MIC conversions</strong></P>
+            <p onclick="silk()" style="cursor:pointer;">SILK</p>
+            <div id="silk"> </div>
+            <p onclick="gloss()" style="cursor:pointer;">GLOSS</p>
+            <div id="gloss"> </div>
+            <p onclick="uncoated()" style="cursor:pointer;">UNCOATED</p>
+            <div id="uncoated"> </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

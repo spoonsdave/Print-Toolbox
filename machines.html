@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Machine Specs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+
+            <div class="body-text">
+                <!-- body content -->
+                <h1>MACHINE SPECS</h1>
+
+                <script src="machines.js"></script>
+
+
+
+                <h4>
+                    <p onclick="xl()" style="cursor:pointer;">XL106</p>
+                </h4>
+
+                <div id="xl"> </div>
+
+                <h4>
+                    <p onclick="fst()" style="cursor:pointer;">Saddle Stitcher</p>
+                </h4>
+                <div id="fst"> </div>
+
+                <h4>
+                    <p onclick="perfect()" style="cursor:pointer;">Perfect Binder</p>
+                </h4>
+                <div id="pbDIV"> </div>
+
+                <h4>
+                    <p onclick="thread()" style="cursor:pointer;">Thread Sewer</p>
+                </h4>
+                <div id="threadDIV"> </div>
+
+                <h4>
+                    <p onclick="cylinder()" style="cursor:pointer;">Cylinder</p>
+                </h4>
+                <div id="cylinder"> </div>
+
+                <h4>
+                    <p onclick="morgana()" style="cursor:pointer;">Morgana Creasing Machine</p>
+                </h4>
+                <div id="morgana"> </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

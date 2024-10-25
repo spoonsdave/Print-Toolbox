@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PRINT CENTRAL</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+    .container {
+        gap: 20px;
+    }
+
+    .column {
+        padding: 5px;
+        width: 33%;
+        box-sizing: border-box;
+    }
+
+    textarea,
+    .result {
+        padding: 10px;
+        border: 1px solid #ccc;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 14px;
+        font-weight: 560;
+        height: 600px;
+        width: 100%;
+        box-sizing: border-box;
+        color: darkblue;
+        resize: none;
+    }
+
+    .result {
+        background-color: #f9f9f9;
+        white-space: pre-wrap;
+    }
+</style>
+
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle L Column (Main Content) -->
+        <div class="column middleL">
+
+
+
+            <H3>
+                <div id="clockbox"></div>
+                <script type="text/javascript">
+                    var tday = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+                    var tmonth = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+                    function GetClock() {
+                        var d = new Date();
+                        var nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate();
+                        var nhour = d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds(), ap;
+                        if (nhour == 0) { ap = " AM"; nhour = 12; }
+                        else if (nhour < 12) { ap = " AM"; }
+                        else if (nhour == 12) { ap = " PM"; }
+                        else if (nhour > 12) { ap = " PM"; nhour -= 12; }
+                        if (nmin <= 9) nmin = "0" + nmin;
+                        if (nsec <= 9) nsec = "0" + nsec;
+                        var clocktext = "" + tday[nday] + " " + ndate + " " + tmonth[nmonth] + " - " + nhour + ":" + nmin + ":" + nsec + ap + "";
+                        document.getElementById('clockbox').innerHTML = clocktext;
+                    }
+                    GetClock();
+                    setInterval(GetClock, 1000);
+                </script>
+            </H3>
+
+<br>
+
+
+
+            <textarea id="inputArea" placeholder="Type your query here..."></textarea>
+
+        </div>
+
+        <!-- Middle R Column (Results) -->
+        <div class="column middleR">
+
+            <div id="resultArea" class="result"></div>
+
+        </div>
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+    <script>
+        const inputArea = document.getElementById('inputArea');
+        const resultArea = document.getElementById('resultArea');
+
+        let lastResult = 0;  // Store last result to continue calculations
+        let variables = {};  // Object to store variables
+
+        function calculateExpression(expression) {
+            try {
+                // Automatically insert * between number and variable (e.g., "2 inches" to "2 * inches")
+                const adjustedExpression = expression.replace(/(\d+)\s*([A-Za-z_]\w*)/g, '$1 * $2');
+
+                // Replace any variables in the expression with their values
+                const replacedExpression = adjustedExpression.replace(/\b[A-Za-z_]\w*\b/g, match => {
+                    if (variables.hasOwnProperty(match)) {
+                        return variables[match];  // Replace the variable with its value
+                    }
+                    return match;  // Keep the same string if it's not a variable
+                });
+
+                // Evaluate the replaced expression and return the result
+                return eval(replacedExpression);
+            } catch (e) {
+                return '';  // Return empty string instead of "Error"
+            }
+        }
+
+        // Listen for key presses and update the result dynamically
+        inputArea.addEventListener('input', () => {
+            const lines = inputArea.value.split('\n');
+            let results = [];
+            lastResult = 0;  // Reset lastResult when starting new input
+
+            lines.forEach((line, index) => {
+                line = line.trim();
+
+                if (line) {
+                    // Check if the line defines a variable (e.g., inches = 25.4)
+                    const variableMatch = line.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
+                    if (variableMatch) {
+                        const variableName = variableMatch[1];
+                        const variableValue = calculateExpression(variableMatch[2]);
+                        if (variableValue !== '') {
+                            variables[variableName] = variableValue;
+                        }
+                        results.push(`${variableName} = ${Number(variableValue).toLocaleString()}`);
+                    } else if (variables.hasOwnProperty(line)) {
+                        // If only a variable name is typed, show its value
+                        results.push(variables[line].toLocaleString());
+                    } else {
+                        // If it's a regular expression, calculate it
+                        const currentExpression = line.match(/^[+\-*/]/) ? lastResult + line : line;
+                        const expressionResult = calculateExpression(currentExpression);
+                        lastResult = expressionResult !== '' ? expressionResult : lastResult;
+                        results.push(Number(expressionResult).toLocaleString());
+                    }
+                } else {
+                    results.push('');  // Keep empty lines for formatting
+                }
+            });
+
+            resultArea.textContent = results.join('\n');
+
+            // Save the input, result, and variables in localStorage
+            localStorage.setItem('calculatorInput', inputArea.value);
+            localStorage.setItem('calculatorResult', resultArea.textContent);
+            localStorage.setItem('calculatorVariables', JSON.stringify(variables));
+        });
+
+        // Load from localStorage on page load
+        window.onload = () => {
+            const savedInput = localStorage.getItem('calculatorInput');
+            const savedResult = localStorage.getItem('calculatorResult');
+            const savedVariables = localStorage.getItem('calculatorVariables');
+
+            if (savedInput && savedResult) {
+                inputArea.value = savedInput;
+                resultArea.textContent = savedResult;
+            }
+            if (savedVariables) {
+                variables = JSON.parse(savedVariables);
+            }
+        };
+    </script>
+
+
+
+
+</body>
+
+</html>

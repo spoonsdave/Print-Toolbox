@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sheet Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+            <h1>SHEET CALCULATOR</h1>
+
+
+
+            <style>
+                label {
+                    display: inline-block;
+                    width: 150px;
+                }
+
+                input {
+                    display: inline-block;
+                    margin-bottom: 5px;
+                }
+
+                .item {
+                    margin-bottom: 1px;
+                }
+            </style>
+
+            <div class="input-section">
+
+                <label for="maxUp">No. up per sheet:</label>
+                <input type="number" id="maxUp" value="1" min="1">
+
+                <h3>ITEMS:</h3>
+                <div id="itemsContainer">
+                    <script>
+                        for (let i = 1; i <= 10; i++) {
+                            document.write(`
+                                <div class="item" data-index="${i}">
+                                    <label>Item ${i} - Quantity:</label>
+                                    <input type="number" class="itemQuantity" value="0" min="0" style="width: 80px;">
+                                </div>
+                            `);
+                        }
+                    </script>
+                </div>
+                <br>
+                <button onclick="calculateSheets()">Calculate Sheets</button>
+                <br>
+            </div>
+
+            <div id="results"></div>
+
+            <script>
+                function calculateSheets() {
+                    const maxUp = parseInt(document.getElementById("maxUp").value);
+                    const quantities = Array.from(document.querySelectorAll(".itemQuantity"))
+                        .map(input => parseInt(input.value))
+                        .filter(quantity => quantity > 0);
+
+                    let bestCombination = null;
+                    let minSheets = Infinity;
+
+                    function findOptimalUpCombination(upCounts = [], index = 0) {
+                        if (index === quantities.length) {
+                            const totalUp = upCounts.reduce((acc, up) => acc + up, 0);
+                            if (totalUp <= maxUp) {
+                                const sheets = Math.max(...quantities.map((qty, i) => Math.ceil(qty / upCounts[i])));
+                                if (sheets < minSheets) {
+                                    minSheets = sheets;
+                                    bestCombination = [...upCounts];
+                                }
+                            }
+                            return;
+                        }
+                        for (let up = 1; up <= maxUp; up++) {
+                            upCounts[index] = up;
+                            findOptimalUpCombination(upCounts, index + 1);
+                        }
+                    }
+
+                    findOptimalUpCombination();
+
+                    displayResults(bestCombination, quantities, minSheets);
+                }
+
+                function displayResults(upCounts, quantities, totalSheets) {
+                    const resultsDiv = document.getElementById("results");
+                    resultsDiv.innerHTML = "<br><h3>RESULTS:</h3><br>";
+
+                    upCounts.forEach((up, index) => {
+                        const sheetsRequired = Math.ceil(quantities[index] / up);
+                        resultsDiv.innerHTML += `<p>Item ${index + 1} - ${up} up - ${sheetsRequired} sheets required</p>`;
+                    });
+
+                    resultsDiv.innerHTML += `<p>Total sheets required: ${totalSheets}</p>`;
+                }
+            </script>
+</body>
+</div>
+
+
+
+
+
+
+
+<!-- Right Column (Phone List) -->
+<div class="column right" id="phonelist"></div>
+</div>
+
+
+<script>
+    // Load sidebar content
+    fetch("sidebar.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("sidebar").innerHTML = data);
+
+    // Load phonelist content
+    fetch("phonelist.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("phonelist").innerHTML = data);
+</script>
+
+
+
+
+
+
+</body>
+
+</html>

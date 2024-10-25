@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weight Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+            <h1>WEIGHT CALCULATOR</h1>
+
+       
+           <form>
+               <p><label>Height in mm: </label><input type="text" id="height" value="297"></p>
+               <p><label>Width in mm: </label><input type="text" id="width" value="210"></p>
+               <p><label>Cover Weight: </label><input type="text" id="coverweight"></p>
+               <p><label>No. of Cover Pages: </label><input type="text" id="coverpp" value="4"></p>
+               <p><label>Text Weight: </label><input type="text" id="textweight"></p>
+               <p><label>No. of Text Pages: </label><input type="text" id="textpp"></p>
+               <p><label>Quantity: </label><input type="text" id="quantity"></p>
+               <p><label>KG per box: </label><input type="text" id="boxkg" value="8"></p>
+               <br></br>
+       
+               <button>Calculate</button>
+       
+               <br></br>
+               <div class="results"></div>
+       
+           </form>
+       
+           <script src="weight.js"></script>
+       
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

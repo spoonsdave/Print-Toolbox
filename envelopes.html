@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Envelopes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+            <h1>STANDARD ENVELOPE SIZES</h1>
+
+            <table>
+                <tr>
+                    <td style="padding-right:50px">C4</td>
+                    <td style="padding-right:100px">229 x 324mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">C5</td>
+                    <td style="padding-right:100px">162 x 229mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">C6</td>
+                    <td style="padding-right:100px">114 x 162mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">C7</td>
+                    <td style="padding-right:100px">83 x 112mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">DL</td>
+                    <td style="padding-right:100px">110 x 220mm</td>
+                </tr>
+            </table>
+
+
+
+
+        </div>
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

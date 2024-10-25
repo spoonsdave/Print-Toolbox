@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>£ per 1000 to £ per tonne</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+            
+            <div class="body-text">
+                <!-- body content -->
+                <h1>£ PER 1000 TO £ PER TONNE</h1>
+            
+            
+                <form>
+                    <p><label>Width: </label><input type="text" id="width"></p>
+                    <p><label>Height</label><input type="text" id="height"></p>
+                    <p><label>Weight: </label><input type="text" id="weight"></p>
+                    <p><label>£ per tonne</label><input type="text" id="perTonne"></p>
+                    <p><label>£ per 1000: </label><input type="text" id="perThou"></p>
+            <br>
+                    <button>Calculate</button>
+                    <br></br>
+                    <div class="results"></div>
+            
+                </form>
+            
+                <script src="paper_cost.js"></script>
+            
+            
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            
+                   
+
+            
+
+
+
+
+
+
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

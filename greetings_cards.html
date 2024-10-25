@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Greetings Cards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+
+
+            <h1>STANDARD GREETINGS CARD SIZES</h1>
+
+
+
+            <table>
+                <tr>
+                    <td style="padding-right:50px">Card</td>
+                    <td style="padding-right:100px">Envelope</td>
+                    <td style="padding-right:100px">Cellobag</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">125 x 125mm</td>
+                    <td style="padding-right:100px">130 x 130mm</td>
+                    <td style="padding-right:100px">135 x 130mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">150 x 150mm</td>
+                    <td style="padding-right:100px">155 x 155mm</td>
+                    <td style="padding-right:100px">160 x 155mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">148 x 105mm</td>
+                    <td style="padding-right:100px">159 x 108mm</td>
+                    <td style="padding-right:100px">159 x 113mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">178 x 127mm</td>
+                    <td style="padding-right:100px">184 x 133mm</td>
+                    <td style="padding-right:100px">185 x 138mm</td>
+                </tr>
+                <tr>
+                    <td style="padding-right:50px">210 x 148mm</td>
+                    <td style="padding-right:100px">216 x 152mm</td>
+                    <td style="padding-right:100px">216 x 157mm</td>
+                </tr>
+            </table>
+
+
+
+        </div>
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

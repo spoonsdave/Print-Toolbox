@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Suppliers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+
+
+            <script src="suppliers.js"></script>
+
+            <div class="body-text">
+                <!-- body content -->
+                <h1>SUPPLIERS & SERVICES</h1>
+
+                <h4>
+                    <p onclick="cased()" style="cursor:pointer;">Case Binding
+                </h4>
+                <div id="cased"> </div>
+
+                <h4>
+                    <p onclick="crease()" style="cursor:pointer;">Creasing
+                </h4>
+                <div id="crease"> </div>
+
+                <h4>
+                    <p onclick="encaps()" style="cursor:pointer;">Encapsulating
+                </h4>
+                <div id="encaps"> </div>
+
+                <h4>
+                    <p onclick="envelopes()" style="cursor:pointer;">Envelopes
+                </h4>
+                <div id="envelopes"> </div>
+
+                <h4>
+                    <p onclick="foiling()" style="cursor:pointer;">Foiling
+                </h4>
+                <div id="foiling"> </div>
+
+                <h4>
+                    <p onclick="folding()" style="cursor:pointer;">Folding
+                </h4>
+                <div id="folding"> </div>
+
+                <h4>
+                    <p onclick="formes()" style="cursor:pointer;">Formes
+                </h4>
+                <div id="formes"> </div>
+
+                <h4>
+                    <p onclick="gumming()" style="cursor:pointer;">Gumming
+                </h4>
+                <div id="gumming"> </div>
+
+                <h4>
+                    <p onclick="handfin()" style="cursor:pointer;">Hand Finishing
+                </h4>
+                <div id="handfin"> </div>
+
+                <h4>
+                    <p onclick="labels()" style="cursor:pointer;">Labels
+                </h4>
+                <div id="labels"> </div>
+
+                <h4>
+                    <p onclick="laminate()" style="cursor:pointer;">Lamination
+                </h4>
+                <div id="laminate"> </div>
+
+                <h4>
+                    <p onclick="ncr()" style="cursor:pointer;">NCR Sets
+                </h4>
+                <div id="ncr"> </div>
+
+                <h4>
+                    <p onclick="padding()" style="cursor:pointer;">Padding
+                </h4>
+                <div id="padding"> </div>
+
+                <h4>
+                    <p onclick="perfect()" style="cursor:pointer;">Perfect / PUR Binding
+                </h4>
+                <div id="perfect"> </div>
+
+                <h4>
+                    <p onclick="spotuv()" style="cursor:pointer;">Spot UV Varnishing
+                </h4>
+                <div id="spotuv"> </div>
+
+                <h4>
+                    <p onclick="slip()" style="cursor:pointer;">Slipcases
+                </h4>
+                <div id="slip"> </div>
+
+                <h4>
+                    <p onclick="stitch()" style="cursor:pointer;">Saddle Stitching
+                </h4>
+                <div id="stitch"> </div>
+
+                <h4>
+                    <p onclick="string()" style="cursor:pointer;">Stringing
+                </h4>
+                <div id="string"> </div>
+
+                <h4>
+                    <p onclick="thread()" style="cursor:pointer;">Thread Sewing
+                </h4>
+                <div id="thread"> </div>
+
+                <h4>
+                    <p onclick="wireo()" style="cursor:pointer;">Wire-o-binding
+                </h4>
+                <div id="wireo"> </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+            <!-- Right Column (Phone List) -->
+            <div class="column right" id="phonelist"></div>
+        </div>
+
+
+        <script>
+            // Load sidebar content
+            fetch("sidebar.html")
+                .then(response => response.text())
+                .then(data => document.getElementById("sidebar").innerHTML = data);
+
+            // Load phonelist content
+            fetch("phonelist.html")
+                .then(response => response.text())
+                .then(data => document.getElementById("phonelist").innerHTML = data);
+        </script>
+
+
+
+
+
+
+</body>
+
+</html>

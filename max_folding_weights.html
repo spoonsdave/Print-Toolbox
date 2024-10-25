@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Machine Specs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+            <title>Max Folding Weights</title>
+
+
+
+            <div class="body-text">
+                <!-- body content -->
+                <h1>MAX FOLDING WEIGHTS</h1>
+            
+               
+                <table>
+                    <tr>
+                        <td style="padding-right:50px"><strong>32pp</strong></td>
+                        <td style="padding-right:50px">100gsm Uncoated</td>
+                        <td style="padding-right:50px">130gsm Silk</td>
+                        <td style="padding-right:50px">150gsm Gloss</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right:50px"><strong>24pp</strong></td>
+                        <td style="padding-right:50px">110gsm Uncoated</td>
+                        <td style="padding-right:50px">150gsm Silk</td>
+                        <td style="padding-right:50px">170gsm Gloss</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right:50px"><strong>16pp</strong></td>
+                        <td style="padding-right:50px">120gsm Uncoated</td>
+                        <td style="padding-right:50px">170gsm Silk</td>
+                        <td style="padding-right:50px">170gsm Gloss</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right:50px"><strong>8pp</strong></td>
+                        <td style="padding-right:50px">140gsm Uncoated</td>
+                        <td style="padding-right:50px">200gsm Silk</td>
+                        <td style="padding-right:50px">200gsm Gloss</td>
+                    </tr>
+                </table>
+            
+            
+            </div>
+            
+        </div>
+
+
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>
