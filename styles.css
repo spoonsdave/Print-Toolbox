@@ -36,7 +36,7 @@ Accent Red (Buttons): #d9534f
 
 .left {
     width: 20%;
-    background-color: #e1e1df
+    background-color: #e1e1df;
 }
 
 .middle {
@@ -46,7 +46,7 @@ Accent Red (Buttons): #d9534f
 
 .right {
     width: 20%;
-    background-color: #e1e1df
+    background-color: #e1e1df;
     justify-content: center; /* Horizontally centers the table */
 }
 
