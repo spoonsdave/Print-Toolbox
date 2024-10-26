@@ -78,7 +78,7 @@ Colour Palette:
 
 /* SIDEBAR */
 
-.sidebar h1, .sidebar h1 a {
+.title {
   position: relative;
   font-family: 'Roboto Slab', sans-serif;
   font-size: 2.5em; /* Adjust as needed */
@@ -86,9 +86,8 @@ Colour Palette:
   color: darkblue; /* Fallback color if gradient doesn't display */
 }
 
-
-.sidebar h1, .sidebar h1 a::before {
-  content: 'PRINT TOOLBOX';
+.title::before {
+  content: 'THE PRINT TOOLBOX';
   position: absolute;
   top: 0;
   left: 0;
@@ -101,7 +100,6 @@ Colour Palette:
   text-fill-color: transparent;
   z-index: 1;
 }
-
 
 
 
