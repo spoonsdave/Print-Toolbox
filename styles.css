@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
 * {
     font-family: 'Roboto Mono', monospace;
 }
@@ -79,11 +81,16 @@ Colour Palette:
 .sidebar h1, .sidebar h1 a {
     text-align: left;
     font-size: 30px;
-    color: #0a3d6b;
     font-weight: bold;
     line-height: 300%;
-    text-shadow: 0px 0px 5px #021a33;
+  font-family: 'Roboto Slab', sans-serif;
+  background: linear-gradient(90deg, #1e3a5f, #2b4d75);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3); /* Adjust values as needed */
 }
+    
+
 
 .sidebar h1 a:hover {
     color: #c0392b;
