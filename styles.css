@@ -10,7 +10,7 @@ Colour Palette:
 	•	Background Panel: #dfe6eb
 	•	Headings (Dark Blue): #0a3d6b
 	•	Shadows (Darker Blue): Slight shadow effect using #021a33
-	•	Results (Bright Blue): #1e5fab
+	•	Results (Bright Blue): #1e5fe0
 	•	Accent Red (Buttons): #c0392b
 
 */
@@ -191,7 +191,7 @@ p a:hover, h2 a:hover, h3 a:hover  {
 
 
 .results {
-    color: #1e5fab;
+    color: #1e5fe0;
     font-size: 13px;
     font-weight: bold;
 }
