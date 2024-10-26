@@ -6,12 +6,17 @@
 
 /*
 Colour Palette:
-Background Panel: #e1e1df
-Headings (Dark Blue): #052c4f
-Shadows (Darker Blue): #021a33
-Results (Bright Blue): #3a8bdc
-Accent Red (Buttons): #d9534f
+
+	•	Background Panel: #dfe6eb
+	•	Headings (Dark Blue): #0a3d6b
+	•	Shadows (Darker Blue): Slight shadow effect using #021a33
+	•	Results (Bright Blue): #1a73e8
+	•	Accent Red (Buttons): #c0392b
+
 */
+
+
+
 
 
 /* LAYOUT */
@@ -36,7 +41,7 @@ Accent Red (Buttons): #d9534f
 
 .left {
     width: 20%;
-    background-color: #e1e1df;
+    background-color: #dfe6eb;
 }
 
 .middle {
@@ -46,7 +51,7 @@ Accent Red (Buttons): #d9534f
 
 .right {
     width: 20%;
-    background-color: #e1e1df;
+    background-color: #dfe6eb;
     justify-content: center; /* Horizontally centers the table */
 }
 
@@ -74,20 +79,20 @@ Accent Red (Buttons): #d9534f
 .sidebar h1, .sidebar h1 a {
     text-align: left;
     font-size: 30px;
-    color: #052c4f;
+    color: #0a3d6b;
     font-weight: bold;
     line-height: 300%;
     text-shadow: 0px 0px 5px #021a33;
 }
 
 .sidebar h1 a:hover {
-    color: #d9534f;
-    text-shadow: 0px 0px 10px #d93256;
+    color: #c0392b;
+    text-shadow: 0px 0px 10px #c0392b;
 }
 
 .sidebar h3 {
     font-size: 15px;
-    color: #052c4f;
+    color: #0a3d6b;
     font-weight: 900;
     line-height: 175%;
 }
@@ -106,8 +111,8 @@ Accent Red (Buttons): #d9534f
 .sidebar a:hover {
     text-decoration: none;
     font-weight: bold;
-    color: #d9534f;
-    text-shadow: 0px 0px 0.5px #d9534f;
+    color: #c0392b;
+    text-shadow: 0px 0px 0.5px #c0392b;
 }
 
 /* ---------------------------------------------- */
@@ -118,7 +123,7 @@ Accent Red (Buttons): #d9534f
 .phone h2 {
     text-align: center;
     font-size: 20px;
-    color: #052c4f;
+    color: #0a3d6b;
     font-weight: bold;
     line-height: 300%;
 }
@@ -147,7 +152,7 @@ body {
 h1 {
     text-align: left;
     font-size: 20px;
-    color: #052c4f;
+    color: #0a3d6b;
     font-weight: bold;
     line-height: 300%;
 }
@@ -155,14 +160,14 @@ h1 {
 h2 {
     text-align: center;
     font-size: 20px;
-    color: #052c4f;
+    color: #0a3d6b;
     font-weight: bold;
     line-height: 300%;
 }
 
 h3 {
     font-size: 14px;
-    color: #052c4f;
+    color: #0a3d6b;
     font-weight: bold;
     line-height: 175%;
 }
@@ -181,12 +186,12 @@ p a, h2 a, h3 a {
 p a:hover, h2 a:hover, h3 a:hover  {
     text-decoration: none;
     font-weight: bold;
-    color: #052c4f;
+    color: #c0392b;
 }
 
 
 .results {
-    color: #052c4f;
+    color: #1a73e8;
     font-size: 13px;
     font-weight: bold;
 }
@@ -201,8 +206,8 @@ button {
     box-shadow: 0px 0px 3px 0px #021a33;
 }
 button:hover {
-    background-color: #d9534f;
-    box-shadow: 0px 0px 3px 0px #d9534f;
+    background-color: #c0392b;
+    box-shadow: 0px 0px 3px 0px #c0392b;
 }
 
 
