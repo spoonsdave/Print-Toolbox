@@ -80,13 +80,13 @@ Colour Palette:
 
 .title {
   font-family: 'Roboto Slab', sans-serif;
-  font-size: 2.5em; /* Adjust as needed */
+  font-size: 2.5em; /* Adjust size as needed */
   font-weight: bold;
-  background: url('#textGradient');
+  background: linear-gradient(90deg, #1e3a5f, #2b4d75);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  display: inline-block;
+  text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3); /* Drop shadow */
 }
 
 
