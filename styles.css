@@ -87,7 +87,7 @@ Colour Palette:
 }
 
 .title::before {
-  content: 'THE PRINT TOOLBOX';
+  content: 'PRINT TOOLBOX';
   position: absolute;
   top: 0;
   left: 0;
