@@ -23,56 +23,43 @@ Colour Palette:
 
 /* LAYOUT */
 
-
-/* Apply box-sizing to all elements */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-/* Column styling */
-.column {
-    padding: 0; /* Remove padding from the columns themselves */
+-* {
+  margin: 0;
+  padding: 0;
 }
 
 /* 3 Columns: 20% - 60% - 20% */
-.left,
-.middle,
-.right {
-    display: inline-block;
-    vertical-align: top;
+.column {
+    padding: 10px;
 }
 
-.left,
-.right {
+.left {
     width: 20%;
     background-color: #dfe6eb;
 }
 
 .middle {
+    margin-top 50px;
     width: 60%;
-    margin-top: 50px;
+}
+
+.right {
+    width: 20%;
+    background-color: #dfe6eb;
+    justify-content: center; /* Horizontally centers the table */
 }
 
 /* 4 Columns: 20% - 30% - 30% - 20% */
-.middleL,
-.middleR {
-    display: inline-block;
-    vertical-align: top;
-    width: 30%;
-    padding: 0;
-}
 
 .middleL {
+    width: 30%;
     margin-top: 3px;
 }
 
 .middleR {
+    width: 30%;
     margin-top: 84px;
 }
-
-
 
 
 
