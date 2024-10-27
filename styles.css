@@ -35,7 +35,7 @@ Colour Palette:
 
 /* 3 Columns: 20% - 60% - 20% */
 .column: {
-    padding: 10px;
+    padding: 0px;
 }
 
 .left {
