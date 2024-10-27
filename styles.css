@@ -23,6 +23,7 @@ Colour Palette:
 
 /* LAYOUT */
 
+
 /* Apply box-sizing to all elements */
 *,
 *::before,
@@ -37,6 +38,13 @@ Colour Palette:
 
 /* 3 Columns: 20% - 60% - 20% */
 .left,
+.middle,
+.right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.left,
 .right {
     width: 20%;
     background-color: #dfe6eb;
@@ -50,8 +58,10 @@ Colour Palette:
 /* 4 Columns: 20% - 30% - 30% - 20% */
 .middleL,
 .middleR {
+    display: inline-block;
+    vertical-align: top;
     width: 30%;
-    padding: 0; /* Remove padding to keep consistent widths */
+    padding: 0;
 }
 
 .middleL {
