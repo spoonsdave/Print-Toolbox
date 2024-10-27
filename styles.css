@@ -66,7 +66,7 @@ Colour Palette:
 
 .middleR {
     width: 30%;
-    margin-top: 80px;
+    margin-top: 84px;
 }
 
 
@@ -91,6 +91,8 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3); /* Drop shadow */
+  text-align: center;
+  line-height: 90%;
 }
 
 
