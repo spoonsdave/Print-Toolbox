@@ -29,7 +29,7 @@ Colour Palette:
 }
 
 /* 3 Columns: 20% - 60% - 20% */
-.column {
+.column: {
     padding: 10px;
 }
 
@@ -39,7 +39,7 @@ Colour Palette:
 }
 
 .middle {
-    margin-top 50px;
+    margin-top: 50px;
     width: 60%;
 }
 
