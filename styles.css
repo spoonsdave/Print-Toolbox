@@ -81,10 +81,10 @@ Colour Palette:
 
 .title {
   font-family: 'Roboto Slab', sans-serif;
-  font-size: 2.5em; /* Adjust as needed */
+  font-size: 25px; /* Adjust as needed */
   font-weight: bold;
   background: linear-gradient(90deg, #1e3a5f, #2b4d75);
-  color: transparent;
+  color: pink;
   background-clip: text;
   -webkit-background-clip: text; /* Required for Webkit browsers */
   -webkit-text-fill-color: transparent; /* Required for Webkit browsers */
