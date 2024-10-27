@@ -28,6 +28,11 @@ Colour Palette:
   padding: 0;
 }
 
+.container {
+  display: flex;
+  min-height: 100vh;
+  }
+
 /* 3 Columns: 20% - 60% - 20% */
 .column: {
     padding: 10px;
