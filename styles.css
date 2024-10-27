@@ -162,6 +162,10 @@ body {
     font-family: 'Roboto Mono', monospace;
 }
 
+#clockbox {
+font-family: 'Roboto Slab', sans-serif;
+}
+
 h1 {
     text-align: left;
     font-size: 20px;
