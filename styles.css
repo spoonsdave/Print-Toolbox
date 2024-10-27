@@ -23,51 +23,45 @@ Colour Palette:
 
 /* LAYOUT */
 
-/* Reset default margin and padding */
-* {
-    margin: 0;
-    padding: 0;
+/* Apply box-sizing to all elements */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-/* Container for the 3-column layout */
-.container {
-    display: flex;
-    min-height: 100vh;
+/* Column styling */
+.column {
+    padding: 0; /* Remove padding from the columns themselves */
 }
 
 /* 3 Columns: 20% - 60% - 20% */
-.column {
-    padding: 10px;
-}
-
-.left {
+.left,
+.right {
     width: 20%;
     background-color: #dfe6eb;
 }
 
 .middle {
-    margin-top 50px;
     width: 60%;
-}
-
-.right {
-    width: 20%;
-    background-color: #dfe6eb;
-    justify-content: center; /* Horizontally centers the table */
+    margin-top: 50px;
 }
 
 /* 4 Columns: 20% - 30% - 30% - 20% */
+.middleL,
+.middleR {
+    width: 30%;
+    padding: 0; /* Remove padding to keep consistent widths */
+}
 
 .middleL {
-    width: 30%;
     margin-top: 3px;
 }
 
 .middleR {
-    width: 30%;
     margin-top: 84px;
 }
+
 
 
 
