@@ -22,77 +22,74 @@
 
 
 
-                <style>
-                    .results p {
-                        margin: 5px 0;
-                    }
-                    .scenario {
-                        margin-bottom: 20px;
-                    }
-                    .remaining-pages {
-                        color: red;
-                        font-weight: bold;
-                    }
-                </style>
+            <style>
+                .results p {
+                    margin: 5px 0;
+                }
 
-<form id="sectionForm">
-                        <label for="pages">Number of pages:</label>
-                        <input type="number" id="pages" name="pages" min="1" required>
-                        <br><br>
-                        <button type="submit">CALCULATE</button>
-                    </form>
-                    <div class="results" id="results"></div>
-                </div>
-            
-                <script>
-                    document.getElementById('sectionForm').addEventListener('submit', function(event) {
-                        event.preventDefault();
-                        let pages = parseInt(document.getElementById('pages').value);
-            
-                        const scenarios = [
-                            [32, 16, 8, 4],   // 32s
-                            [24, 12, 8, 4],   // 24s
-                            [16, 8, 4],       // 16s
-                            [12, 8, 4],       // 12s
-                            [8, 4]            // 8s
-                        ];
-            
-                        const scenarioNames = ["32s", "24s", "16s", "12s", "8s"];
-            
-                        let resultsHTML = "<br>";
-            
-                        scenarios.forEach((scenario, index) => {
-                            let remainingPages = pages;
-                            resultsHTML += `<div class="scenario"><h3>${scenarioNames[index]}:</h3>`;
-                            
-                            scenario.forEach(section => {
-                                const sectionsNeeded = Math.floor(remainingPages / section);
-                                if (sectionsNeeded > 0) {
-                                    resultsHTML += `<p>${sectionsNeeded} x ${section}pp section(s)</p>`;
-                                    remainingPages -= sectionsNeeded * section;
-                                }
-                            });
-            
-                            // Only show remaining pages if there are less than 4 pages left
-                            if (remainingPages > 0 && remainingPages < 4) {
-                                resultsHTML += `<p class="remaining-pages">Remaining pages: ${remainingPages} </p>`;
-                            }
-            
-                            resultsHTML += `</div>`;
-                        });
-            
-                        document.getElementById('results').innerHTML = resultsHTML;
+                .scenario {
+                    margin-bottom: 20px;
+                }
+
+                .remaining-pages {
+                    color: red;
+                    font-weight: bold;
+                }
+            </style>
+
+            <form id="sectionForm">
+                <label for="pages">Number of pages:</label>
+                <input type="number" id="pages" name="pages" min="1" required>
+                <br><br>
+                <button type="submit">CALCULATE</button>
+            </form>
+            <div class="results" id="results"></div>
+        </div>
+
+
+
+        <script>
+            document.getElementById('sectionForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                let pages = parseInt(document.getElementById('pages').value);
+
+                const scenarios = [
+                    [32, 16, 8, 4],   // 32s
+                    [24, 12, 8, 4],   // 24s
+                    [16, 8, 4],       // 16s
+                    [12, 8, 4],       // 12s
+                    [8, 4]            // 8s
+                ];
+
+                const scenarioNames = ["32s", "24s", "16s", "12s", "8s"];
+                let resultsHTML = "<br>";
+
+                scenarios.forEach((scenario, index) => {
+                    let remainingPages = pages;
+                    resultsHTML += `<div class="scenario"><h3>${scenarioNames[index]}:</h3>`;
+
+                    scenario.forEach(section => {
+                        const sectionsNeeded = Math.floor(remainingPages / section);
+                        if (sectionsNeeded > 0) {
+                            // Check for singular or plural wording
+                            const sectionText = sectionsNeeded === 1 ? "section" : "sections";
+                            resultsHTML += `<p>${sectionsNeeded} x ${section}pp ${sectionText}</p>`;
+                            remainingPages -= sectionsNeeded * section;
+                        }
                     });
-                </script>
-            
-            
-            
-            
-            
-            
-                   
 
-            
+                    // Only show remaining pages if there are less than 4 pages left
+                    if (remainingPages > 0 && remainingPages < 4) {
+                        resultsHTML += `<p class="remaining-pages">Remaining pages: ${remainingPages} </p>`;
+                    }
+
+                    resultsHTML += `</div>`;
+                });
+
+                document.getElementById('results').innerHTML = resultsHTML;
+            });
+        </script>
+
 
 
 
