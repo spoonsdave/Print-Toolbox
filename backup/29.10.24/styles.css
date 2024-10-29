@@ -42,38 +42,22 @@ Colour Palette:
 }
 
 .left {
-    width: 19%;
+    width: 20%;
     background-color: #dfe6eb;
 }
 
 .middle {
-    padding-top: 15px;
-    padding-left: 30px;
     margin-top 50px;
-    width: 62%;
+    width: 60%;
 }
 
 .right {
-    width: 19%;
+    width: 20%;
     background-color: #dfe6eb;
     justify-content: center; /* Horizontally centers the table */
 }
 
 /* 4 Columns: 20% - 30% - 30% - 20% */
-
-.hleft {
-    width: 20%;
-    background-color: #dfe6eb;
-    padding: 10px;
-}
-
-.hright {
-    width: 20%;
-    background-color: #dfe6eb;
-    padding: 10px;
-    justify-content: center; /* Horizontally centers the table */
-}
-
 
 .middleL {
     width: 30%;
