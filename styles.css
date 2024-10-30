@@ -42,7 +42,7 @@ Colour Palette:
 }
 
 .left {
-    width: 19%;
+    width: 18%;
     background-color: #dfe6eb;
 }
 
@@ -50,11 +50,11 @@ Colour Palette:
     padding-top: 15px;
     padding-left: 30px;
     margin-top 50px;
-    width: 62%;
+    width: 64%;
 }
 
 .right {
-    width: 19%;
+    width: 18%;
     background-color: #dfe6eb;
     justify-content: center; /* Horizontally centers the table */
 }
@@ -119,13 +119,13 @@ text-align: center;
     font-size: 15px;
     color: #0a3d6b;
     font-weight: 900;
-    line-height: 175%;
+    line-height: 200%;
 }
 
 .sidebar a {
     color: black;
     font-size: 13px;
-    line-height: 250%;
+    line-height: 200%;
 }
 
 .sidebar a:link {
@@ -163,7 +163,7 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
     text-align: center;
     font-size: 13px;
     color: black;
-    border-spacing: 50px 10px;
+    border-spacing: 50px 0px;
 }
 
 /* ---------------------------------------------- */
@@ -212,7 +212,16 @@ h3 {
 p {
     font-size: 13px;
     color: black;
+    line-height: 200%;
 }
+
+table {
+    font-size: 13px;
+    color: black;
+    line-height: 200%;
+}
+
+
 
 p a, h2 a, h3 a {
     text-decoration: none;
