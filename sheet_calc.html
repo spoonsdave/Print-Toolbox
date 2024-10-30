@@ -69,10 +69,10 @@
                     const quantities = Array.from(document.querySelectorAll(".itemQuantity"))
                         .map(input => parseInt(input.value))
                         .filter(quantity => quantity > 0);
-
+            
                     let bestCombination = null;
                     let minSheets = Infinity;
-
+            
                     function findOptimalUpCombination(upCounts = [], index = 0) {
                         if (index === quantities.length) {
                             const totalUp = upCounts.reduce((acc, up) => acc + up, 0);
@@ -90,25 +90,38 @@
                             findOptimalUpCombination(upCounts, index + 1);
                         }
                     }
-
+            
                     findOptimalUpCombination();
-
-                    displayResults(bestCombination, quantities, minSheets);
+            
+                    displayResults(bestCombination, quantities, minSheets, maxUp);
                 }
-
-                function displayResults(upCounts, quantities, totalSheets) {
+            
+                function displayResults(upCounts, quantities, totalSheets, maxUp) {
                     const resultsDiv = document.getElementById("results");
                     resultsDiv.innerHTML = "<br><h3>RESULTS:</h3><br>";
-
+            
                     upCounts.forEach((up, index) => {
                         const sheetsRequired = Math.ceil(quantities[index] / up);
                         resultsDiv.innerHTML += `<p>Item ${index + 1} - ${up} up - ${sheetsRequired} sheets required</p>`;
                     });
-
+            
                     resultsDiv.innerHTML += `<p>Total sheets required: ${totalSheets}</p>`;
+            
+                    // Calculate remaining spaces on the sheet
+                    const totalUpUsed = upCounts.reduce((acc, up) => acc + up, 0);
+                    const remainingSpaces = maxUp - totalUpUsed;
+            
+                    // Display remaining spaces if any
+                    if (remainingSpaces > 0) {
+                        resultsDiv.innerHTML += `<p style="color: red; font-weight: bold;">* ${remainingSpaces} space${remainingSpaces > 1 ? "s" : ""} left on the sheet *</p>`;
+                    }
                 }
             </script>
-</body>
+            
+
+
+
+        </body>
 </div>
 
 
