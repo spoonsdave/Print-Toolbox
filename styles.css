@@ -187,7 +187,8 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
 }
   
   #calendar-header {
-    margin-left: 5px;
+    font-size: 14px;
+    margin-left: 8px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -210,7 +211,7 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
   }
   
   #calendar td {
-    border: 1px solid #ddd;
+    border: 0px solid #ddd;
   }
   
 

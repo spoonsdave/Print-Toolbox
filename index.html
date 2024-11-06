@@ -106,13 +106,13 @@
                 <table id="calendar">
                   <thead>
                     <tr>
-                      <th>Sun</th>
                       <th>Mon</th>
                       <th>Tue</th>
                       <th>Wed</th>
                       <th>Thu</th>
                       <th>Fri</th>
                       <th>Sat</th>
+                      <th>Sun</th>
                     </tr>
                   </thead>
                   <tbody id="calendar-body"></tbody>
@@ -135,9 +135,12 @@
               
                   document.getElementById("month-year").textContent =
                     monthNames[currentMonth] + " " + currentYear;
-                  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-                  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
               
+                  // Adjust firstDay to match a Monday start
+                  let firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                  firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+              
+                  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
                   let calendarBody = document.getElementById("calendar-body");
                   calendarBody.innerHTML = "";  // Clear previous cells
               
@@ -182,8 +185,7 @@
               
                 document.addEventListener("DOMContentLoaded", updateCalendar);
               </script>
-              
- 
+               
               
 
 
