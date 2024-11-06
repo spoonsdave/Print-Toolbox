@@ -181,14 +181,14 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
   }
   
   #calendar-container {
-    width: 80%;
-    padding: 10px;
+    width: 85%;
     text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
+    margin-left: 20px;
+}
   
   #calendar-header {
+    margin-left: 5px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
