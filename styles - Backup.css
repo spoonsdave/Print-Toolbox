@@ -169,61 +169,6 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
 /* ---------------------------------------------- */
 
 
-/* CALENDAR */
-
-/* Nested columns within right column */
-.hrightTop {
-    height: 70%; /* 60% of window height */
-  }
-  
-  .hrightBottom {
-    height: 30%; /* 40% of window height */
-  }
-  
-  #calendar-container {
-    padding-left: 300px;
-    width: 80%;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  #calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-  
-  #calendar table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #calendar th, #calendar td {
-    width: 14%;
-    padding-bottom: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
-    text-align: center;
-  }
-  
-  #calendar td {
-    border: 1px solid #ddd;
-  }
-  
-
-
-
-
-
-
-/* ---------------------------------------------- */
-
-
-
 
 
 /* BODY TEXT */

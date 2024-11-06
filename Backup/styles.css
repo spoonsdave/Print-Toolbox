@@ -42,22 +42,38 @@ Colour Palette:
 }
 
 .left {
-    width: 20%;
+    width: 18%;
     background-color: #dfe6eb;
 }
 
 .middle {
+    padding-top: 15px;
+    padding-left: 30px;
     margin-top 50px;
-    width: 60%;
+    width: 64%;
 }
 
 .right {
-    width: 20%;
+    width: 18%;
     background-color: #dfe6eb;
     justify-content: center; /* Horizontally centers the table */
 }
 
 /* 4 Columns: 20% - 30% - 30% - 20% */
+
+.hleft {
+    width: 20%;
+    background-color: #dfe6eb;
+    padding: 10px;
+}
+
+.hright {
+    width: 20%;
+    background-color: #dfe6eb;
+    padding: 10px;
+    justify-content: center; /* Horizontally centers the table */
+}
+
 
 .middleL {
     width: 30%;
@@ -103,13 +119,13 @@ text-align: center;
     font-size: 15px;
     color: #0a3d6b;
     font-weight: 900;
-    line-height: 175%;
+    line-height: 200%;
 }
 
 .sidebar a {
     color: black;
     font-size: 13px;
-    line-height: 250%;
+    line-height: 200%;
 }
 
 .sidebar a:link {
@@ -147,7 +163,7 @@ background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
     text-align: center;
     font-size: 13px;
     color: black;
-    border-spacing: 50px 10px;
+    border-spacing: 50px 0px;
 }
 
 /* ---------------------------------------------- */
@@ -196,7 +212,16 @@ h3 {
 p {
     font-size: 13px;
     color: black;
+    line-height: 200%;
 }
+
+table {
+    font-size: 13px;
+    color: black;
+    line-height: 200%;
+}
+
+
 
 p a, h2 a, h3 a {
     text-decoration: none;
