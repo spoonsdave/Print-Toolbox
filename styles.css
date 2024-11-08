@@ -131,12 +131,10 @@ text-align: center;
     font-size: 32px; /* Adjust as needed */
     font-weight: bold;
     color: #0a3d6b;
-    text-shadow: 0px 0px 0px #1e5fe0; /* Drop shadow */
-    text-shadow: 2px 2px 13px #c0392b; /* Drop shadow */
+    text-shadow: 0px 0px 0.5px #0a3d6b, 0.5px 0.5px 12px #c0392b; /* Blue shadow + red offset shadow */
     text-align: center;
     line-height: 93%;
     padding-top: 20px;
-  
 }
 
 .sidebar h3 {
