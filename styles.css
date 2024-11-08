@@ -49,7 +49,7 @@ Colour Palette:
 .middle {
     padding-top: 15px;
     padding-left: 30px;
-    margin-top 50px;
+    margin-top: 0px;
     width: 64%;
 }
 
@@ -206,6 +206,8 @@ Colour Palette:
 
 #month-year {
     font-size: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* Nested columns within right column */
