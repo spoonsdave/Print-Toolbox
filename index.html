@@ -75,7 +75,7 @@
                 </script>
             </h1>
 
-<br>
+            <br>
 
 
 
@@ -91,111 +91,111 @@
         </div>
 
         <div class="hright">
-        <!-- Right Column (Phone List) -->
-        <div class="hrightTop" id="phonelist"></div>
-        <!-- Bottom Right Column (Calendar) -->
-        <div class="hrightBottom" id="calendar-container">
+            <!-- Right Column (Phone List) -->
+            <div class="hrightTop" id="phonelist"></div>
+            <!-- Bottom Right Column (Calendar) -->
+            <div class="hrightBottom" id="calendar-container">
 
 
-            <div id="calendar-container">
-                <div id="calendar-header">
-                  <button id="prev-month" onclick="changeMonth(-1)">&#9664;</button>
-                  <span id="month-year"></span>
-                  <button id="next-month" onclick="changeMonth(1)">&#9654;</button>
+                <div id="calendar-container">
+                    <div id="calendar-header">
+                        <button id="prev-month" onclick="changeMonth(-1)">&#9664;</button>
+                        <span id="month-year"></span>
+                        <button id="next-month" onclick="changeMonth(1)">&#9654;</button>
+                    </div>
+                    <table id="calendar">
+                        <thead>
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
                 </div>
-                <table id="calendar">
-                  <thead>
-                    <tr>
-                      <th>Mon</th>
-                      <th>Tue</th>
-                      <th>Wed</th>
-                      <th>Thu</th>
-                      <th>Fri</th>
-                      <th>Sat</th>
-                      <th>Sun</th>
-                    </tr>
-                  </thead>
-                  <tbody id="calendar-body"></tbody>
-                </table>
-              </div>
-              
-              <script>
-                let currentMonth = new Date().getMonth();
-                let currentYear = new Date().getFullYear();
-              
-                const monthNames = [
-                  "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-                  "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
-                ];
-              
-                function updateCalendar() {
-                  const today = new Date();
-                  const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
-                  const todayDate = today.getDate();
-              
-                  document.getElementById("month-year").textContent =
-                    monthNames[currentMonth] + " " + currentYear;
-              
-                  // Adjust firstDay to match a Monday start
-                  let firstDay = new Date(currentYear, currentMonth, 1).getDay();
-                  firstDay = (firstDay === 0) ? 6 : firstDay - 1;
-              
-                  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-                  let calendarBody = document.getElementById("calendar-body");
-                  calendarBody.innerHTML = "";  // Clear previous cells
-              
-                  let row = document.createElement("tr");
-                  for (let i = 0; i < firstDay; i++) {
-                    row.appendChild(document.createElement("td"));
-                  }
-              
-                  for (let day = 1; day <= daysInMonth; day++) {
-                    if (row.children.length === 7) {
-                      calendarBody.appendChild(row);
-                      row = document.createElement("tr");
+
+                <script>
+                    let currentMonth = new Date().getMonth();
+                    let currentYear = new Date().getFullYear();
+
+                    const monthNames = [
+                        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+                        "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+                    ];
+
+                    function updateCalendar() {
+                        const today = new Date();
+                        const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+                        const todayDate = today.getDate();
+
+                        document.getElementById("month-year").textContent =
+                            monthNames[currentMonth] + " " + currentYear;
+
+                        // Adjust firstDay to match a Monday start
+                        let firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                        firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+
+                        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                        let calendarBody = document.getElementById("calendar-body");
+                        calendarBody.innerHTML = "";  // Clear previous cells
+
+                        let row = document.createElement("tr");
+                        for (let i = 0; i < firstDay; i++) {
+                            row.appendChild(document.createElement("td"));
+                        }
+
+                        for (let day = 1; day <= daysInMonth; day++) {
+                            if (row.children.length === 7) {
+                                calendarBody.appendChild(row);
+                                row = document.createElement("tr");
+                            }
+
+                            const cell = document.createElement("td");
+                            cell.textContent = day;
+
+                            // Highlight today's date
+                            if (isCurrentMonth && day === todayDate) {
+                                cell.style.fontWeight = "bold";
+                                cell.style.color = "#c0392b";
+                                cell.style.fontSize = "14px";
+                            }
+
+                            row.appendChild(cell);
+                        }
+
+                        calendarBody.appendChild(row); // Append the last row
                     }
-                    
-                    const cell = document.createElement("td");
-                    cell.textContent = day;
-              
-                    // Highlight today's date
-                    if (isCurrentMonth && day === todayDate) {
-                      cell.style.fontWeight = "bold";
-                      cell.style.color = "#c0392b";
-                      cell.style.fontSize = "14px";
+
+                    function changeMonth(offset) {
+                        currentMonth += offset;
+                        if (currentMonth === 12) {
+                            currentMonth = 0;
+                            currentYear++;
+                        } else if (currentMonth === -1) {
+                            currentMonth = 11;
+                            currentYear--;
+                        }
+                        updateCalendar();
                     }
-              
-                    row.appendChild(cell);
-                  }
-              
-                  calendarBody.appendChild(row); // Append the last row
-                }
-              
-                function changeMonth(offset) {
-                  currentMonth += offset;
-                  if (currentMonth === 12) {
-                    currentMonth = 0;
-                    currentYear++;
-                  } else if (currentMonth === -1) {
-                    currentMonth = 11;
-                    currentYear--;
-                  }
-                  updateCalendar();
-                }
-              
-                document.addEventListener("DOMContentLoaded", updateCalendar);
-              </script>
-               
-              
+
+                    document.addEventListener("DOMContentLoaded", updateCalendar);
+                </script>
 
 
 
 
 
 
+
+
+            </div>
         </div>
-          </div>
-        
+
 
 
 

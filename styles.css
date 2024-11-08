@@ -121,7 +121,7 @@ Colour Palette:
     font-size: 32px;
     /* Adjust as needed */
     font-weight: bold;
-    background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
+    background: -webkit-linear-gradient(90deg, #1e5fe0, #0a3d6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 1px 1px 8px rgba(30, 58, 95, 0.3);
