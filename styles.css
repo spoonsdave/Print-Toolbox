@@ -204,10 +204,11 @@ Colour Palette:
 
 /* CALENDAR */
 
+
+
 #month-year {
     font-size: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin: 0 17px;  /* Adjust this value for spacing around month & year */
 }
 
 /* Nested columns within right column */
