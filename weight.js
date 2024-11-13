@@ -16,7 +16,7 @@ form.addEventListener('submit', function (e) {
 
     const covergm = ((((coverweight * height * width) / 1000000) * coverpp) / 2);
     const textgm = ((((textweight * height * width) / 1000000) * textpp) / 2);
-    const bookweight = Math.ceil(covergm + textgm);
+    const bookweight = (covergm + textgm);
     const totalweight = ((bookweight * quantity) / 1000);
     const boxquantity = Math.ceil((boxkg / bookweight) * 1000)
     const noofboxes = Math.ceil(quantity / boxquantity)
