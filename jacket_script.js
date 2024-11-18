@@ -25,6 +25,7 @@ form.addEventListener('submit', function (e) {
 
     const textHeight = parseFloat(document.querySelector('#textHeight').value);
     const textWidth = parseFloat(document.querySelector('#textWidth').value);
+    const jacketWidth = parseFloat(document.querySelector('#jacketWidth').value);
     const text_pp = parseInt(document.querySelector('#text_pp').value);
     const text_mic = parseInt(document.querySelector('#text_mic').value);
     const results = document.querySelector('#results');
@@ -141,7 +142,7 @@ form.addEventListener('submit', function (e) {
     const canvas = document.getElementById('canvas');
 
 
-    canvas.width = (((widthMM * 2) + finalSpine) + 172);
+    canvas.width = (((widthMM * 2) + finalSpine) + (jacketWidth * 2) + 12);
     canvas.height = heightMM;
 
     const width = canvas.width;
@@ -157,29 +158,29 @@ form.addEventListener('submit', function (e) {
     ctx.lineWidth = 1;
 
     ctx.strokeRect(0.5, 0.5, canvas.width - 1, canvas.height - 1);
-    ctx.strokeRect(80.5, 0.5, 6, heightMM);
-    ctx.strokeRect((86.5 + widthMM), 0.5, finalSpine, heightMM);
-    ctx.strokeRect((86.5 + widthMM + finalSpine + widthMM), 0.5, 6, heightMM);
+    ctx.strokeRect((0.5 + jacketWidth), 0.5, 6, heightMM);
+    ctx.strokeRect(((6.5 + jacketWidth) + widthMM), 0.5, finalSpine, heightMM);
+    ctx.strokeRect(((6.5 + jacketWidth) + widthMM + finalSpine + widthMM), 0.5, 6, heightMM);
 
 
     ctx.font = '10.5px Arial';
     ctx.fillStyle = 'Black';
 
     ctx.textAlign = "center";
-    ctx.fillText('80mm flap', 40, 13);
+    ctx.fillText(jacketWidth + 'mm flap', (jacketWidth/2), 13);
     ctx.fillText(heightMM + 'mm H', 24, (heightMM / 2));
 
     ctx.textAlign = "right";
-    ctx.fillText(heightMM + 'mm H', widthMM + widthMM + finalSpine + 168, (heightMM / 2));
+    ctx.fillText(heightMM + 'mm H', widthMM + widthMM + finalSpine + (jacketWidth * 2) + 8, (heightMM / 2));
 
     ctx.textAlign = "center";
-    ctx.fillText(widthMM + 'mm W', (widthMM / 2) + 86.5, 13);
-    ctx.fillText(widthMM + 'mm W', (widthMM / 2) + finalSpine + widthMM + 86.5, 13);
-    ctx.fillText(finalSpine, (finalSpine / 2) + widthMM + 86.5, 13);
+    ctx.fillText(widthMM + 'mm W', (widthMM / 2) + (jacketWidth) + 6.5, 13);
+    ctx.fillText(widthMM + 'mm W', (widthMM / 2) + finalSpine + widthMM + (jacketWidth) + 6.5, 13);
+    ctx.fillText(finalSpine, (finalSpine / 2) + widthMM + (jacketWidth) + 6.5, 13);
 
     ctx.font = '8.5px Arial';
-    ctx.fillText(6, 83.5, 13);
-    ctx.fillText(6, (89.5 + widthMM + widthMM + finalSpine), 13);
+    ctx.fillText(6, (jacketWidth) + 3.5, 13);
+    ctx.fillText(6, ((jacketWidth) + 9.5 + widthMM + widthMM + finalSpine), 13);
 
 
     // --------------------------------------
