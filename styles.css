@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
 
 * {
     font-family: 'Roboto Mono', monospace;
@@ -102,7 +101,6 @@ Colour Palette:
 }
 
 .sidebar h1 {
-    font-family: 'Roboto Slab', sans-serif;
     font-size: 28px;
     /* Adjust as needed */
     font-weight: bold;
@@ -117,7 +115,6 @@ Colour Palette:
 }
 
 .sidebar h1 a {
-    font-family: 'Roboto Slab', sans-serif;
     font-size: 32px;
     /* Adjust as needed */
     font-weight: bold;
@@ -133,7 +130,6 @@ Colour Palette:
 }
 
 .sidebar h1 a:hover {
-    font-family: 'Roboto Slab', sans-serif;
     font-size: 32px;
     /* Adjust as needed */
     font-weight: bold;
@@ -170,6 +166,24 @@ Colour Palette:
     text-shadow: 0px 0px 0.5px #c0392b;
 }
 
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 100%; /* Scales the image to fit the container */
+    height: auto;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5)); /* Initial drop shadow */
+    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .logo:hover {
+    filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Drop shadow changes to #c0392b on hover */
+}
+  
+
 /* ---------------------------------------------- */
 
 
@@ -178,7 +192,6 @@ Colour Palette:
 .phone h2 {
     text-align: center;
     line-height: 300%;
-    font-family: 'Roboto Slab', sans-serif;
     font-size: 20px;
     /* Adjust as needed */
     font-weight: bold;
@@ -276,16 +289,12 @@ body {
     font-family: 'Roboto Mono', monospace;
 }
 
-#clockbox {
-    font-family: 'Roboto Slab', sans-serif;
-}
 
 h1 {
     text-align: left;
     font-size: 20px;
     font-weight: bold;
     line-height: 300%;
-    font-family: 'Roboto Slab', sans-serif;
     background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
