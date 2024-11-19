@@ -83,7 +83,7 @@ Colour Palette:
 
 .middleR {
     width: 30%;
-    margin-top: 84px;
+    margin-top: 62.5px;
 }
 
 
@@ -299,7 +299,10 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3);
-    /* Drop shadow */
+    white-space: nowrap;
+    display: inline-block;
+    transform: scaleX(calc(100% / max-content)); /* Shrink to fit */
+    transform-origin: left; /* Keep left-aligned */
 }
 
 h2 {
