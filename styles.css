@@ -152,6 +152,10 @@ Colour Palette:
     color: black;
     font-size: 13px;
     line-height: 200%;
+    white-space: nowrap; /* Prevents wrapping */
+    overflow: hidden; /* Ensures text stays within the box */
+    text-overflow: ellipsis; /* Adds an ellipsis if the text overflows (optional) */
+    display: inline-block; /* Ensures the above rules apply correctly */
 }
 
 .sidebar a:link {
@@ -191,6 +195,7 @@ Colour Palette:
 
 .phone h2 {
     text-align: center;
+    white-space: nowrap; /* Prevents wrapping */
     line-height: 300%;
     font-size: 20px;
     /* Adjust as needed */
@@ -210,6 +215,7 @@ Colour Palette:
     font-size: 13px;
     color: black;
     border-spacing: 50px 0px;
+    white-space: nowrap; /* Prevents wrapping */
 }
 
 /* ---------------------------------------------- */
@@ -222,6 +228,7 @@ Colour Palette:
 #month-year {
     font-size: 15px;
     margin: 0 17px;  /* Adjust this value for spacing around month & year */
+    white-space: nowrap; /* Prevents wrapping */
 }
 
 /* Nested columns within right column */
