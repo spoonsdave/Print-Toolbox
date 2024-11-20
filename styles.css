@@ -166,8 +166,8 @@ Colour Palette:
 .sidebar a:hover {
     text-decoration: none;
     font-weight: bold;
-    color: #c0392b;
-    text-shadow: 0px 0px 0.5px #c0392b;
+    color: #1e5fe0;
+    text-shadow: 1px 1px 6px #c0392b;
 }
 
 .logo-container {
