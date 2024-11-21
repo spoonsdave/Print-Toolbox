@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Conversion Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        input {
+            width: 75%; /* Make the input box bigger */
+            height: 50px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+
+            <body>
+                <h1>CONVERSION CALCULATOR</h1><br><br>
+                <label for="inputValue">Enter your value:</label><br> <br>
+                <input type="text" id="inputValue" placeholder="e.g., 1 in, 25.4mm, 1 stone 1 pound, 70.3kg, 1 mile"><br><br>
+                <button onclick="convert()">Convert</button><br><br>
+                <div id="results" class="results"></div><br>
+            
+                <script>
+                    function convert() {
+                        const input = document.getElementById('inputValue').value.trim().toLowerCase();
+                        const result = document.getElementById('results');
+                        let output = "";
+            
+                        if (input.endsWith("in")) {
+                            const value = parseFloat(input);
+                            output = `${value} in = ${(value * 25.4).toFixed(2)} mm`;
+                        } else if (input.endsWith("mm")) {
+                            const value = parseFloat(input);
+                            output = `${value} mm = ${(value / 25.4).toFixed(2)} in`;
+                        } else if (input.includes("stone") && input.includes("pound")) {
+                            const [stone, pound] = input.split("stone").map(str => parseFloat(str) || 0);
+                            const totalPounds = stone * 14 + pound;
+                            const kg = (totalPounds * 0.453592).toFixed(1);
+                            output = `${stone} stone ${pound} pound = ${kg} kg (${totalPounds} pounds)`;
+                        } else if (input.endsWith("kg")) {
+                            const kg = parseFloat(input);
+                            const totalPounds = (kg / 0.453592).toFixed(0);
+                            const stone = Math.floor(totalPounds / 14);
+                            const pounds = totalPounds % 14;
+                            output = `${kg} kg = ${stone} stone ${pounds} pounds (${totalPounds} pounds)`;
+                        } else if (input.endsWith("mile")) {
+                            const value = parseFloat(input);
+                            output = `${value} mile = ${(value * 1609.34).toFixed(2)} m (${(value * 1.60934).toFixed(5)} km)`;
+                        } else if (input.endsWith("km")) {
+                            const value = parseFloat(input);
+                            output = `${value} km = ${(value / 1.60934).toFixed(2)} mile`;
+                        } else {
+                            output = "Invalid input. Please use proper units like 'in', 'mm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
+                        }
+            
+                        result.innerHTML = output;
+        }
+
+        // Add event listener for Enter key
+        document.getElementById('inputValue').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                convert();
+            }
+        });
+    </script>
+
+
+</div>
+            
+                   
+
+            
+
+
+
+
+
+
+
+
+
+<!-- Right Column (Phone List) -->
+<div class="column right" id="phonelist"></div>
+</div>
+
+
+<script>
+// Load sidebar content
+fetch("sidebar.html")
+    .then(response => response.text())
+    .then(data => document.getElementById("sidebar").innerHTML = data);
+
+// Load phonelist content
+fetch("phonelist.html")
+    .then(response => response.text())
+    .then(data => document.getElementById("phonelist").innerHTML = data);
+</script>
+
+
+
+
+
+
+</body>
+
+</html>
