@@ -386,3 +386,28 @@ form label {
 
 
 /* ---------------------------------------------- */
+
+
+
+/* ---------------   WEATHER    ------------------------- */
+
+
+
+.column.middleR {
+    position: relative; /* Establishes this container as the positioning context */
+}
+
+.weather-widget-fixed {
+    position: absolute; /* Positions it relative to the container */
+    bottom: 0; /* Sticks to the bottom of the container */
+    left: 0; /* Aligns to the left edge */
+    width: 100%; /* Fills the width of the container */
+    z-index: 10; /* Ensures it stays above other elements in the container */
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: Adds a semi-transparent background */
+    padding: 10px 0; /* Optional: Adds vertical spacing */
+    text-align: center; /* Centers the content */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for separation */
+}
+
+
+/* ---------------------------------------------- */
