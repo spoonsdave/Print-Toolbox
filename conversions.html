@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,11 @@
 
     <style>
         input {
-            width: 75%; /* Make the input box bigger */
+            width: 75%;
+            /* Make the input box bigger */
             height: 50px;
-            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            box-sizing: border-box;
+            /* Ensures padding doesn't affect width */
         }
     </style>
 
@@ -19,6 +22,7 @@
 </head>
 
 <body>
+
 
     <div class="container">
         <!-- Left Column (Sidebar) -->
@@ -32,16 +36,17 @@
             <body>
                 <h1>CONVERSION CALCULATOR</h1><br><br>
                 <label for="inputValue">Enter your value:</label><br> <br>
-                <input type="text" id="inputValue" placeholder="e.g., 1 in, 25.4mm, 1 stone 1 pound, 70.3kg, 1 mile"><br><br>
+                <input type="text" id="inputValue"
+                    placeholder=" e.g., 1 in, 25.4mm, 1 stone 1 pound, 70.3kg, 1 mile"><br><br>
                 <button onclick="convert()">CONVERT</button><br><br>
                 <div id="results" class="results"></div><br>
-            
+
                 <script>
                     function convert() {
                         const input = document.getElementById('inputValue').value.trim().toLowerCase();
                         const result = document.getElementById('results');
                         let output = "";
-            
+
                         if (input.endsWith("in")) {
                             const value = parseFloat(input);
                             output = `${value} in = ${(value * 25.4).toFixed(2)} mm`;
@@ -78,10 +83,10 @@
                         } else {
                             output = "Invalid input. Please use proper units like 'in', 'mm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
                         }
-            
+
                         result.innerHTML = output;
                     }
-            
+
                     // Add event listener for Enter key
                     document.getElementById('inputValue').addEventListener('keypress', function (e) {
                         if (e.key === 'Enter') {
@@ -89,7 +94,28 @@
                         }
                     });
                 </script>
-            
+                <br>
+
+
+
+        </div>
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
 
 
 
