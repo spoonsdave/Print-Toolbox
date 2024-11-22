@@ -43,31 +43,37 @@
                         let output = "";
             
                         if (input.endsWith("in")) {
-                            const value = parseFloat(input);
-                            output = `${value} in = ${(value * 25.4).toFixed(2)} mm`;
-                        } else if (input.endsWith("mm")) {
-                            const value = parseFloat(input);
-                            output = `${value} mm = ${(value / 25.4).toFixed(2)} in`;
-                        } else if (input.includes("stone") && input.includes("pound")) {
-                            const [stone, pound] = input.split("stone").map(str => parseFloat(str) || 0);
-                            const totalPounds = stone * 14 + pound;
-                            const kg = (totalPounds * 0.453592).toFixed(1);
-                            output = `${stone} stone ${pound} pound = ${kg} kg (${totalPounds} pounds)`;
-                        } else if (input.endsWith("kg")) {
-                            const kg = parseFloat(input);
-                            const totalPounds = (kg / 0.453592).toFixed(0);
-                            const stone = Math.floor(totalPounds / 14);
-                            const pounds = totalPounds % 14;
-                            output = `${kg} kg = ${stone} stone ${pounds} pounds (${totalPounds} pounds)`;
-                        } else if (input.endsWith("mile")) {
-                            const value = parseFloat(input);
-                            output = `${value} mile = ${(value * 1609.34).toFixed(2)} m (${(value * 1.60934).toFixed(5)} km)`;
-                        } else if (input.endsWith("km")) {
-                            const value = parseFloat(input);
-                            output = `${value} km = ${(value / 1.60934).toFixed(2)} mile`;
-                        } else {
-                            output = "Invalid input. Please use proper units like 'in', 'mm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
-                        }
+                const value = parseFloat(input);
+                output = `${value} in = ${(value * 25.4).toFixed(2)} mm`;
+            } else if (input.endsWith("mm")) {
+                const value = parseFloat(input);
+                output = `${value} mm = ${(value / 25.4).toFixed(2)} in`;
+            } else if (input.includes("stone") && input.includes("pound")) {
+                const [stone, pound] = input.split("stone").map(str => parseFloat(str) || 0);
+                const totalPounds = stone * 14 + pound;
+                const kg = (totalPounds * 0.453592).toFixed(1);
+                output = `${stone} stone ${pound} pound = ${kg} kg (${totalPounds} pounds)`;
+            } else if (input.endsWith("pound") || input.endsWith("pounds")) {
+                const pounds = parseFloat(input);
+                const kg = (pounds * 0.453592).toFixed(1);
+                const stone = Math.floor(pounds / 14);
+                const remainderPounds = pounds % 14;
+                output = `${pounds} pounds = ${kg} kg (${stone} stone ${remainderPounds} pounds)`;
+            } else if (input.endsWith("kg")) {
+                const kg = parseFloat(input);
+                const totalPounds = (kg / 0.453592).toFixed(0);
+                const stone = Math.floor(totalPounds / 14);
+                const pounds = totalPounds % 14;
+                output = `${kg} kg = ${stone} stone ${pounds} pounds (${totalPounds} pounds)`;
+            } else if (input.endsWith("mile")) {
+                const value = parseFloat(input);
+                output = `${value} mile = ${(value * 1609.34).toFixed(2)} m (${(value * 1.60934).toFixed(5)} km)`;
+            } else if (input.endsWith("km")) {
+                const value = parseFloat(input);
+                output = `${value} km = ${(value / 1.60934).toFixed(2)} mile`;
+            } else {
+                output = "Invalid input. Please use proper units like 'in', 'mm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
+            }
             
                         result.innerHTML = output;
         }
