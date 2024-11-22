@@ -52,7 +52,7 @@
             document.getElementById('sectionForm').addEventListener('submit', function (event) {
                 event.preventDefault();
                 let pages = parseInt(document.getElementById('pages').value);
-
+        
                 const scenarios = [
                     [32, 16, 8, 4],   // 32s
                     [24, 12, 8, 4],   // 24s
@@ -60,36 +60,38 @@
                     [12, 8, 4],       // 12s
                     [8, 4]            // 8s
                 ];
-
+        
                 const scenarioNames = ["32s", "24s", "16s", "12s", "8s"];
                 let resultsHTML = "<br>";
-
+        
                 scenarios.forEach((scenario, index) => {
                     let remainingPages = pages;
                     resultsHTML += `<div class="scenario"><h3>${scenarioNames[index]}:</h3>`;
-
+        
                     scenario.forEach(section => {
                         const sectionsNeeded = Math.floor(remainingPages / section);
                         if (sectionsNeeded > 0) {
+                            // Calculate the total pages for this section
+                            const totalPages = sectionsNeeded * section;
                             // Check for singular or plural wording
                             const sectionText = sectionsNeeded === 1 ? "section" : "sections";
-                            resultsHTML += `<p>${sectionsNeeded} x ${section}pp ${sectionText}</p>`;
-                            remainingPages -= sectionsNeeded * section;
+                            resultsHTML += `<p>${sectionsNeeded} x ${section}pp ${sectionText} (${totalPages}pp)</p>`;
+                            remainingPages -= totalPages;
                         }
                     });
-
+        
                     // Only show remaining pages if there are less than 4 pages left
                     if (remainingPages > 0 && remainingPages < 4) {
                         resultsHTML += `<p class="remaining-pages">Remaining pages: ${remainingPages} </p>`;
                     }
-
+        
                     resultsHTML += `</div>`;
                 });
-
+        
                 document.getElementById('results').innerHTML = resultsHTML;
             });
         </script>
-
+        
 
 
 
