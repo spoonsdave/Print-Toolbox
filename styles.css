@@ -178,25 +178,25 @@ Colour Palette:
   
   @keyframes logo-pulse {
     0% {
-      filter: drop-shadow(5px 5px 15px rgba(0, 0, 139, 0.5)); /* Start with dark blue */
+      filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5)); /* Start with dark blue */
     }
     50% {
-      filter: drop-shadow(5px 5px 30px rgba(0, 0, 139, 0.8)); /* Slightly brighter and larger */
+      filter: drop-shadow(5px 5px 20px rgba(0, 0, 139, 0.8)); /* Slightly brighter and larger */
     }
     100% {
-      filter: drop-shadow(5px 5px 15px rgba(0, 0, 139, 0.5)); /* Return to the original */
+      filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5)); /* Return to the original */
     }
   }
   
   @keyframes logo-hover-pulse {
     0% {
-      filter: drop-shadow(5px 5px 15px rgba(192, 57, 43, 0.7)); /* Start with red */
+      filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Start with red */
     }
     50% {
-      filter: drop-shadow(5px 5px 30px rgba(192, 57, 43, 1)); /* Brighter and larger red shadow */
+      filter: drop-shadow(5px 5px 20px rgba(192, 57, 43, 1)); /* Brighter and larger red shadow */
     }
     100% {
-      filter: drop-shadow(5px 5px 15px rgba(192, 57, 43, 0.7)); /* Return to the original */
+      filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Return to the original */
     }
   }
   
