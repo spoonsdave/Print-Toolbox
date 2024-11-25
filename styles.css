@@ -176,17 +176,41 @@ Colour Palette:
     align-items: center;
   }
   
+  @keyframes logo-pulse {
+    0% {
+      filter: drop-shadow(5px 5px 15px rgba(0, 0, 139, 0.5)); /* Start with dark blue */
+    }
+    50% {
+      filter: drop-shadow(5px 5px 30px rgba(0, 0, 139, 0.8)); /* Slightly brighter and larger */
+    }
+    100% {
+      filter: drop-shadow(5px 5px 15px rgba(0, 0, 139, 0.5)); /* Return to the original */
+    }
+  }
+  
+  @keyframes logo-hover-pulse {
+    0% {
+      filter: drop-shadow(5px 5px 15px rgba(192, 57, 43, 0.7)); /* Start with red */
+    }
+    50% {
+      filter: drop-shadow(5px 5px 30px rgba(192, 57, 43, 1)); /* Brighter and larger red shadow */
+    }
+    100% {
+      filter: drop-shadow(5px 5px 15px rgba(192, 57, 43, 0.7)); /* Return to the original */
+    }
+  }
+  
   .logo {
     width: 100%; /* Scales the image to fit the container */
     height: auto;
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5)); /* Initial drop shadow */
-    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+    animation: logo-pulse 1.75s infinite; /* Add the pulsing effect */
+    transition: animation 0.3s ease; /* Smooth transition between animations */
   }
   
   .logo:hover {
-    filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Drop shadow changes to #c0392b on hover */
-}
-  
+    animation: logo-hover-pulse 1.75s infinite; /* Change to the red pulse on hover */
+  }
+    
 
 /* ---------------------------------------------- */
 
