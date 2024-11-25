@@ -245,7 +245,7 @@ Colour Palette:
 #calendar-container {
     width: 85%;
     text-align: center;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 #calendar-header {
@@ -266,18 +266,32 @@ Colour Palette:
 
 #calendar th,
 #calendar td {
-    width: 14%;
+    width: 30px;
+    height: 30px;
+    padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 6px;
     padding-right: 6px;
     text-align: center;
+    vertical-align: middle;
 }
 
-#calendar td {
-    border: 0px solid #ddd;
-}
-
-
+@keyframes shadow-pulse {
+    0% {
+      box-shadow: 0 0 0 0px rgba(192, 57, 43, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 0 5px rgba(192, 57, 43, 0);
+    }
+  }
+  
+  .pulse-shadow {
+    border-radius: 50%; /* Make it round */
+    animation: shadow-pulse 1.5s infinite;
+    text-align: center; /* Center horizontally */
+    vertical-align: middle; /* Center vertically */
+    }
+  
 
 
 
