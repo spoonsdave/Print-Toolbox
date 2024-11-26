@@ -19,6 +19,26 @@ Colour Palette:
 
 
 
+/* Add this to your CSS file */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+body {
+    animation: fadeIn 2s ease-in-out;
+}
+
+
+
 
 /* LAYOUT */
 
