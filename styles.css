@@ -19,22 +19,35 @@ Colour Palette:
 
 
 
-/* Add this to your CSS file */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
+#fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9999; /* Ensure it covers everything */
+    animation: fadeOutOverlay 1.0s ease-in-out forwards;
+    pointer-events: none; /* Prevent blocking interaction */
+}
+
+@keyframes fadeOutOverlay {
+    0% {
         opacity: 1;
+        background-color: black;
     }
-}
-
-.fade-in {
-    animation: fadeIn 2s ease-in-out;
-}
-
-body {
-    animation: fadeIn 2s ease-in-out;
+    50% {
+        opacity: 1;
+        background-color: white;
+    }
+    75% {
+        opacity: 1;
+        background-color: white;
+    }
+    100% {
+        opacity: 0;
+        background-color: transparent;
+    }
 }
 
 
@@ -277,12 +290,12 @@ body {
 
 /* Nested columns within right column */
 .hrightTop {
-    height: 70%;
+    height: 68%;
     /* 60% of window height */
 }
 
 .hrightBottom {
-    height: 30%;
+    height: 32%;
     /* 40% of window height */
 }
 
