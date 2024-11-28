@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Case Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        textarea {
+            width: 95%;
+            min-height: 200px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+        }
+        #outputBox {
+            width: 95%;
+            margin-top: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            min-height: 200px;
+        }
+        #copyButton {
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+
+
+
+            <body>
+                <h1>CASE CONVERTER</h1><br><br>
+                <textarea id="inputBox" placeholder="Type or paste your text here..."></textarea>
+                <div>
+                    <button onclick="convertToUpper()">UPPERCASE</button>
+                    <button onclick="convertToLower()">lowercase</button>
+                    <button onclick="convertToSentenceCase()">Sentence case</button>
+                    <button onclick="resetText()">Reset</button>
+                </div>
+                <div id="outputBox"></div>
+                <button id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+            
+                <script>
+                    function convertToUpper() {
+                        const input = document.getElementById('inputBox').value;
+                        document.getElementById('outputBox').innerText = input.toUpperCase();
+                    }
+            
+                    function convertToLower() {
+                        const input = document.getElementById('inputBox').value;
+                        document.getElementById('outputBox').innerText = input.toLowerCase();
+                    }
+            
+                    function convertToSentenceCase() {
+                        const input = document.getElementById('inputBox').value;
+                        const sentences = input
+                            .toLowerCase()
+                            .split(/([.!?]\s*)/)
+                            .map((sentence, index) =>
+                                index % 2 === 0
+                                    ? sentence.charAt(0).toUpperCase() + sentence.slice(1)
+                                    : sentence
+                            )
+                            .join('');
+                        document.getElementById('outputBox').innerText = sentences;
+                    }
+            
+                    function copyToClipboard() {
+                        const output = document.getElementById('outputBox').innerText;
+                        navigator.clipboard.writeText(output).then(
+                            () => alert('Copied to clipboard!'),
+                            (err) => alert('Failed to copy text: ' + err)
+                        );
+                    }
+            
+                    function resetText() {
+                        document.getElementById('inputBox').value = '';
+                        document.getElementById('outputBox').innerText = '';
+                    }
+                </script>
+                        
+                
+
+                <br>
+
+
+
+        </div>
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+</body>
+
+</html>
