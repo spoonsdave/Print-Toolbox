@@ -36,66 +36,66 @@
             <body>
                 <h1>CONVERSION CALCULATOR</h1><br><br>
                 <label for="inputValue">Enter your value:</label>
-                <input type="text" id="inputValue" placeholder="e.g., 6 ft, 5 ft 7 in, 1.7 m">
+                <input type="text" id="inputValue" placeholder="e.g., 152 mm, 5 ft, 5 ft 7 in, 1.7 m">
                 <button onclick="convert()">Convert</button>
                 <div id="result" class="result"></div>
             
+
                 <script>
                     function convert() {
                         const input = document.getElementById('inputValue').value.trim().toLowerCase();
                         const result = document.getElementById('result');
                         let output = "";
             
-                        if (input.endsWith("in")) {
-                            const value = parseFloat(input);
-                            output = `${value} in = ${(value * 25.4).toFixed(2)} mm`;
-                        } else if (input.endsWith("mm")) {
-                            const value = parseFloat(input);
-                            output = `${value} mm = ${(value / 25.4).toFixed(2)} in`;
-                        } else if (input.includes("stone")) {
-                            let [stone, pound] = input.split("stone").map(str => parseFloat(str) || 0);
-                            if (!input.includes("pound")) {
-                                pound = 0;
-                            }
-                            const totalPounds = stone * 14 + pound;
-                            const kg = (totalPounds * 0.453592).toFixed(1);
-                            output = `${stone} stone ${pound} pound = ${kg} kg (${totalPounds} pounds)`;
-                        } else if (input.endsWith("pound") || input.endsWith("pounds")) {
-                            const pounds = parseFloat(input);
-                            const kg = (pounds * 0.453592).toFixed(1);
-                            const stone = Math.floor(pounds / 14);
-                            const remainderPounds = pounds % 14;
-                            output = `${pounds} pounds = ${kg} kg (${stone} stone ${remainderPounds} pounds)`;
-                        } else if (input.endsWith("kg")) {
-                            const kg = parseFloat(input);
-                            const totalPounds = (kg / 0.453592).toFixed(0);
-                            const stone = Math.floor(totalPounds / 14);
-                            const pounds = totalPounds % 14;
-                            output = `${kg} kg = ${stone} stone ${pounds} pounds (${totalPounds} pounds)`;
-                        } else if (input.endsWith("mile") || input.endsWith("miles")) {
-                            const value = parseFloat(input);
-                            output = `${value} mile = ${(value * 1609.34).toFixed(2)} m (${(value * 1.60934).toFixed(5)} km)`;
-                        } else if (input.endsWith("km")) {
-                            const value = parseFloat(input);
-                            output = `${value} km = ${(value / 1.60934).toFixed(2)} mile`;
-                        } else if (input.endsWith("ft")) {
-                            const feet = parseFloat(input);
-                            const metres = (feet * 0.3048).toFixed(2);
-                            output = `${feet} ft = ${metres} m`;
-                        } else if (input.includes("ft") && input.includes("in")) {
-                            const [feetPart, inchesPart] = input.split("ft").map(part => parseFloat(part) || 0);
-                            const inches = inchesPart || 0;
-                            const totalFeet = feetPart + inches / 12;
+                        // Normalize input: remove extra spaces and ensure consistent formatting
+                        const normalizedInput = input.replace(/\s+/g, ' ').replace(/\s(ft|in)/g, '$1');
+            
+                        // Handle Feet and Inches to Metres and Millimetres
+                        if (normalizedInput.includes("ft") || normalizedInput.includes("in")) {
+                            let feet = 0, inches = 0;
+            
+                            // Split input into parts and parse feet and inches
+                            const parts = normalizedInput.split(" ");
+                            parts.forEach(part => {
+                                if (part.includes("ft")) {
+                                    feet = parseFloat(part) || 0;
+                                } else if (part.includes("in")) {
+                                    inches = parseFloat(part) || 0;
+                                }
+                            });
+            
+                            const totalFeet = feet + inches / 12;
                             const metres = (totalFeet * 0.3048).toFixed(2);
-                            output = `${feetPart} ft ${inches} in = ${metres} m`;
-                        } else if (input.endsWith("m")) {
-                            const metres = parseFloat(input);
+                            const millimetres = (totalFeet * 304.8).toFixed(1);
+            
+                            output = `${feet} ft ${inches} in = ${metres} m (${millimetres} mm)`;
+                        } 
+                        // Handle Metres to Feet and Inches
+                        else if (normalizedInput.endsWith("m") && !normalizedInput.endsWith("mm")) {
+                            const metres = parseFloat(normalizedInput);
                             const totalFeet = metres / 0.3048;
                             const feet = Math.floor(totalFeet);
                             const inches = Math.round((totalFeet - feet) * 12);
+            
                             output = `${metres} m = ${feet} ft ${inches} in`;
-                        } else {
-                            output = "Invalid input. Please use proper units like 'ft', 'in', 'm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
+                        } 
+                        // Handle Millimetres to Inches
+                        else if (normalizedInput.endsWith("mm")) {
+                            const millimetres = parseFloat(normalizedInput);
+                            const inches = (millimetres / 25.4).toFixed(2);
+            
+                            output = `${millimetres} mm = ${inches} in`;
+                        } 
+                        // Handle Inches to Millimetres
+                        else if (normalizedInput.endsWith("in")) {
+                            const inches = parseFloat(normalizedInput);
+                            const millimetres = (inches * 25.4).toFixed(2);
+            
+                            output = `${inches} in = ${millimetres} mm`;
+                        } 
+                        // Invalid Input
+                        else {
+                            output = "Invalid input. Please use proper units like 'ft', 'in', 'mm', or 'm'.";
                         }
             
                         result.innerHTML = output;
@@ -109,6 +109,8 @@
                     });
                 </script>
             
+                
+
                 <br>
 
 
