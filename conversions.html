@@ -35,18 +35,17 @@
 
             <body>
                 <h1>CONVERSION CALCULATOR</h1><br><br>
-                <label for="inputValue">Enter your value:</label><br> <br>
-                <input type="text" id="inputValue"
-                    placeholder=" e.g., 1 in, 25.4mm, 1 stone 1 pound, 70.3kg, 1 mile"><br><br>
-                <button onclick="convert()">CONVERT</button><br><br>
-                <div id="results" class="results"></div><br>
-
+                <label for="inputValue">Enter your value:</label>
+                <input type="text" id="inputValue" placeholder="e.g., 6 ft, 5 ft 7 in, 1.7 m">
+                <button onclick="convert()">Convert</button>
+                <div id="result" class="result"></div>
+            
                 <script>
                     function convert() {
                         const input = document.getElementById('inputValue').value.trim().toLowerCase();
-                        const result = document.getElementById('results');
+                        const result = document.getElementById('result');
                         let output = "";
-
+            
                         if (input.endsWith("in")) {
                             const value = parseFloat(input);
                             output = `${value} in = ${(value * 25.4).toFixed(2)} mm`;
@@ -54,10 +53,9 @@
                             const value = parseFloat(input);
                             output = `${value} mm = ${(value / 25.4).toFixed(2)} in`;
                         } else if (input.includes("stone")) {
-                            // Handle "1 stone" as "1 stone 0 pounds"
                             let [stone, pound] = input.split("stone").map(str => parseFloat(str) || 0);
                             if (!input.includes("pound")) {
-                                pound = 0; // Assume 0 pounds if not provided
+                                pound = 0;
                             }
                             const totalPounds = stone * 14 + pound;
                             const kg = (totalPounds * 0.453592).toFixed(1);
@@ -80,13 +78,29 @@
                         } else if (input.endsWith("km")) {
                             const value = parseFloat(input);
                             output = `${value} km = ${(value / 1.60934).toFixed(2)} mile`;
+                        } else if (input.endsWith("ft")) {
+                            const feet = parseFloat(input);
+                            const metres = (feet * 0.3048).toFixed(2);
+                            output = `${feet} ft = ${metres} m`;
+                        } else if (input.includes("ft") && input.includes("in")) {
+                            const [feetPart, inchesPart] = input.split("ft").map(part => parseFloat(part) || 0);
+                            const inches = inchesPart || 0;
+                            const totalFeet = feetPart + inches / 12;
+                            const metres = (totalFeet * 0.3048).toFixed(2);
+                            output = `${feetPart} ft ${inches} in = ${metres} m`;
+                        } else if (input.endsWith("m")) {
+                            const metres = parseFloat(input);
+                            const totalFeet = metres / 0.3048;
+                            const feet = Math.floor(totalFeet);
+                            const inches = Math.round((totalFeet - feet) * 12);
+                            output = `${metres} m = ${feet} ft ${inches} in`;
                         } else {
-                            output = "Invalid input. Please use proper units like 'in', 'mm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
+                            output = "Invalid input. Please use proper units like 'ft', 'in', 'm', 'stone', 'pound', 'kg', 'mile', or 'km'.";
                         }
-
+            
                         result.innerHTML = output;
                     }
-
+            
                     // Add event listener for Enter key
                     document.getElementById('inputValue').addEventListener('keypress', function (e) {
                         if (e.key === 'Enter') {
@@ -94,6 +108,7 @@
                         }
                     });
                 </script>
+            
                 <br>
 
 
