@@ -49,6 +49,7 @@
 
 
 
+
         function renderBlocks() {
             blocksContainer.innerHTML = ''; // Clear the container
 
@@ -57,67 +58,65 @@
             blocks
                 .filter((block) => block.text.toLowerCase().includes(searchTerm)) // Filter blocks by search term
                 .forEach((block) => {
-                    // Create the block container
                     const blockDiv = document.createElement('div');
                     blockDiv.classList.add('notebook-block');
 
-                    // Create a wrapper for the textarea and delete button
                     const blockContent = document.createElement('div');
                     blockContent.style.display = 'flex'; // Use flexbox for layout
                     blockContent.style.alignItems = 'center'; // Vertically align items
                     blockContent.style.gap = '10px'; // Optional: Space between textarea and button
 
-                    // Create the textarea
                     const textarea = document.createElement('textarea');
-                    textarea.value = block.text; // Set the block's text
+                    textarea.value = block.text;
                     textarea.classList.add('notebook-textarea-small');
                     textarea.setAttribute('readonly', true);
-                    textarea.style.flexGrow = '1'; // Allow textarea to take remaining space
-                    textarea.style.height = '50px'; // Compact height for preview
+                    textarea.style.flexGrow = '1';
+                    textarea.style.height = '50px';
 
-                    // Expand on click
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.classList.add('notebook-button-small');
+                    deleteBtn.style.display = 'none'; // Initially hide the button
+
+                    // Ensure the delete button works even if textarea loses focus
+                    deleteBtn.addEventListener('mousedown', (event) => {
+                        event.preventDefault(); // Prevent textarea blur
+                        blocks = blocks.filter((b) => b.id !== block.id);
+                        saveBlocks();
+                        renderBlocks();
+                    });
+
+                    // Expand textarea on click
                     textarea.addEventListener('click', () => {
                         document.querySelectorAll('.notebook-textarea-large').forEach((otherTextarea) => {
                             otherTextarea.classList.remove('notebook-textarea-large');
                             otherTextarea.setAttribute('readonly', true);
                             otherTextarea.style.height = '50px';
                             otherTextarea.style.fontSize = '15px';
+                            otherTextarea.parentElement.querySelector('button').style.display = 'none';
                         });
 
                         textarea.classList.add('notebook-textarea-large');
                         textarea.removeAttribute('readonly');
-                        textarea.style.height = 'auto'; // Adjust height to fit content
+                        textarea.style.height = 'auto';
                         textarea.style.fontSize = '15px';
+                        deleteBtn.style.display = 'inline-block'; // Show delete button
                     });
 
-                    // Shrink back on blur and save
+                    // Shrink textarea on blur and save text
                     textarea.addEventListener('blur', () => {
                         textarea.classList.remove('notebook-textarea-large');
                         textarea.setAttribute('readonly', true);
-                        textarea.style.height = '50px'; // Compact height
+                        textarea.style.height = '50px';
                         textarea.style.fontSize = '11px';
+                        deleteBtn.style.display = 'none'; // Hide delete button
 
-                        // Save the updated text
                         block.text = textarea.value;
                         saveBlocks();
                     });
 
-                    // Create the Delete button
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.textContent = 'Delete';
-                    deleteBtn.classList.add('notebook-button-small');
-
-                    deleteBtn.addEventListener('click', () => {
-                        blocks = blocks.filter((b) => b.id !== block.id);
-                        saveBlocks();
-                        renderBlocks();
-                    });
-
-                    // Append elements to the wrapper
                     blockContent.appendChild(textarea);
                     blockContent.appendChild(deleteBtn);
-
-                    // Append the wrapper to the block
                     blockDiv.appendChild(blockContent);
                     blocksContainer.appendChild(blockDiv);
                 });
