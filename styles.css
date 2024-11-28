@@ -606,9 +606,11 @@ form label {
     height: auto; /* Fit content */
     min-height: 150px; /* Ensure sufficient size */
     overflow: auto;
-    font-size: 15px; /* Larger font for editing */
+    font-size: 14px; /* Larger font for editing */
     border: 1px solid #007BFF;
     background: #fff;
+    font-weight: 560;
+    color: #1A5FE0;
 }
 
 /* Actions container hidden by default */
