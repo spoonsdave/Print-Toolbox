@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Notebook</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main NOTEBOOK Content) -->
+        <div class="column middle">
+            <h1>NOTEBOOK</h1>
+            <textarea id="newBlock" placeholder="Type or paste your text here..." class="notebook-textarea"></textarea>
+            <button id="addBlockBtn" class="notebook-button">Add Block</button><br><br>
+            <input type="text" id="searchBox" placeholder="Search blocks..." class="notebook-search">
+            <div id="blocksContainer" class="notebook-container"></div>
+        </div>
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+    <script>
+        // Notebook functionality
+        const newBlockInput = document.getElementById('newBlock');
+        const addBlockBtn = document.getElementById('addBlockBtn');
+        const searchBox = document.getElementById('searchBox');
+        const blocksContainer = document.getElementById('blocksContainer');
+
+        let blocks = JSON.parse(localStorage.getItem('notebookBlocks')) || [];
+
+        function renderBlocks() {
+    blocksContainer.innerHTML = '';
+    const searchTerm = searchBox.value.toLowerCase();
+    blocks.forEach((block, index) => {
+        if (block.text.toLowerCase().includes(searchTerm)) {
+            const blockDiv = document.createElement('div');
+            blockDiv.classList.add('notebook-block');
+
+            const textarea = document.createElement('textarea');
+            textarea.value = block.text;
+            textarea.classList.add('notebook-textarea-small');
+            textarea.setAttribute('readonly', true);
+
+            // Expand and shrink functionality
+            textarea.addEventListener('click', (event) => {
+                // Reset all other textareas to small size
+                document.querySelectorAll('.notebook-textarea-large').forEach((otherTextarea) => {
+                    otherTextarea.classList.remove('notebook-textarea-large');
+                    otherTextarea.setAttribute('readonly', true);
+                });
+
+                // Expand the clicked textarea
+                textarea.classList.add('notebook-textarea-large');
+                textarea.removeAttribute('readonly');
+            });
+
+            // Shrink the textarea on blur (optional)
+            textarea.addEventListener('blur', () => {
+                textarea.classList.remove('notebook-textarea-large');
+                textarea.setAttribute('readonly', true);
+            });
+
+            // Save changes on input
+            textarea.addEventListener('input', () => {
+                blocks[index].text = textarea.value;
+                saveBlocks();
+            });
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.classList.add('notebook-actions');
+
+            const copyBtn = document.createElement('button');
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.add('notebook-button-small');
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(block.text);
+                alert('Copied to clipboard!');
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.classList.add('notebook-button-small');
+            deleteBtn.addEventListener('click', () => {
+                blocks.splice(index, 1);
+                saveBlocks();
+                renderBlocks();
+            });
+
+            actionsDiv.append(copyBtn, deleteBtn);
+            blockDiv.append(textarea, actionsDiv);
+            blocksContainer.appendChild(blockDiv);
+        }
+    });
+}
+
+        function saveBlocks() {
+            localStorage.setItem('notebookBlocks', JSON.stringify(blocks));
+        }
+
+        addBlockBtn.addEventListener('click', () => {
+            const text = newBlockInput.value.trim();
+            if (text) {
+                blocks.push({ text });
+                saveBlocks();
+                renderBlocks();
+                newBlockInput.value = '';
+            }
+        });
+
+        searchBox.addEventListener('input', renderBlocks);
+
+        renderBlocks();
+    </script>
+</body>
+
+</html>

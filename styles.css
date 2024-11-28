@@ -487,3 +487,108 @@ form label {
 
 
 /* ---------------------------------------------- */
+
+
+/* Notebook Styles */
+.notebook-textarea, .notebook-search {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.notebook-textarea {
+    min-height: 100px;
+}
+
+.notebook-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.notebook-block {
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.notebook-textarea-small {
+    width: 100%;
+    border: none;
+    resize: none;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.notebook-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Notebook Button Styles */
+.notebook-button, .notebook-button-small {
+    background-color: #052c4f;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px #021a33;
+}
+
+.notebook-button:hover, .notebook-button-small:hover {
+    background-color: #c0392b;
+    box-shadow: 0px 0px 3px 0px #c0392b;
+}
+
+/* Default compact style */
+.notebook-textarea-small {
+    height: 50px; /* Compact preview size */
+    overflow: hidden;
+}
+
+/* Expanded style */
+.notebook-textarea-large {
+    height: auto; /* Expands to fit content */
+    min-height: 150px; /* Ensure it grows sufficiently */
+    overflow: auto;
+    border: 1px solid #007BFF;
+    background: #fff;
+}
+
+/* Scrollable Notebook Container */
+.notebook-container {
+    max-height: 70vh; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Optional: space for scrollbar */
+    scrollbar-width: thin; /* Firefox scrollbar styling */
+    scrollbar-color: #052c4f #f1f1f1; /* Firefox colors */
+}
+
+/* WebKit Scrollbar Styling */
+.notebook-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.notebook-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notebook-container::-webkit-scrollbar-thumb {
+    background: #052c4f;
+    border-radius: 5px;
+}
+
+.notebook-container::-webkit-scrollbar-thumb:hover {
+    background: #c0392b;
+}
