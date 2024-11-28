@@ -592,3 +592,34 @@ form label {
 .notebook-container::-webkit-scrollbar-thumb:hover {
     background: #c0392b;
 }
+
+/* Default compact text size for previews */
+.notebook-textarea-small {
+    height: 50px; /* Compact size */
+    overflow: hidden;
+    font-size: 11px; /* Smaller font for previews */
+    transition: font-size 0.2s, height 0.2s; /* Smooth transition */
+}
+
+/* Expanded mode text size and height */
+.notebook-textarea-large {
+    height: auto; /* Fit content */
+    min-height: 150px; /* Ensure sufficient size */
+    overflow: auto;
+    font-size: 15px; /* Larger font for editing */
+    border: 1px solid #007BFF;
+    background: #fff;
+}
+
+/* Actions container hidden by default */
+.notebook-actions {
+    display: none;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Show buttons in expanded mode */
+.notebook-textarea-large + .notebook-actions {
+    display: flex;
+}

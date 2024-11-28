@@ -37,9 +37,7 @@
         fetch("phonelist.html")
             .then(response => response.text())
             .then(data => document.getElementById("phonelist").innerHTML = data);
-    </script>
 
-    <script>
         // Notebook functionality
         const newBlockInput = document.getElementById('newBlock');
         const addBlockBtn = document.getElementById('addBlockBtn');
@@ -48,88 +46,127 @@
 
         let blocks = JSON.parse(localStorage.getItem('notebookBlocks')) || [];
 
+
+
+
         function renderBlocks() {
-    blocksContainer.innerHTML = '';
-    const searchTerm = searchBox.value.toLowerCase();
-    blocks.forEach((block, index) => {
-        if (block.text.toLowerCase().includes(searchTerm)) {
-            const blockDiv = document.createElement('div');
-            blockDiv.classList.add('notebook-block');
+            blocksContainer.innerHTML = ''; // Clear the container
 
-            const textarea = document.createElement('textarea');
-            textarea.value = block.text;
-            textarea.classList.add('notebook-textarea-small');
-            textarea.setAttribute('readonly', true);
+            const searchTerm = searchBox.value.trim().toLowerCase(); // Get the search term
 
-            // Expand and shrink functionality
-            textarea.addEventListener('click', (event) => {
-                // Reset all other textareas to small size
-                document.querySelectorAll('.notebook-textarea-large').forEach((otherTextarea) => {
-                    otherTextarea.classList.remove('notebook-textarea-large');
-                    otherTextarea.setAttribute('readonly', true);
+            blocks
+                .filter((block) => block.text.toLowerCase().includes(searchTerm)) // Filter blocks by search term
+                .forEach((block) => {
+                    // Create the block container
+                    const blockDiv = document.createElement('div');
+                    blockDiv.classList.add('notebook-block');
+
+                    // Create a wrapper for the textarea and delete button
+                    const blockContent = document.createElement('div');
+                    blockContent.style.display = 'flex'; // Use flexbox for layout
+                    blockContent.style.alignItems = 'center'; // Vertically align items
+                    blockContent.style.gap = '10px'; // Optional: Space between textarea and button
+
+                    // Create the textarea
+                    const textarea = document.createElement('textarea');
+                    textarea.value = block.text; // Set the block's text
+                    textarea.classList.add('notebook-textarea-small');
+                    textarea.setAttribute('readonly', true);
+                    textarea.style.flexGrow = '1'; // Allow textarea to take remaining space
+                    textarea.style.height = '50px'; // Compact height for preview
+
+                    // Expand on click
+                    textarea.addEventListener('click', () => {
+                        document.querySelectorAll('.notebook-textarea-large').forEach((otherTextarea) => {
+                            otherTextarea.classList.remove('notebook-textarea-large');
+                            otherTextarea.setAttribute('readonly', true);
+                            otherTextarea.style.height = '50px';
+                            otherTextarea.style.fontSize = '15px';
+                        });
+
+                        textarea.classList.add('notebook-textarea-large');
+                        textarea.removeAttribute('readonly');
+                        textarea.style.height = 'auto'; // Adjust height to fit content
+                        textarea.style.fontSize = '15px';
+                    });
+
+                    // Shrink back on blur and save
+                    textarea.addEventListener('blur', () => {
+                        textarea.classList.remove('notebook-textarea-large');
+                        textarea.setAttribute('readonly', true);
+                        textarea.style.height = '50px'; // Compact height
+                        textarea.style.fontSize = '11px';
+
+                        // Save the updated text
+                        block.text = textarea.value;
+                        saveBlocks();
+                    });
+
+                    // Create the Delete button
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.classList.add('notebook-button-small');
+
+                    deleteBtn.addEventListener('click', () => {
+                        blocks = blocks.filter((b) => b.id !== block.id);
+                        saveBlocks();
+                        renderBlocks();
+                    });
+
+                    // Append elements to the wrapper
+                    blockContent.appendChild(textarea);
+                    blockContent.appendChild(deleteBtn);
+
+                    // Append the wrapper to the block
+                    blockDiv.appendChild(blockContent);
+                    blocksContainer.appendChild(blockDiv);
                 });
-
-                // Expand the clicked textarea
-                textarea.classList.add('notebook-textarea-large');
-                textarea.removeAttribute('readonly');
-            });
-
-            // Shrink the textarea on blur (optional)
-            textarea.addEventListener('blur', () => {
-                textarea.classList.remove('notebook-textarea-large');
-                textarea.setAttribute('readonly', true);
-            });
-
-            // Save changes on input
-            textarea.addEventListener('input', () => {
-                blocks[index].text = textarea.value;
-                saveBlocks();
-            });
-
-            const actionsDiv = document.createElement('div');
-            actionsDiv.classList.add('notebook-actions');
-
-            const copyBtn = document.createElement('button');
-            copyBtn.textContent = 'Copy';
-            copyBtn.classList.add('notebook-button-small');
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(block.text);
-                alert('Copied to clipboard!');
-            });
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.classList.add('notebook-button-small');
-            deleteBtn.addEventListener('click', () => {
-                blocks.splice(index, 1);
-                saveBlocks();
-                renderBlocks();
-            });
-
-            actionsDiv.append(copyBtn, deleteBtn);
-            blockDiv.append(textarea, actionsDiv);
-            blocksContainer.appendChild(blockDiv);
         }
-    });
-}
+
+
+
+
+
+
 
         function saveBlocks() {
-            localStorage.setItem('notebookBlocks', JSON.stringify(blocks));
+            try {
+                localStorage.setItem('notebookBlocks', JSON.stringify(blocks));
+                console.log('Blocks saved to localStorage:', blocks);
+            } catch (err) {
+                console.error('Error saving blocks to localStorage:', err);
+            }
         }
 
+
+
         addBlockBtn.addEventListener('click', () => {
-            const text = newBlockInput.value.trim();
+            const text = newBlockInput.value.trim(); // Get input text
             if (text) {
-                blocks.push({ text });
-                saveBlocks();
-                renderBlocks();
-                newBlockInput.value = '';
+                const newBlock = {
+                    id: Date.now(), // Unique ID
+                    text: text
+                };
+                blocks.push(newBlock); // Add the new block to the array
+                saveBlocks(); // Save to localStorage
+                console.log('Blocks after addition:', blocks); // Debug log
+
+                renderBlocks(); // Re-render blocks
+                newBlockInput.value = ''; // Clear the input
+            } else {
+                console.log('No text entered!'); // Debug for empty input
             }
         });
+
 
         searchBox.addEventListener('input', renderBlocks);
 
         renderBlocks();
+
+        document.addEventListener('click', (event) => {
+            console.log('Clicked element:', event.target);
+        });
+
     </script>
 </body>
 
