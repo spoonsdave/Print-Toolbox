@@ -27,7 +27,7 @@ Colour Palette:
     height: 100%;
     background-color: black;
     z-index: 9999; /* Ensure it covers everything */
-    animation: fadeOutOverlay 2.5s ease-in-out forwards;
+    animation: fadeOutOverlay 1.1s ease-in-out forwards;
     pointer-events: none; /* Prevent blocking interaction */
 }
 
