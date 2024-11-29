@@ -1,0 +1,627 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+
+* {
+    font-family: 'Roboto Mono', monospace;
+}
+
+/*
+Colour Palette:
+
+	•	Background Panel: #dfe6eb
+	•	Headings (Dark Blue): #0a3d6b
+	•	Shadows (Darker Blue): Slight shadow effect using #021a33
+	•	Results (Bright Blue): #1e5fe0
+	•	Accent Red (Buttons): #c0392b
+
+*/
+
+
+
+
+#fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9999; /* Ensure it covers everything */
+    animation: fadeOutOverlay 2.5s ease-in-out forwards;
+    pointer-events: none; /* Prevent blocking interaction */
+}
+
+@keyframes fadeOutOverlay {
+    0% {
+        opacity: 1;
+        background-color: black;
+    }
+    50% {
+        opacity: 1;
+        background-color: white;
+    }
+    75% {
+        opacity: 1;
+        background-color: white;
+    }
+    100% {
+        opacity: 0;
+        background-color: transparent;
+    }
+}
+
+
+
+
+/* LAYOUT */
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container for the 3-column layout */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 3 Columns: 20% - 60% - 20% */
+.column {
+    padding: 10px;
+}
+
+.left {
+    width: 18%;
+    background-color: #dfe6eb;
+}
+
+.middle {
+    padding-top: 15px;
+    padding-left: 30px;
+    margin-top: 0px;
+    width: 64%;
+}
+
+.right {
+    width: 18%;
+    background-color: #dfe6eb;
+    justify-content: center;
+    /* Horizontally centers the table */
+}
+
+/* 4 Columns: 20% - 30% - 30% - 20% */
+
+.hleft {
+    width: 20%;
+    background-color: #dfe6eb;
+    padding: 10px;
+}
+
+.hright {
+    width: 20%;
+    background-color: #dfe6eb;
+    padding: 10px;
+    justify-content: center;
+    /* Horizontally centers the table */
+}
+
+
+.middleL {
+    width: 30%;
+    margin-top: 3px;
+}
+
+.middleR {
+    width: 30%;
+    margin-top: 62.5px;
+}
+
+
+
+
+/* ---------------------------------------------- */
+
+
+
+/* SIDEBAR */
+
+
+.sidebar {
+    text-align: center;
+}
+
+.sidebar h1 {
+    font-size: 28px;
+    /* Adjust as needed */
+    font-weight: bold;
+    background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3);
+    /* Drop shadow */
+    text-align: center;
+    line-height: 90%;
+    padding-top: 20px;
+}
+
+.sidebar h1 a {
+    font-size: 32px;
+    /* Adjust as needed */
+    font-weight: bold;
+    background: -webkit-linear-gradient(90deg, #1e5fe0, #0a3d6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 8px rgba(30, 58, 95, 0.3);
+    /* Drop shadow */
+    text-align: center;
+    line-height: 93%;
+    padding-top: 18px;
+
+}
+
+.sidebar h1 a:hover {
+    font-size: 32px;
+    /* Adjust as needed */
+    font-weight: bold;
+    color: #0a3d6b;
+    text-shadow: 0px 0px 0.5px #0a3d6b, 0.5px 0.5px 12px #c0392b;
+    /* Blue shadow + red offset shadow */
+    text-align: center;
+    line-height: 93%;
+    padding-top: 18px;
+}
+
+.sidebar h3 {
+    font-size: 15px;
+    color: #0a3d6b;
+    font-weight: 900;
+    line-height: 200%;
+}
+
+.sidebar a {
+    color: black;
+    font-size: 13px;
+    line-height: 175%;
+    white-space: nowrap; /* Prevents wrapping */
+    overflow: hidden; /* Ensures text stays within the box */
+    text-overflow: ellipsis; /* Adds an ellipsis if the text overflows (optional) */
+    display: inline-block; /* Ensures the above rules apply correctly */
+}
+
+.sidebar a:link {
+    color: black;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #1e5fe0;
+    text-shadow: 1px 1px 6px #c0392b;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @keyframes logo-pulse {
+    0% {
+      filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5)); /* Start with dark blue */
+    }
+    50% {
+      filter: drop-shadow(5px 5px 20px rgba(0, 0, 139, 0.8)); /* Slightly brighter and larger */
+    }
+    100% {
+      filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5)); /* Return to the original */
+    }
+  }
+  
+  @keyframes logo-hover-pulse {
+    0% {
+      filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Start with red */
+    }
+    50% {
+      filter: drop-shadow(5px 5px 20px rgba(192, 57, 43, 1)); /* Brighter and larger red shadow */
+    }
+    100% {
+      filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Return to the original */
+    }
+  }
+  
+  .logo {
+    width: 100%; /* Scales the image to fit the container */
+    height: auto;
+    animation: logo-pulse 1.75s infinite; /* Add the pulsing effect */
+    transition: animation 0.3s ease; /* Smooth transition between animations */
+  }
+  
+  .logo:hover {
+    animation: logo-hover-pulse 1.75s infinite; /* Change to the red pulse on hover */
+  }
+    
+
+/* ---------------------------------------------- */
+
+
+/* PHONE LIST */
+
+.phone h2 {
+    text-align: center;
+    white-space: nowrap; /* Prevents wrapping */
+    line-height: 300%;
+    font-size: 20px;
+    /* Adjust as needed */
+    font-weight: bold;
+    background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3);
+    /* Drop shadow */
+}
+
+
+.phone table {
+    margin: 0 auto;
+    /* Centers the table within the flex container */
+    text-align: center;
+    font-size: 13px;
+    color: black;
+    border-spacing: 50px 0px;
+    white-space: nowrap; /* Prevents wrapping */
+}
+
+/* ---------------------------------------------- */
+
+
+/* CALENDAR */
+
+
+
+#month-year {
+    font-size: 15px;
+    margin: 0 17px;  /* Adjust this value for spacing around month & year */
+    white-space: nowrap; /* Prevents wrapping */
+}
+
+/* Nested columns within right column */
+.hrightTop {
+    height: 68%;
+    /* 60% of window height */
+}
+
+.hrightBottom {
+    height: 32%;
+    /* 40% of window height */
+}
+
+#calendar-container {
+    width: 85%;
+    text-align: center;
+    margin-left: 15px;
+}
+
+#calendar-header {
+    font-size: 14px;
+    margin-left: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#calendar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#calendar th,
+#calendar td {
+    width: 30px;
+    height: 30px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@keyframes shadow-pulse {
+    0% {
+      box-shadow: 0 0 0 0px rgba(192, 57, 43, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 0 5px rgba(192, 57, 43, 0);
+    }
+  }
+  
+  .pulse-shadow {
+    border-radius: 50%; /* Make it round */
+    animation: shadow-pulse 1.5s infinite;
+    text-align: center; /* Center horizontally */
+    vertical-align: middle; /* Center vertically */
+    }
+  
+
+
+
+
+
+/* ---------------------------------------------- */
+
+
+
+
+
+/* BODY TEXT */
+
+body {
+    font-size: 13px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+label {
+    font-size: 13px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+
+
+h1 {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 300%;
+    background: -webkit-linear-gradient(#1e5fe0, #0a3d6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3);
+    white-space: nowrap;
+    display: inline-block;
+    transform: scaleX(calc(100% / max-content)); /* Shrink to fit */
+    transform-origin: left; /* Keep left-aligned */
+}
+
+h2 {
+    text-align: center;
+    font-size: 20px;
+    color: #0a3d6b;
+    font-weight: bold;
+    line-height: 300%;
+}
+
+h3 {
+    font-size: 14px;
+    color: #0a3d6b;
+    font-weight: bold;
+    line-height: 175%;
+}
+
+p {
+    font-size: 13px;
+    color: black;
+    line-height: 200%;
+}
+
+table {
+    font-size: 13px;
+    color: black;
+    line-height: 200%;
+}
+
+
+
+p a,
+h2 a,
+h3 a {
+    text-decoration: none;
+    color: black;
+}
+
+p a:hover,
+h2 a:hover,
+h3 a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #c0392b;
+}
+
+
+.results {
+    color: #1e5fe0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+button {
+    background-color: #052c4f;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px #021a33;
+}
+
+button:hover {
+    background-color: #c0392b;
+    box-shadow: 0px 0px 3px 0px #c0392b;
+}
+
+
+form p,
+form label {
+    line-height: 250%;
+}
+
+
+/* ---------------------------------------------- */
+
+
+
+/* ---------------   WEATHER    ------------------------- */
+
+
+
+.column.middleR {
+    position: relative; /* Establishes this container as the positioning context */
+}
+
+.weather-widget-fixed {
+    position: absolute; /* Positions it relative to the container */
+    bottom: 0; /* Sticks to the bottom of the container */
+    left: 0; /* Aligns to the left edge */
+    width: 100%; /* Fills the width of the container */
+    z-index: 10; /* Ensures it stays above other elements in the container */
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: Adds a semi-transparent background */
+    padding: 10px 0; /* Optional: Adds vertical spacing */
+    text-align: center; /* Centers the content */
+}
+
+
+/* ---------------------------------------------- */
+
+
+/* Notebook Styles */
+.notebook-textarea, .notebook-search {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.notebook-textarea {
+    min-height: 100px;
+}
+
+.notebook-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.notebook-block {
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.notebook-textarea-small {
+    width: 100%;
+    border: none;
+    resize: none;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.notebook-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Notebook Button Styles */
+.notebook-button, .notebook-button-small {
+    background-color: #052c4f;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px #021a33;
+}
+
+.notebook-button:hover, .notebook-button-small:hover {
+    background-color: #c0392b;
+    box-shadow: 0px 0px 3px 0px #c0392b;
+}
+
+/* Default compact style */
+.notebook-textarea-small {
+    height: 50px; /* Compact preview size */
+    overflow: hidden;
+}
+
+/* Expanded style */
+.notebook-textarea-large {
+    height: auto; /* Expands to fit content */
+    min-height: 150px; /* Ensure it grows sufficiently */
+    overflow: auto;
+    border: 1px solid #007BFF;
+    background: #fff;
+}
+
+/* Scrollable Notebook Container */
+.notebook-container {
+    max-height: 70vh; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Optional: space for scrollbar */
+    scrollbar-width: thin; /* Firefox scrollbar styling */
+    scrollbar-color: #052c4f #f1f1f1; /* Firefox colors */
+}
+
+/* WebKit Scrollbar Styling */
+.notebook-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.notebook-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notebook-container::-webkit-scrollbar-thumb {
+    background: #052c4f;
+    border-radius: 5px;
+}
+
+.notebook-container::-webkit-scrollbar-thumb:hover {
+    background: #c0392b;
+}
+
+/* Default compact text size for previews */
+.notebook-textarea-small {
+    height: 50px; /* Compact size */
+    overflow: hidden;
+    font-size: 11px; /* Smaller font for previews */
+    transition: font-size 0.2s, height 0.2s; /* Smooth transition */
+}
+
+/* Expanded mode text size and height */
+.notebook-textarea-large {
+    height: auto; /* Fit content */
+    min-height: 150px; /* Ensure sufficient size */
+    overflow: auto;
+    font-size: 14px; /* Larger font for editing */
+    border: 1px solid #007BFF;
+    background: #fff;
+    font-weight: 560;
+    color: #1A5FE0;
+}
+
+/* Actions container hidden by default */
+.notebook-actions {
+    display: none;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Show buttons in expanded mode */
+.notebook-textarea-large + .notebook-actions {
+    display: flex;
+}

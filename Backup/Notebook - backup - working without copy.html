@@ -64,7 +64,7 @@
                     const blockContent = document.createElement('div');
                     blockContent.style.display = 'flex'; // Use flexbox for layout
                     blockContent.style.alignItems = 'center'; // Vertically align items
-                    blockContent.style.gap = '10px'; // Optional: Space between textarea and buttons
+                    blockContent.style.gap = '10px'; // Optional: Space between textarea and button
 
                     const textarea = document.createElement('textarea');
                     textarea.value = block.text;
@@ -73,32 +73,12 @@
                     textarea.style.flexGrow = '1';
                     textarea.style.height = '50px';
 
-                    // Create the Copy button
-                    const copyBtn = document.createElement('button');
-                    copyBtn.textContent = 'Copy';
-                    copyBtn.classList.add('notebook-button-small');
-                    copyBtn.style.display = 'none'; // Initially hide the button
-
-                    copyBtn.addEventListener('mousedown', (event) => {
-                        event.preventDefault(); // Prevent textarea blur
-                        console.log('Copy button clicked for block:', block.id); // Debug log
-                        navigator.clipboard.writeText(block.text)
-                            .then(() => {
-                                alert('Text copied to clipboard!');
-                            })
-                            .catch((err) => {
-                                console.error('Failed to copy text:', err);
-                                alert('Failed to copy text. Please try again.');
-                            });
-                    });
-
-
-                    // Create the Delete button
                     const deleteBtn = document.createElement('button');
                     deleteBtn.textContent = 'Delete';
                     deleteBtn.classList.add('notebook-button-small');
                     deleteBtn.style.display = 'none'; // Initially hide the button
 
+                    // Ensure the delete button works even if textarea loses focus
                     deleteBtn.addEventListener('mousedown', (event) => {
                         event.preventDefault(); // Prevent textarea blur
                         blocks = blocks.filter((b) => b.id !== block.id);
@@ -112,18 +92,15 @@
                             otherTextarea.classList.remove('notebook-textarea-large');
                             otherTextarea.setAttribute('readonly', true);
                             otherTextarea.style.height = '50px';
-                            otherTextarea.style.fontSize = '15px';
-                            otherTextarea.parentElement.querySelectorAll('button').forEach((button) => {
-                                button.style.display = 'none';
-                            });
+                            otherTextarea.style.fontSize = '14px';
+                            otherTextarea.parentElement.querySelector('button').style.display = 'none';
                         });
 
                         textarea.classList.add('notebook-textarea-large');
                         textarea.removeAttribute('readonly');
                         textarea.style.height = 'auto';
-                        textarea.style.fontSize = '15px';
-                        copyBtn.style.display = 'inline-block'; // Show Copy button
-                        deleteBtn.style.display = 'inline-block'; // Show Delete button
+                        textarea.style.fontSize = '14px';
+                        deleteBtn.style.display = 'inline-block'; // Show delete button
                     });
 
                     // Shrink textarea on blur and save text
@@ -132,16 +109,14 @@
                         textarea.setAttribute('readonly', true);
                         textarea.style.height = '50px';
                         textarea.style.fontSize = '11px';
-                        copyBtn.style.display = 'none'; // Hide Copy button
-                        deleteBtn.style.display = 'none'; // Hide Delete button
+                        deleteBtn.style.display = 'none'; // Hide delete button
 
                         block.text = textarea.value;
                         saveBlocks();
                     });
 
                     blockContent.appendChild(textarea);
-                    blockContent.appendChild(copyBtn); // Add Copy button
-                    blockContent.appendChild(deleteBtn); // Add Delete button
+                    blockContent.appendChild(deleteBtn);
                     blockDiv.appendChild(blockContent);
                     blocksContainer.appendChild(blockDiv);
                 });
