@@ -47,13 +47,19 @@
                         const input = document.getElementById('inputValue').value.trim().toLowerCase();
                         const result = document.getElementById('result');
                         let output = "";
-
+            
+                        // Normalize Input
+                        let normalizedInput = input
+                            .replace(/\s+/g, ' ')       // Replace multiple spaces with a single space
+                            .replace(/\s(ft|in|st|lb|mi|km|mm|m)\b/g, '$1') // Remove spaces before units
+                            .trim();
+            
                         // Handle Feet and Inches
-                        if (input.includes("ft") || input.includes("in")) {
+                        if (normalizedInput.includes("ft") || normalizedInput.includes("in")) {
                             let feet = 0, inches = 0;
-
+            
                             // Parse feet and inches
-                            const parts = input.split(" ");
+                            const parts = normalizedInput.split(" ");
                             parts.forEach(part => {
                                 if (part.includes("ft")) {
                                     feet = parseFloat(part) || 0;
@@ -61,19 +67,19 @@
                                     inches = parseFloat(part) || 0;
                                 }
                             });
-
+            
                             const totalFeet = feet + inches / 12;
                             const metres = (totalFeet * 0.3048).toFixed(2);
                             const millimetres = (totalFeet * 304.8).toFixed(1);
-
+            
                             output = `${feet} ft ${inches} in = ${metres} m (${millimetres} mm)`;
-                        }
+                        } 
                         // Handle Stones and Pounds
-                        else if (input.includes("st") || input.includes("lb")) {
+                        else if (normalizedInput.includes("st") || normalizedInput.includes("lb")) {
                             let stone = 0, pounds = 0;
-
+            
                             // Parse stones and pounds
-                            const parts = input.split(" ");
+                            const parts = normalizedInput.split(" ");
                             parts.forEach(part => {
                                 if (part.includes("st")) {
                                     stone = parseFloat(part) || 0;
@@ -81,7 +87,7 @@
                                     pounds = parseFloat(part) || 0;
                                 }
                             });
-
+            
                             if (stone === 0 && pounds > 0) {
                                 // Only pounds provided
                                 const kg = (pounds * 0.453592).toFixed(1);
@@ -92,28 +98,28 @@
                                 const kg = (totalPounds * 0.453592).toFixed(1);
                                 output = `${stone} st ${pounds} lb = ${kg} kg (${totalPounds} lb)`;
                             }
-                        }
+                        } 
                         // Handle Other Units
-                        else if (input.endsWith("mi")) {
-                            const miles = parseFloat(input);
+                        else if (normalizedInput.endsWith("mi")) {
+                            const miles = parseFloat(normalizedInput);
                             const km = (miles * 1.60934).toFixed(2);
                             output = `${miles} mi = ${km} km`;
-                        } else if (input.endsWith("km")) {
-                            const km = parseFloat(input);
+                        } else if (normalizedInput.endsWith("km")) {
+                            const km = parseFloat(normalizedInput);
                             const miles = (km / 1.60934).toFixed(2);
                             output = `${km} km = ${miles} mi`;
-                        } else if (input.endsWith("m") && !input.endsWith("mm")) {
-                            const metres = parseFloat(input);
+                        } else if (normalizedInput.endsWith("m") && !normalizedInput.endsWith("mm")) {
+                            const metres = parseFloat(normalizedInput);
                             const totalFeet = metres / 0.3048;
                             const feet = Math.floor(totalFeet);
                             const inches = Math.round((totalFeet - feet) * 12);
                             output = `${metres} m = ${feet} ft ${inches} in`;
-                        } else if (input.endsWith("mm")) {
-                            const millimetres = parseFloat(input);
+                        } else if (normalizedInput.endsWith("mm")) {
+                            const millimetres = parseFloat(normalizedInput);
                             const inches = (millimetres / 25.4).toFixed(2);
                             output = `${millimetres} mm = ${inches} in`;
-                        } else if (input.endsWith("kg")) {
-                            const kg = parseFloat(input);
+                        } else if (normalizedInput.endsWith("kg")) {
+                            const kg = parseFloat(normalizedInput);
                             const pounds = (kg / 0.453592).toFixed(1);
                             const stone = Math.floor(pounds / 14);
                             const remainderPounds = (pounds % 14).toFixed(1);
@@ -121,10 +127,10 @@
                         } else {
                             output = "Invalid input. Please use standard units like 'ft', 'in', 'st', 'lb', 'mi', 'km', 'm', or 'mm'.";
                         }
-
+            
                         result.innerHTML = output;
                     }
-
+            
                     // Add event listener for Enter key
                     document.getElementById('inputValue').addEventListener('keypress', function (e) {
                         if (e.key === 'Enter') {
@@ -132,7 +138,7 @@
                         }
                     });
                 </script>
-
+            
 
 
 
