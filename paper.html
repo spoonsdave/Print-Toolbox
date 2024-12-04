@@ -7,31 +7,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Paper costs</title>
     <link rel="stylesheet" href="styles.css">
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
+<div id="protected-content" style="display: none;">
+
+<script>
+    const password = "p*p%r123"; // Set your desired password
+
+    function unlockPage() {
+        const userInput = prompt("Enter the password:");
+        if (userInput === password) {
+            document.getElementById("protected-content").style.display = "block"; // Show content
+        } else {
+            alert("Incorrect password!");
+            window.location.href = "https://example.com"; // Redirect if password is wrong
+        }
+    }
+
+    // Ask for the password when the page loads
+    window.onload = unlockPage;
+</script>
+
+
 <body>
-
-
     <div class="container">
         <!-- Left Column (Sidebar) -->
         <div class="column left" id="sidebar"></div>
 
         <!-- Middle Column (Main Content) -->
-        <div class="column middle">
-
-
-
-            <body>
-                <h1>PAPER COSTS</h1><br><br>
-
-
-                <br>
-
-
-
+        <div class="middle">
+            <h1>PAPER COSTS</h1>
+            <div id="table-container" style="overflow-x: auto; margin-top: 20px;">
+                <!-- Table will be dynamically added here -->
+            </div>
         </div>
 
         <!-- Right Column (Phone List) -->
@@ -40,21 +49,223 @@
 
 
     <script>
-        // Load sidebar content
-        fetch("sidebar.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("sidebar").innerHTML = data);
+        const supabaseUrl = "https://tjmxlbfhighbfmawzujr.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqbXhsYmZoaWdoYmZtYXd6dWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMxMzkwMjEsImV4cCI6MjA0ODcxNTAyMX0.pVtGxjwb3_xNsJCGK4lONlztBi04dbVwf3BN_ekm9Y4";
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-        // Load phonelist content
-        fetch("phonelist.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("phonelist").innerHTML = data);
+        // Fetch all rows in chunks
+        async function fetchAllData() {
+            let allData = [];
+            let from = 0;
+            const chunkSize = 1000;
+
+            while (true) {
+                const { data, error } = await supabase
+                    .from('Paper')
+                    .select('*')
+                    .range(from, from + chunkSize - 1);
+
+                if (error) {
+                    console.error('Error fetching data:', error);
+                    break;
+                }
+
+                if (data.length === 0) {
+                    // No more data to fetch
+                    break;
+                }
+
+                allData = allData.concat(data);
+                from += chunkSize; // Move to the next chunk
+            }
+
+            return allData;
+        }
+
+        async function fetchData() {
+            const fetchedData = await fetchAllData(); // Get all rows
+            console.log('All fetched data from Supabase:', fetchedData);
+
+            if (!fetchedData.length) {
+                console.error('No data found!');
+                return;
+            }
+
+            let data = fetchedData;
+
+            const table = document.createElement('table');
+            table.classList.add('paper-table');
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Supplier
+                            <input type="text" class="filter-input paper_search" data-column="Supplier" placeholder="Search..." />
+                        </th>
+                        <th>Description
+                            <button class="sort-btn" data-column="Description" data-order="asc">Sort</button>
+                            <input type="text" class="filter-input paper_search" data-column="Description" placeholder="Search..." />
+                        </th>
+                        <th>GSM
+                            <input type="text" class="filter-input paper_search" data-column="Weight" placeholder="Search..." />
+                        </th>
+                        <th>MIC
+                            <input type="text" class="filter-input paper_search" data-column="Microns" placeholder="Search..." />
+                        </th>
+                        <th>Size1
+                            <input type="text" class="filter-input paper_search" data-column="Size 1" placeholder="Search..." />
+                        </th>
+                        <th>Size2
+                            <input type="text" class="filter-input paper_search" data-column="Size 2" placeholder="Search..." />
+                        </th>
+                        <th>Grain
+                            <input type="text" class="filter-input paper_search" data-column="Grain" placeholder="Search..." />
+                        </th>
+                        <th>Packed
+                            <input type="text" class="filter-input paper_search" data-column="Packed" placeholder="Search..." />
+                        </th>
+                        <th>per_1000
+                            <button class="sort-btn" data-column="per_1000" data-order="asc">Sort</button>
+                            <input type="text" class="filter-input paper_search" data-column="per_1000" placeholder="Search..." />
+                        </th>
+                        <th>Code
+                            <input type="text" class="filter-input paper_search" data-column="Supplier Code" placeholder="Search..." />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+
+            const tbody = table.querySelector('tbody');
+
+            const renderRows = (filteredData) => {
+                tbody.innerHTML = '';
+                filteredData.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.Supplier || ''}</td>
+                        <td>${row.Description || ''}</td>
+                        <td>${row.Weight || ''}</td>
+                        <td>${row.Microns || ''}</td>
+                        <td>${row["Size 1"] || ''}</td>
+                        <td>${row["Size 2"] || ''}</td>
+                        <td>${row.Grain || ''}</td>
+                        <td>${row.Packed || ''}</td>
+                        <td>${row["per_1000"] ? row["per_1000"].toFixed(2) : ''}</td>
+                        <td>${row["Supplier Code"] || ''}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            };
+
+
+
+            const addSorting = (data, renderRows) => {
+                const sortButtons = document.querySelectorAll('.sort-btn');
+                sortButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const column = button.getAttribute('data-column');
+                        const order = button.getAttribute('data-order');
+
+                        // Only select rows from the specific paper-table
+                        const currentRows = Array.from(document.querySelectorAll('.paper-table tbody tr')).map(row => {
+                            // Convert row back into data object
+                            const cells = row.querySelectorAll('td');
+                            return {
+                                Supplier: cells[0]?.textContent || '',
+                                Description: cells[1]?.textContent || '',
+                                Weight: parseFloat(cells[2]?.textContent) || '',
+                                Microns: parseFloat(cells[3]?.textContent) || '',
+                                "Size 1": parseFloat(cells[4]?.textContent) || '',
+                                "Size 2": parseFloat(cells[5]?.textContent) || '',
+                                Grain: cells[6]?.textContent || '',
+                                Packed: parseFloat(cells[7]?.textContent) || '',
+                                per_1000: parseFloat(cells[8]?.textContent) || '',
+                                "Supplier Code": cells[9]?.textContent || ''
+                            };
+                        });
+
+                        const sortedData = currentRows.sort((a, b) => {
+                            let valA = a[column] || 0;
+                            let valB = b[column] || 0;
+
+                            if (!isNaN(valA) && !isNaN(valB)) {
+                                valA = parseFloat(valA);
+                                valB = parseFloat(valB);
+                            }
+
+                            if (valA < valB) return order === 'asc' ? -1 : 1;
+                            if (valA > valB) return order === 'asc' ? 1 : -1;
+                            return 0;
+                        });
+
+                        button.setAttribute('data-order', order === 'asc' ? 'desc' : 'asc');
+                        renderRows(sortedData); // Re-render sorted rows
+                    });
+                });
+            };
+
+
+
+
+            const addFiltering = (data, renderRows) => {
+                const filterInputs = document.querySelectorAll('.filter-input');
+                console.log('Filter inputs detected:', filterInputs); // Log detected inputs
+
+                filterInputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        console.log(`Filtering column: ${input.getAttribute('data-column')} with value: ${input.value}`); // Debug log
+                        const filters = {};
+
+                        // Collect filters from all input boxes
+                        filterInputs.forEach(filterInput => {
+                            const column = filterInput.getAttribute('data-column');
+                            const value = filterInput.value.trim().toLowerCase();
+                            if (value) {
+                                filters[column] = value;
+                            }
+                        });
+
+                        console.log('Active filters:', filters); // Debug log
+
+                        // Apply filters to the data
+                        const filteredData = data.filter(row => {
+                            return Object.entries(filters).every(([column, filterValue]) => {
+                                const cellValue = (row[column] || '').toString().toLowerCase();
+                                return cellValue.includes(filterValue);
+                            });
+                        });
+
+                        renderRows(filteredData); // Re-render rows with filtered data
+                    });
+                });
+            };
+
+            // Add the table to the designated table container
+            const tableContainer = document.getElementById('table-container');
+            tableContainer.innerHTML = ''; // Clear any existing content
+            tableContainer.appendChild(table);
+
+            // Call addFiltering AFTER the table is added to the DOM
+            renderRows(data);
+            addSorting(data, renderRows);
+            addFiltering(data, renderRows);
+        }
+
+        fetchData();
     </script>
 
 
 
+    <script>
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
 
-
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
 </body>
+</div>
 
 </html>

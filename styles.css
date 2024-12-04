@@ -26,9 +26,11 @@ Colour Palette:
     width: 100%;
     height: 100%;
     background-color: black;
-    z-index: 9999; /* Ensure it covers everything */
+    z-index: 9999;
+    /* Ensure it covers everything */
     animation: fadeOutOverlay 1.1s ease-in-out forwards;
-    pointer-events: none; /* Prevent blocking interaction */
+    pointer-events: none;
+    /* Prevent blocking interaction */
 }
 
 @keyframes fadeOutOverlay {
@@ -36,14 +38,17 @@ Colour Palette:
         opacity: 1;
         background-color: black;
     }
+
     50% {
         opacity: 1;
         background-color: white;
     }
+
     75% {
         opacity: 1;
         background-color: white;
     }
+
     100% {
         opacity: 0;
         background-color: transparent;
@@ -185,10 +190,14 @@ Colour Palette:
     color: black;
     font-size: 13px;
     line-height: 175%;
-    white-space: nowrap; /* Prevents wrapping */
-    overflow: hidden; /* Ensures text stays within the box */
-    text-overflow: ellipsis; /* Adds an ellipsis if the text overflows (optional) */
-    display: inline-block; /* Ensures the above rules apply correctly */
+    white-space: nowrap;
+    /* Prevents wrapping */
+    overflow: hidden;
+    /* Ensures text stays within the box */
+    text-overflow: ellipsis;
+    /* Adds an ellipsis if the text overflows (optional) */
+    display: inline-block;
+    /* Ensures the above rules apply correctly */
 }
 
 .sidebar a:link {
@@ -207,43 +216,57 @@ Colour Palette:
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  @keyframes logo-pulse {
+}
+
+@keyframes logo-pulse {
     0% {
-      filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5)); /* Start with dark blue */
+        filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5));
+        /* Start with dark blue */
     }
+
     50% {
-      filter: drop-shadow(5px 5px 20px rgba(0, 0, 139, 0.8)); /* Slightly brighter and larger */
+        filter: drop-shadow(5px 5px 20px rgba(0, 0, 139, 0.8));
+        /* Slightly brighter and larger */
     }
+
     100% {
-      filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5)); /* Return to the original */
+        filter: drop-shadow(5px 5px 10px rgba(0, 0, 139, 0.5));
+        /* Return to the original */
     }
-  }
-  
-  @keyframes logo-hover-pulse {
+}
+
+@keyframes logo-hover-pulse {
     0% {
-      filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Start with red */
+        filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7));
+        /* Start with red */
     }
+
     50% {
-      filter: drop-shadow(5px 5px 20px rgba(192, 57, 43, 1)); /* Brighter and larger red shadow */
+        filter: drop-shadow(5px 5px 20px rgba(192, 57, 43, 1));
+        /* Brighter and larger red shadow */
     }
+
     100% {
-      filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7)); /* Return to the original */
+        filter: drop-shadow(5px 5px 10px rgba(192, 57, 43, 0.7));
+        /* Return to the original */
     }
-  }
-  
-  .logo {
-    width: 100%; /* Scales the image to fit the container */
+}
+
+.logo {
+    width: 100%;
+    /* Scales the image to fit the container */
     height: auto;
-    animation: logo-pulse 1.75s infinite; /* Add the pulsing effect */
-    transition: animation 0.3s ease; /* Smooth transition between animations */
-  }
-  
-  .logo:hover {
-    animation: logo-hover-pulse 1.75s infinite; /* Change to the red pulse on hover */
-  }
-    
+    animation: logo-pulse 1.75s infinite;
+    /* Add the pulsing effect */
+    transition: animation 0.3s ease;
+    /* Smooth transition between animations */
+}
+
+.logo:hover {
+    animation: logo-hover-pulse 1.75s infinite;
+    /* Change to the red pulse on hover */
+}
+
 
 /* ---------------------------------------------- */
 
@@ -252,7 +275,8 @@ Colour Palette:
 
 .phone h2 {
     text-align: center;
-    white-space: nowrap; /* Prevents wrapping */
+    white-space: nowrap;
+    /* Prevents wrapping */
     line-height: 300%;
     font-size: 20px;
     /* Adjust as needed */
@@ -272,7 +296,8 @@ Colour Palette:
     font-size: 13px;
     color: black;
     border-spacing: 50px 0px;
-    white-space: nowrap; /* Prevents wrapping */
+    white-space: nowrap;
+    /* Prevents wrapping */
 }
 
 /* ---------------------------------------------- */
@@ -284,8 +309,10 @@ Colour Palette:
 
 #month-year {
     font-size: 15px;
-    margin: 0 17px;  /* Adjust this value for spacing around month & year */
-    white-space: nowrap; /* Prevents wrapping */
+    margin: 0 17px;
+    /* Adjust this value for spacing around month & year */
+    white-space: nowrap;
+    /* Prevents wrapping */
 }
 
 /* Nested columns within right column */
@@ -335,20 +362,24 @@ Colour Palette:
 
 @keyframes shadow-pulse {
     0% {
-      box-shadow: 0 0 0 0px rgba(192, 57, 43, 0.5);
+        box-shadow: 0 0 0 0px rgba(192, 57, 43, 0.5);
     }
+
     100% {
-      box-shadow: 0 0 0 5px rgba(192, 57, 43, 0);
+        box-shadow: 0 0 0 5px rgba(192, 57, 43, 0);
     }
-  }
-  
-  .pulse-shadow {
-    border-radius: 50%; /* Make it round */
+}
+
+.pulse-shadow {
+    border-radius: 50%;
+    /* Make it round */
     animation: shadow-pulse 1.5s infinite;
-    text-align: center; /* Center horizontally */
-    vertical-align: middle; /* Center vertically */
-    }
-  
+    text-align: center;
+    /* Center horizontally */
+    vertical-align: middle;
+    /* Center vertically */
+}
+
 
 
 
@@ -385,8 +416,10 @@ h1 {
     text-shadow: 1px 1px 5px rgba(30, 58, 95, 0.3);
     white-space: nowrap;
     display: inline-block;
-    transform: scaleX(calc(100% / max-content)); /* Shrink to fit */
-    transform-origin: left; /* Keep left-aligned */
+    transform: scaleX(calc(100% / max-content));
+    /* Shrink to fit */
+    transform-origin: left;
+    /* Keep left-aligned */
 }
 
 h2 {
@@ -471,18 +504,27 @@ form label {
 
 
 .column.middleR {
-    position: relative; /* Establishes this container as the positioning context */
+    position: relative;
+    /* Establishes this container as the positioning context */
 }
 
 .weather-widget-fixed {
-    position: absolute; /* Positions it relative to the container */
-    bottom: 0; /* Sticks to the bottom of the container */
-    left: 0; /* Aligns to the left edge */
-    width: 100%; /* Fills the width of the container */
-    z-index: 10; /* Ensures it stays above other elements in the container */
-    background-color: rgba(255, 255, 255, 0.9); /* Optional: Adds a semi-transparent background */
-    padding: 10px 0; /* Optional: Adds vertical spacing */
-    text-align: center; /* Centers the content */
+    position: absolute;
+    /* Positions it relative to the container */
+    bottom: 0;
+    /* Sticks to the bottom of the container */
+    left: 0;
+    /* Aligns to the left edge */
+    width: 100%;
+    /* Fills the width of the container */
+    z-index: 10;
+    /* Ensures it stays above other elements in the container */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Optional: Adds a semi-transparent background */
+    padding: 10px 0;
+    /* Optional: Adds vertical spacing */
+    text-align: center;
+    /* Centers the content */
 }
 
 
@@ -490,7 +532,8 @@ form label {
 
 
 /* Notebook Styles */
-.notebook-textarea, .notebook-search {
+.notebook-textarea,
+.notebook-search {
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
@@ -536,7 +579,8 @@ form label {
 }
 
 /* Notebook Button Styles */
-.notebook-button, .notebook-button-small {
+.notebook-button,
+.notebook-button-small {
     background-color: #052c4f;
     color: white;
     padding: 10px;
@@ -546,21 +590,25 @@ form label {
     box-shadow: 0px 0px 3px 0px #021a33;
 }
 
-.notebook-button:hover, .notebook-button-small:hover {
+.notebook-button:hover,
+.notebook-button-small:hover {
     background-color: #c0392b;
     box-shadow: 0px 0px 3px 0px #c0392b;
 }
 
 /* Default compact style */
 .notebook-textarea-small {
-    height: 50px; /* Compact preview size */
+    height: 50px;
+    /* Compact preview size */
     overflow: hidden;
 }
 
 /* Expanded style */
 .notebook-textarea-large {
-    height: auto; /* Expands to fit content */
-    min-height: 150px; /* Ensure it grows sufficiently */
+    height: auto;
+    /* Expands to fit content */
+    min-height: 150px;
+    /* Ensure it grows sufficiently */
     overflow: auto;
     border: 1px solid #007BFF;
     background: #fff;
@@ -568,11 +616,16 @@ form label {
 
 /* Scrollable Notebook Container */
 .notebook-container {
-    max-height: 70vh; /* Adjust height as needed */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding-right: 10px; /* Optional: space for scrollbar */
-    scrollbar-width: thin; /* Firefox scrollbar styling */
-    scrollbar-color: #052c4f #f1f1f1; /* Firefox colors */
+    max-height: 70vh;
+    /* Adjust height as needed */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    padding-right: 10px;
+    /* Optional: space for scrollbar */
+    scrollbar-width: thin;
+    /* Firefox scrollbar styling */
+    scrollbar-color: #052c4f #f1f1f1;
+    /* Firefox colors */
 }
 
 /* WebKit Scrollbar Styling */
@@ -595,18 +648,24 @@ form label {
 
 /* Default compact text size for previews */
 .notebook-textarea-small {
-    height: 50px; /* Compact size */
+    height: 50px;
+    /* Compact size */
     overflow: hidden;
-    font-size: 11px; /* Smaller font for previews */
-    transition: font-size 0.2s, height 0.2s; /* Smooth transition */
+    font-size: 11px;
+    /* Smaller font for previews */
+    transition: font-size 0.2s, height 0.2s;
+    /* Smooth transition */
 }
 
 /* Expanded mode text size and height */
 .notebook-textarea-large {
-    height: auto; /* Fit content */
-    min-height: 150px; /* Ensure sufficient size */
+    height: auto;
+    /* Fit content */
+    min-height: 150px;
+    /* Ensure sufficient size */
     overflow: auto;
-    font-size: 14px; /* Larger font for editing */
+    font-size: 14px;
+    /* Larger font for editing */
     border: 1px solid #007BFF;
     background: #fff;
     font-weight: 560;
@@ -622,6 +681,76 @@ form label {
 }
 
 /* Show buttons in expanded mode */
-.notebook-textarea-large + .notebook-actions {
+.notebook-textarea-large+.notebook-actions {
     display: flex;
 }
+
+
+/* ---------------------------------------------- */
+
+
+/* PAPER COSTS Styles */
+
+
+.middle {
+    overflow: hidden;
+}
+
+#controls {
+    margin-bottom: 20px;
+}
+
+#table-container {
+    width: 99%;
+    max-height: 750px;
+    /* Set the maximum height of the container */
+    overflow-y: auto;
+    /* Enable vertical scrolling if the content overflows */
+    overflow-x: auto;
+    /* Ensure horizontal scrolling for wide tables */
+    background-color: #fff;
+    /* Optional: Set a background color */
+}
+
+.paper-table {
+    width: 99%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 12px;
+    text-align: left;
+}
+
+.paper-table th,
+.paper-table td {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+.paper-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.paper-table tr:hover {
+    background-color: #f9f9f9;
+    /* Optional: Highlight rows on hover */
+}
+
+.paper_search {
+    width: 98%; /* Adjust the width */
+    padding: 2px; /* Adjust padding */
+    font-size: 12px; /* Adjust font size */
+    margin: 2px 0; /* Add some margin for spacing */
+}
+
+.sort-btn {
+    background-color: #052c4f;
+    color: white;
+    padding: 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5px;
+    box-shadow: 0px 0px 3px 0px #021a33;
+    font-size: 10px; /* Adjust font size */
+}
+
