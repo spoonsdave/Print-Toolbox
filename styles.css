@@ -189,7 +189,7 @@ Colour Palette:
 .sidebar a {
     color: black;
     font-size: 13px;
-    line-height: 175%;
+    line-height: 165%;
     white-space: nowrap;
     /* Prevents wrapping */
     overflow: hidden;
@@ -702,20 +702,17 @@ form label {
 
 #table-container {
     width: 99%;
-    max-height: 750px;
-    /* Set the maximum height of the container */
-    overflow-y: auto;
-    /* Enable vertical scrolling if the content overflows */
-    overflow-x: auto;
-    /* Ensure horizontal scrolling for wide tables */
-    background-color: #fff;
-    /* Optional: Set a background color */
+    height: calc(100vh - 110px); /* Adjust '50px' to the height of any header, margin, or padding */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds container */
+    overflow-x: auto; /* Ensure horizontal scrolling for wide tables */
+    background-color: #fff; /* Optional: Set a background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border to define the area */
 }
 
 .paper-table {
     width: 99%;
     border-collapse: collapse;
-    margin: 20px 0;
     font-size: 12px;
     text-align: left;
 }
@@ -746,11 +743,24 @@ form label {
 .sort-btn {
     background-color: #052c4f;
     color: white;
-    padding: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
     border: none;
     cursor: pointer;
     border-radius: 0.5px;
     box-shadow: 0px 0px 3px 0px #021a33;
     font-size: 10px; /* Adjust font size */
+}
+
+.paper-table {
+    width: 100%; /* Ensures the table takes the full width of its container */
+    border-collapse: collapse; /* Optional for styling */
+}
+
+.paper-table th {
+    text-align: left; /* Align text to the left */
+    padding: 8px; /* Optional for spacing */
 }
 
