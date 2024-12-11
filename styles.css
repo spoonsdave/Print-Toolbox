@@ -189,7 +189,7 @@ Colour Palette:
 .sidebar a {
     color: black;
     font-size: 13px;
-    line-height: 165%;
+    line-height: 155%;
     white-space: nowrap;
     /* Prevents wrapping */
     overflow: hidden;
@@ -763,4 +763,3 @@ form label {
     text-align: left; /* Align text to the left */
     padding: 8px; /* Optional for spacing */
 }
-
