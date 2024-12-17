@@ -724,7 +724,7 @@ form label {
 .paper-table th,
 .paper-table td {
     border: 1px solid #ddd;
-    padding: 4px;
+    padding: 2px;
 }
 
 .paper-table th {
@@ -758,7 +758,7 @@ form label {
 
 /* Column Widths */
 .paper-table th:nth-child(1) { width: 6%; }
-.paper-table th:nth-child(2) { width: 18%; }
+.paper-table th:nth-child(2) { width: 20%; }
 .paper-table th:nth-child(3) { width: 8%; }
 .paper-table th:nth-child(4) { width: 6%; }
 .paper-table th:nth-child(5) { width: 6%; }
