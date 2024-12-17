@@ -694,6 +694,8 @@ form label {
 /* PAPER COSTS Styles */
 
 
+/* PAPER COSTS Styles */
+
 .middle {
     overflow: hidden;
 }
@@ -704,16 +706,16 @@ form label {
 
 #table-container {
     width: 99%;
-    height: calc(100vh - 110px); /* Adjust '50px' to the height of any header, margin, or padding */
-    overflow-y: auto; /* Enable vertical scrolling if content exceeds container */
-    overflow-x: auto; /* Ensure horizontal scrolling for wide tables */
-    background-color: #fff; /* Optional: Set a background color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for aesthetics */
-    border: 1px solid #ccc; /* Optional: Add a border to define the area */
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
 }
 
 .paper-table {
-    width: 99%;
+    width: 100%;
     border-collapse: collapse;
     font-size: 12px;
     text-align: left;
@@ -728,40 +730,40 @@ form label {
 .paper-table th {
     background-color: #f4f4f4;
     font-weight: bold;
+    text-align: left;
+    padding: 8px;
 }
 
 .paper-table tr:hover {
-    background-color: #f9f9f9;
-    /* Optional: Highlight rows on hover */
+    background-color: #f9f9f9; /* Highlight rows on hover */
 }
 
 .paper_search {
-    width: 98%; /* Adjust the width */
-    padding: 2px; /* Adjust padding */
-    font-size: 12px; /* Adjust font size */
-    margin: 2px 0; /* Add some margin for spacing */
+    width: 90%;
+    padding: 2px;
+    font-size: 10px;
+    margin: 2px 0;
 }
 
 .sort-btn {
     background-color: #052c4f;
     color: white;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 4px 12px;
     border: none;
     cursor: pointer;
-    border-radius: 0.5px;
+    border-radius: 2px;
     box-shadow: 0px 0px 3px 0px #021a33;
-    font-size: 10px; /* Adjust font size */
+    font-size: 10px;
 }
 
-.paper-table {
-    width: 100%; /* Ensures the table takes the full width of its container */
-    border-collapse: collapse; /* Optional for styling */
-}
-
-.paper-table th {
-    text-align: left; /* Align text to the left */
-    padding: 8px; /* Optional for spacing */
-}
+/* Column Widths */
+.paper-table th:nth-child(1) { width: 6%; }
+.paper-table th:nth-child(2) { width: 18%; }
+.paper-table th:nth-child(3) { width: 8%; }
+.paper-table th:nth-child(4) { width: 6%; }
+.paper-table th:nth-child(5) { width: 6%; }
+.paper-table th:nth-child(6) { width: 6%; }
+.paper-table th:nth-child(7) { width: 6%; }
+.paper-table th:nth-child(8) { width: 6%; }
+.paper-table th:nth-child(9) { width: 8%; }
+.paper-table th:nth-child(10) { width: 12%; }
