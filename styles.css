@@ -135,7 +135,7 @@ Colour Palette:
 
 
 .sidebar {
-    text-align: center;
+    text-align: left;
 }
 
 .sidebar h1 {
@@ -187,9 +187,10 @@ Colour Palette:
 }
 
 .sidebar a {
+    padding-left: 20px;
     color: black;
     font-size: 13px;
-    line-height: 155%;
+    line-height: 175%;
     white-space: nowrap;
     /* Prevents wrapping */
     overflow: hidden;
