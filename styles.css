@@ -311,7 +311,7 @@ Colour Palette:
 
 /* Nested columns within right column */
 .hrightTop {
-    height: 70%;
+    height: 68%;
 }
 
 /* Parent container for centering */
@@ -319,7 +319,7 @@ Colour Palette:
     display: flex;
     justify-content: center; /* Horizontally center */
     align-items: bottom; /* Vertically center */
-    height: 30%; /* Maintain the container's height */
+    height: 32%; /* Maintain the container's height */
     margin: 0; /* Ensure no additional margins */
     padding: 0;
     box-sizing: border-box; /* Prevent padding/margins from affecting alignment */
