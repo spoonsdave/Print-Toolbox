@@ -88,6 +88,7 @@ Colour Palette:
     padding-left: 30px;
     margin-top: 0px;
     width: 64%;
+    max-height: 97%;
 }
 
 .right {
@@ -668,7 +669,7 @@ form label {
 
 /* Scrollable Notebook Container */
 .notebook-container {
-    max-height: 70vh;
+    max-height: 67vh;
     /* Adjust height as needed */
     overflow-y: auto;
     /* Enable vertical scrolling */
