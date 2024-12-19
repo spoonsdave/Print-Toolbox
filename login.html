@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-init.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+
+        <h1>LOGIN TO DAVE'S PRINT TOOLBOX</h1>
+        <br>
+        <div class="login-box">
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <br>
+                <button type="submit">LOGIN</button>
+            </form>
+            <div id="error-message" style="color: red;"></div>
+        </div>
+    
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background-color: #f8f9fa;
+                font-family: Arial, sans-serif;
+            }
+    
+            h1 {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+    
+            .login-box {
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background: #fff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+    
+            form {
+                display: flex;
+                flex-direction: column;
+            }
+    
+            label, input, button {
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+    
+      
+    
+            #error-message {
+                margin-top: 10px;
+            }
+        </style>
+    
+
+
+
+
+
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                errorMessage.textContent = error.message;
+            } else {
+                // Redirect to the home page upon successful login
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

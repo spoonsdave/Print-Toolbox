@@ -191,7 +191,7 @@ Colour Palette:
     color: #36454F;
     font-weight: Semi-bold;
     font-size: 13px;
-    line-height: 175%;
+    line-height: 165%;
     white-space: nowrap;
     /* Prevents wrapping */
     overflow: hidden;
@@ -255,7 +255,7 @@ Colour Palette:
 }
 
 .logo {
-    width: 100%;
+    width: 90%;
     /* Scales the image to fit the container */
     height: auto;
     animation: logo-pulse 1.75s infinite;
