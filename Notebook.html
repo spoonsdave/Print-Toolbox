@@ -48,7 +48,36 @@
         const searchBox = document.getElementById('searchBox');
         const blocksContainer = document.getElementById('blocksContainer');
 
-        let blocks = JSON.parse(localStorage.getItem('notebookBlocks')) || [];
+
+
+        let blocks = [];
+
+        async function loadBlocks() {
+            const { data, error } = await supabase
+                .from('notebooks')
+                .select('content')
+                .eq('user_id', (await supabase.auth.getUser()).data.user.id)
+                .single(); // Fetch only the current user's notebook
+
+            if (error) {
+                console.error('Error loading notebook:', error.message);
+                blocks = [];
+                return;
+            }
+
+            try {
+                blocks = data.content ? JSON.parse(data.content) : [];
+                console.log('Loaded blocks from database:', blocks);
+                renderBlocks();
+            } catch (parseError) {
+                console.error('Error parsing notebook content:', parseError);
+                blocks = [];
+            }
+        }
+
+        // Call the function after ensuring the user is authenticated
+        loadBlocks();
+
 
 
 
@@ -157,12 +186,24 @@
 
 
 
-        function saveBlocks() {
-            try {
-                localStorage.setItem('notebookBlocks', JSON.stringify(blocks));
-                console.log('Blocks saved to localStorage:', blocks);
-            } catch (err) {
-                console.error('Error saving blocks to localStorage:', err);
+        async function saveBlocks() {
+            const user = (await supabase.auth.getUser()).data.user;
+
+            // Convert blocks array to a JSON string
+            const content = JSON.stringify(blocks);
+
+            // Upsert the content into the database
+            const { error } = await supabase
+                .from('notebooks')
+                .upsert(
+                    { user_id: user.id, content: content }, // Match by user_id
+                    { onConflict: 'user_id' } // Prevent duplicate rows
+                );
+
+            if (error) {
+                console.error('Error saving notebook:', error.message);
+            } else {
+                console.log('Notebook saved successfully!');
             }
         }
 
@@ -173,10 +214,10 @@
             if (text) {
                 const newBlock = {
                     id: Date.now(), // Unique ID
-                    text: text
+                    text: text,
                 };
                 blocks.push(newBlock); // Add the new block to the array
-                saveBlocks(); // Save to localStorage
+                saveBlocks(); // Save to the database
                 console.log('Blocks after addition:', blocks); // Debug log
 
                 renderBlocks(); // Re-render blocks
