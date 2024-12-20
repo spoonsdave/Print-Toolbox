@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-init.js"></script>
+    <script src="auth-check.js"></script>
+
+    <title>Tasks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main NOTEBOOK Content) -->
+        <div class="column middle">
+            <h1>TASKS</h1>
+
+
+            <div class="todo-container">
+                <div class="todo-left-column">
+                    <h2>LISTS</h2>
+                    <ul id="todo-lists-container"></ul>
+                    <input type="text" id="todo-new-list-name" placeholder="New list name" />
+                    <button id="todo-add-list-btn">ADD LIST</button>
+                </div>
+                <div class="todo-right-column">
+                    <h2 id="todo-selected-list-name">TASKS</h2>
+                    <ul id="todo-tasks-container"></ul>
+                    <input type="text" id="todo-new-task-name" placeholder="New task name" />
+                    <button id="todo-add-task-btn" disabled>ADD TASK</button>
+                </div>
+            </div>
+
+
+
+            <script>
+
+                const listsContainer = document.getElementById("todo-lists-container");
+                const newListInput = document.getElementById("todo-new-list-name");
+                const addListBtn = document.getElementById("todo-add-list-btn");
+                let selectedListId = null;
+
+                async function loadLists() {
+                    const { data: lists, error } = await supabase
+                        .from("lists")
+                        .select("*")
+                        .eq("user_id", user.id);
+
+                    if (error) {
+                        console.error("Error loading lists:", error);
+                        return;
+                    }
+
+                    listsContainer.innerHTML = "";
+                    lists.forEach((list) => {
+                        const li = document.createElement("li");
+                        li.textContent = list.name;
+                        li.dataset.listId = list.id;
+                        li.addEventListener("click", () => selectList(list.id, list.name));
+                        listsContainer.appendChild(li);
+                    });
+                }
+
+                async function addList() {
+                    const listName = newListInput.value.trim();
+                    if (!listName) return;
+
+                    const { data, error } = await supabase
+                        .from("lists")
+                        .insert([{ name: listName, user_id: user.id }]);
+
+                    if (error) {
+                        console.error("Error adding list:", error);
+                        return;
+                    }
+
+                    newListInput.value = "";
+                    loadLists();
+                }
+
+                function selectList(listId, listName) {
+                    selectedListId = listId;
+                    document.getElementById("todo-selected-list-name").textContent = listName;
+                    loadTasks(listId);
+
+                    // Highlight selected list
+                    document.querySelectorAll("#todo-lists-container li").forEach((li) => {
+                        li.classList.toggle("active", li.dataset.listId == listId);
+                    });
+
+                    // Enable the "Add Task" button
+                    document.getElementById("todo-add-task-btn").disabled = false;
+                }
+
+                addListBtn.addEventListener("click", addList);
+
+                // Load lists on page load
+                loadLists();
+
+
+
+
+
+
+                const tasksContainer = document.getElementById("todo-tasks-container");
+                const newTaskInput = document.getElementById("todo-new-task-name");
+                const addTaskBtn = document.getElementById("todo-add-task-btn");
+
+                async function loadTasks(listId) {
+                    const { data: tasks, error } = await supabase
+                        .from("tasks")
+                        .select("*")
+                        .eq("list_id", listId);
+
+                    if (error) {
+                        console.error("Error loading tasks:", error);
+                        return;
+                    }
+
+                    tasksContainer.innerHTML = "";
+                    tasks.forEach((task) => {
+                        const li = document.createElement("li");
+                        li.textContent = task.description;
+
+                        // Complete Task Button
+                        const completeBtn = document.createElement("button");
+                        completeBtn.textContent = "Complete";
+                        completeBtn.addEventListener("click", () => deleteTask(task.id));
+                        li.appendChild(completeBtn);
+
+                        tasksContainer.appendChild(li);
+                    });
+                }
+
+                async function addTask() {
+                    const taskDescription = newTaskInput.value.trim();
+                    if (!taskDescription || !selectedListId) return;
+
+                    const { data, error } = await supabase
+                        .from("tasks")
+                        .insert([{ description: taskDescription, list_id: selectedListId }]);
+
+                    if (error) {
+                        console.error("Error adding task:", error);
+                        return;
+                    }
+
+                    newTaskInput.value = "";
+                    loadTasks(selectedListId);
+                }
+
+                async function deleteTask(taskId) {
+                    const { error } = await supabase.from("tasks").delete().eq("id", taskId);
+
+                    if (error) {
+                        console.error("Error deleting task:", error);
+                        return;
+                    }
+
+                    loadTasks(selectedListId);
+                }
+
+                addTaskBtn.addEventListener("click", addTask);
+
+
+
+
+            </script>
+
+
+
+
+        </div>
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+    </div>
+
+
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+</body>
+
+</html>
