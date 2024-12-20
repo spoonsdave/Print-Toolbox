@@ -23,6 +23,7 @@
         <!-- Middle Column (Main Content) -->
         <div class="middle">
             <h1>PAPER COSTS</h1>
+
             <div id="table-container" style="overflow-x: auto; margin-top: 20px;">
                 <!-- Table will be dynamically added here -->
             </div>
@@ -32,25 +33,45 @@
         <div class="column right" id="phonelist"></div>
     </div>
 
-
     <script>
+
         let allData = []; // Cache for all data
         let searchTimeout; // Timeout for debounce
 
         // Fetch all data from Supabase
-        async function fetchData() {
-            const { data, error } = await supabase
-                .from('Paper') // Ensure the table name matches your Supabase database
-                .select('*');
+        async function fetchAllRows() {
+            let allRows = [];
+            let from = 0;
+            const batchSize = 1000; // Maximum rows fetched per batch
+            let totalCount = null;
 
-            if (error) {
-                console.error('Error fetching data:', error);
-                return;
+            console.log("Fetching rows in batches...");
+
+            while (totalCount === null || from < totalCount) {
+                const { data, count, error } = await supabase
+                    .from('Paper')
+                    .select('*', { count: 'exact' }) // Fetch rows and get the exact count
+                    .range(from, from + batchSize - 1); // Fetch rows in range
+
+                if (error) {
+                    console.error('Error fetching batch:', error);
+                    return;
+                }
+
+                if (data) {
+                    allRows = [...allRows, ...data]; // Append fetched rows
+                }
+
+                totalCount = count; // Set total count from the first response
+                from += batchSize; // Move to the next batch
             }
-            console.log("Fetched data:", data); // Verify if data is being fetched
 
-            allData = data; // Cache the data
-            renderTable(allData); // Render the full table initially
+            console.log("Fetched rows:", allRows.length);
+            console.log("Total rows in table:", totalCount);
+
+            allData = allRows; // Cache all rows
+            renderTable(allData); // Display all rows
+
             setupSearch(); // Attach search functionality
         }
 
@@ -64,17 +85,17 @@
             data.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${row.Supplier || ''}</td>
-                    <td>${row.Description || ''}</td>
-                    <td>${row.Weight || ''}</td>
-                    <td>${row.Microns || ''}</td>
-                    <td>${row["Size 1"] || ''}</td>
-                    <td>${row["Size 2"] || ''}</td>
-                    <td>${row.Grain || ''}</td>
-                    <td>${row.Packed || ''}</td>
-                    <td>${row["per_1000"] ? row["per_1000"].toFixed(2) : ''}</td>
-                    <td>${row["Supplier Code"] || ''}</td>
-                `;
+            <td>${row.Supplier || ''}</td>
+            <td>${row.Description || ''}</td>
+            <td>${row.Weight || ''}</td>
+            <td>${row.Microns || ''}</td>
+            <td>${row["Size 1"] || ''}</td>
+            <td>${row["Size 2"] || ''}</td>
+            <td>${row.Grain || ''}</td>
+            <td>${row.Packed || ''}</td>
+            <td>${row["per_1000"] ? row["per_1000"].toFixed(2) : ''}</td>
+            <td>${row["Supplier Code"] || ''}</td>
+        `;
                 tbody.appendChild(tr);
             });
         }
@@ -114,50 +135,51 @@
         }
 
         // Initial table creation with headers
+
         function createTable() {
             const tableContainer = document.getElementById('table-container');
             tableContainer.innerHTML = `
-                <table class="paper-table">
-                    <thead>
-                        <tr>
-                            <th>Supplier
-                                <input type="text" class="filter-input paper_search" data-column="Supplier" placeholder="Search..." />
-                            </th>
-                            <th>Description
-                                <button class="sort-btn" data-column="Description" data-order="asc">Sort</button>
-                                <input type="text" class="filter-input paper_search" data-column="Description" placeholder="Search..." />
-                            </th>
-                            <th>GSM
-                                <button class="sort-btn" data-column="Weight" data-order="asc">Sort</button>
-                                <input type="text" class="filter-input paper_search" data-column="Weight" placeholder="Search..." />
-                            </th>
-                            <th>MIC
-                                <input type="text" class="filter-input paper_search" data-column="Microns" placeholder="Search..." />
-                            </th>
-                            <th>Size 1
-                                <input type="text" class="filter-input paper_search" data-column="Size 1" placeholder="Search..." />
-                            </th>
-                            <th>Size 2
-                                <input type="text" class="filter-input paper_search" data-column="Size 2" placeholder="Search..." />
-                            </th>
-                            <th>Grain
-                                <input type="text" class="filter-input paper_search" data-column="Grain" placeholder="Search..." />
-                            </th>
-                            <th>Packed
-                                <input type="text" class="filter-input paper_search" data-column="Packed" placeholder="Search..." />
-                            </th>
-                            <th>per_1000
-                                <button class="sort-btn" data-column="per_1000" data-order="asc">Sort</button>
-                                <input type="text" class="filter-input paper_search" data-column="per_1000" placeholder="Search..." />
-                            </th>
-                            <th>Code
-                                <input type="text" class="filter-input paper_search" data-column="Supplier Code" placeholder="Search..." />
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            `;
+        <table class="paper-table">
+            <thead>
+                <tr>
+                    <th>Supplier
+                        <input type="text" class="filter-input paper_search" data-column="Supplier" placeholder="Search..." />
+                    </th>
+                    <th>Description
+                        <button class="sort-btn" data-column="Description" data-order="asc">Sort</button>
+                        <input type="text" class="filter-input paper_search" data-column="Description" placeholder="Search..." />
+                    </th>
+                    <th>GSM
+                        <button class="sort-btn" data-column="Weight" data-order="asc">Sort</button>
+                        <input type="text" class="filter-input paper_search" data-column="Weight" placeholder="Search..." />
+                    </th>
+                    <th>MIC
+                        <input type="text" class="filter-input paper_search" data-column="Microns" placeholder="Search..." />
+                    </th>
+                    <th>Size 1
+                        <input type="text" class="filter-input paper_search" data-column="Size 1" placeholder="Search..." />
+                    </th>
+                    <th>Size 2
+                        <input type="text" class="filter-input paper_search" data-column="Size 2" placeholder="Search..." />
+                    </th>
+                    <th>Grain
+                        <input type="text" class="filter-input paper_search" data-column="Grain" placeholder="Search..." />
+                    </th>
+                    <th>Packed
+                        <input type="text" class="filter-input paper_search" data-column="Packed" placeholder="Search..." />
+                    </th>
+                    <th>per_1000
+                        <button class="sort-btn" data-column="per_1000" data-order="asc">Sort</button>
+                        <input type="text" class="filter-input paper_search" data-column="per_1000" placeholder="Search..." />
+                    </th>
+                    <th>Code
+                        <input type="text" class="filter-input paper_search" data-column="Supplier Code" placeholder="Search..." />
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    `;
             setupSearch(); // Attach search functionality
             setupSorting(); // Attach sorting functionality
         }
@@ -209,25 +231,14 @@
             });
         }
 
+
         createTable(); // Create the table structure
-        fetchData(); // Fetch and display data
+        fetchAllRows(); // Fetch all rows in batches
+
+
+
+
     </script>
-
-
-
-
-
-    <script>
-        fetch("sidebar.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("sidebar").innerHTML = data);
-
-        fetch("phonelist.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("phonelist").innerHTML = data);
-    </script>
-
-
 
     <script>
         fetch("sidebar.html")
@@ -239,6 +250,5 @@
             .then(data => document.getElementById("phonelist").innerHTML = data);
     </script>
 </body>
-</div>
 
 </html>
