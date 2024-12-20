@@ -11,7 +11,6 @@
 
     <title>Paper costs (specials)</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
@@ -32,9 +31,6 @@
     </div>
 
     <script>
-        const supabaseUrl = "https://tjmxlbfhighbfmawzujr.supabase.co";
-        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqbXhsYmZoaWdoYmZtYXd6dWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMxMzkwMjEsImV4cCI6MjA0ODcxNTAyMX0.pVtGxjwb3_xNsJCGK4lONlztBi04dbVwf3BN_ekm9Y4";
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         let allData = []; // Cache for all data
         let searchTimeout; // Timeout for debounce
