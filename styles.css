@@ -192,7 +192,7 @@ Colour Palette:
     color: #36454F;
     font-weight: Semi-bold;
     font-size: 13px;
-    line-height: 165%;
+    line-height: 160%;
     white-space: nowrap;
     /* Prevents wrapping */
     overflow: hidden;
@@ -900,28 +900,173 @@ form label {
 /* TASKS */
 
 
-
-
-.todo-container {
+/* Container styling for the To-Do List */
+.task_container {
     display: flex;
     gap: 20px;
+    height: calc(90vh - 20px); /* Account for padding */
+    overflow: hidden; /* Prevent scrolling for the entire container */
+    box-sizing: border-box;
 }
 
-.todo-left-column,
-.todo-right-column {
-    width: 50%;
+/* Left, middle, and right columns */
+.task_left_column,
+.task_middle_column,
+.task_right_column {
+    width: 30%;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
+    height: 100%; /* Ensure columns stretch to fit the container */
 }
 
-.todo-left-column ul,
-.todo-right-column ul {
+/* Lists styling */
+.task_list ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.todo-left-column ul li {
+.task_list ul li {
+    position: relative; /* To position the buttons absolutely */
+    padding: 10px 40px 10px 10px; /* Add space for buttons on the right */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between; /* Spread content and buttons */
+    align-items: center; /* Center align vertically */
+    transition: all 0.2s ease-in-out;
 }
 
-.todo-left-column ul li.active {
-    font-weight: bold;
+/* Hover effect for list items */
+.task_list ul li:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
 }
+
+/* Highlight active list item */
+.task_list ul li.task_active {
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Task container inputs */
+.task_input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical; /* Allow resizing vertically */
+    min-height: 50px; /* Minimum height for multiple lines */
+}
+
+/* Task buttons */
+.task_button {
+    padding: 4px;
+    margin-left: 5px;
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.2s ease-in-out;
+}
+
+.task_button:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* Different colors for specific actions */
+.task_complete_button i {
+    color: #28a745; /* Green for complete */
+}
+
+.task_important_button i {
+    color: #ffc107; /* Yellow for important */
+}
+
+.task_delete_button i {
+    color: #dc3545; /* Red for delete */
+}
+
+/* Complete Button Styling */
+.task_complete_button i {
+    color: #28a745; /* Green for complete */
+}
+
+.task_complete_button:hover i {
+    color: #218838; /* Darker green on hover */
+}
+
+
+
+/* Icon alignment */
+.task_button i {
+    pointer-events: none; /* Prevent click events on the icon */
+}
+
+.task_button:active {
+    transform: scale(0.96);
+}
+
+/* Add buttons */
+.task_add_button {
+    font-size: 12px; /* Smaller font size for the button text */
+    margin-top: 8px;
+    background-color: #052c4f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px #021a33;
+}
+
+.task_add_button:hover {
+    background-color: #c0392b;
+    color: white;
+}
+
+/* Delete buttons */
+.task_delete_button {
+    color: #fff;
+}
+
+.task_delete_button:hover {
+    background-color: #dc3545;
+    box-shadow: 0px 0px 3px 0px #c0392b;
+}
+
+/* Task list container */
+.task_lists_container,
+.task_tasks_container,
+.task_important_tasks_container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 0; /* Allow flexible height for scrolling */
+    height: 80%; /* Match parent height */
+    overflow-y: auto; /* Enable scrolling for long content */
+}
+
+/* Messages */
+.task_message {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #6c757d;
+    text-align: center;
+}
+
+
+
+
