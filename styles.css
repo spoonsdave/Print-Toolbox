@@ -56,7 +56,13 @@ Colour Palette:
 }
 
 
-
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling */
+}
 
 /* LAYOUT */
 
@@ -70,7 +76,10 @@ Colour Palette:
 /* Container for the 3-column layout */
 .container {
     display: flex;
-    min-height: 100vh;
+    width: 100vw; /* Viewport width */
+    height: 100vh; /* Viewport height */
+    box-sizing: border-box; /* Ensure padding and border are included in the width/height */
+    overflow: hidden; /* Prevent internal scrolling */
 }
 
 /* 3 Columns: 20% - 60% - 20% */
@@ -88,7 +97,7 @@ Colour Palette:
     padding-left: 30px;
     margin-top: 0px;
     width: 64%;
-    max-height: 97%;
+    max-height: 98%;
 }
 
 .right {
@@ -904,7 +913,7 @@ form label {
 .task_container {
     display: flex;
     gap: 20px;
-    height: calc(90vh - 20px); /* Account for padding */
+    height: calc(90vh - 15px); /* Account for padding */
     overflow: hidden; /* Prevent scrolling for the entire container */
     box-sizing: border-box;
 }
@@ -913,14 +922,14 @@ form label {
 .task_left_column,
 .task_middle_column,
 .task_right_column {
-    width: 30%;
+    width: 31%;
     background-color: #f8f9fa;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
-    height: 100%; /* Ensure columns stretch to fit the container */
+    height: 99%; /* Ensure columns stretch to fit the container */
 }
 
 /* Lists styling */
@@ -959,7 +968,7 @@ form label {
 
 /* Task container inputs */
 .task_input {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 8px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -967,7 +976,7 @@ form label {
     border-radius: 5px;
     box-sizing: border-box;
     resize: vertical; /* Allow resizing vertically */
-    min-height: 50px; /* Minimum height for multiple lines */
+    min-height: 70px; /* Minimum height for multiple lines */
 }
 
 /* Task buttons */
@@ -1055,18 +1064,14 @@ form label {
     border-radius: 8px;
     padding: 10px;
     min-height: 0; /* Allow flexible height for scrolling */
-    height: 80%; /* Match parent height */
+    height: 75%; /* Match parent height */
     overflow-y: auto; /* Enable scrolling for long content */
 }
 
 /* Messages */
 .task_message {
     margin: 10px 0;
-    font-size: 14px;
+    font-size: 12px;
     color: #6c757d;
     text-align: center;
 }
-
-
-
-
