@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="supabase-init.js"></script>
     <script src="auth-check.js"></script>
-    </head>
+</head>
 
 <style>
     .container {
@@ -99,9 +99,10 @@
 
 
 
-                <a class="weatherwidget-io" href="https://forecast7.com/en/52d631d30/norwich/" data-font="Roboto" data-mode="Forecast" data-days="5" data-textcolor="#0a3d6b" >Norwich, UK</a>
+                <a class="weatherwidget-io" href="https://forecast7.com/en/52d631d30/norwich/" data-font="Roboto"
+                    data-mode="Forecast" data-days="5" data-textcolor="#0a3d6b">Norwich, UK</a>
                 <script>
-                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
                 </script>
 
 
@@ -144,6 +145,8 @@
                 </div>
 
                 <script>
+
+
                     let currentMonth = new Date().getMonth();
                     let currentYear = new Date().getFullYear();
 
@@ -152,7 +155,18 @@
                         "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
                     ];
 
-                    function updateCalendar() {
+                    // Function to fetch UK bank holidays
+                    async function fetchBankHolidays() {
+                        const response = await fetch('https://www.gov.uk/bank-holidays.json');
+                        const data = await response.json();
+                        return data['england-and-wales'].events.map(event => ({
+                            date: new Date(event.date),
+                            name: event.title
+                        }));
+                    }
+
+                    // Function to update the calendar
+                    async function updateCalendar() {
                         const today = new Date();
                         const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
                         const todayDate = today.getDate();
@@ -166,7 +180,9 @@
 
                         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
                         let calendarBody = document.getElementById("calendar-body");
-                        calendarBody.innerHTML = "";  // Clear previous cells
+                        calendarBody.innerHTML = ""; // Clear previous cells
+
+                        let holidays = await fetchBankHolidays(); // Fetch bank holidays
 
                         let row = document.createElement("tr");
                         for (let i = 0; i < firstDay; i++) {
@@ -187,7 +203,19 @@
                                 cell.style.fontWeight = "bold";
                                 cell.style.color = "#c0392b";
                                 cell.style.fontSize = "14px";
-                                cell.classList.add("pulse-shadow"); // Add the class
+                                cell.classList.add("pulse-shadow");
+                            }
+
+                            // Check if this day is a bank holiday
+                            const holiday = holidays.find(holiday =>
+                                holiday.date.getFullYear() === currentYear &&
+                                holiday.date.getMonth() === currentMonth &&
+                                holiday.date.getDate() === day
+                            );
+
+                            if (holiday) {
+                                cell.classList.add("holiday"); // Apply the holiday styles
+                                cell.title = holiday.name;    // Tooltip with holiday name
                             }
 
                             row.appendChild(cell);
@@ -209,10 +237,9 @@
                     }
 
                     document.addEventListener("DOMContentLoaded", updateCalendar);
+
+
                 </script>
-
-
-
 
 
 

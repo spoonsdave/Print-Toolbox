@@ -318,35 +318,47 @@ Colour Palette:
 /* Parent container for centering */
 .hrightBottom {
     display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: bottom; /* Vertically center */
-    height: 32%; /* Maintain the container's height */
-    margin: 0; /* Ensure no additional margins */
+    justify-content: center;
+    /* Horizontally center */
+    align-items: bottom;
+    /* Vertically center */
+    height: 32%;
+    /* Maintain the container's height */
+    margin: 0;
+    /* Ensure no additional margins */
     padding: 0;
-    box-sizing: border-box; /* Prevent padding/margins from affecting alignment */
+    box-sizing: border-box;
+    /* Prevent padding/margins from affecting alignment */
 }
 
 /* Calendar Container: Fixed 7x30px grid box */
 #calendar-container {
-    width: 245px; /* 7 columns * 35px width */
-    height: 280px; /* 7 rows * 35px height */
+    width: 245px;
+    /* 7 columns * 35px width */
+    height: 280px;
+    /* 7 rows * 35px height */
     position: relative;
     display: flex;
     flex-direction: column;
-    margin: 0 auto; /* Ensure auto margins don't cause misalignment */
+    margin: 0 auto;
+    /* Ensure auto margins don't cause misalignment */
     box-sizing: border-box;
 }
 
 /* Calendar Header: Buttons and Month-Year */
 #calendar-header {
     position: absolute;
-    top: 0; /* Align to the top of the box */
+    top: 0;
+    /* Align to the top of the box */
     left: 0;
     right: 0;
-    height: 35px; /* Same as a calendar cell */
+    height: 35px;
+    /* Same as a calendar cell */
     display: flex;
-    justify-content: space-between; /* Align buttons left/right */
-    align-items: center; /* Vertically center content */
+    justify-content: space-between;
+    /* Align buttons left/right */
+    align-items: center;
+    /* Vertically center content */
     font-size: 14px;
     font-weight: bold;
 }
@@ -355,14 +367,16 @@ Colour Palette:
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    white-space: nowrap; /* Prevent wrapping */
+    white-space: nowrap;
+    /* Prevent wrapping */
     font-size: 15px;
 }
 
 /* Buttons */
 #prev-month,
 #next-month {
-    width: 35px; /* Same as a single box */
+    width: 35px;
+    /* Same as a single box */
     height: 35px;
     display: flex;
     justify-content: center;
@@ -389,16 +403,20 @@ Colour Palette:
 /* Calendar Table */
 #calendar {
     position: absolute;
-    top: 35px; /* Start below the header */
+    top: 35px;
+    /* Start below the header */
     width: 100%;
-    height: 245px; /* 6 rows of 35px (excluding header row) */
+    height: 245px;
+    /* 6 rows of 35px (excluding header row) */
     border-collapse: collapse;
 }
 
 #calendar th,
 #calendar td {
-    width: 35px; /* Lock cell width */
-    height: 35px; /* Lock cell height */
+    width: 35px;
+    /* Lock cell width */
+    height: 35px;
+    /* Lock cell height */
     text-align: center;
     vertical-align: middle;
 }
@@ -406,7 +424,8 @@ Colour Palette:
 /* Today's Date Highlight */
 .pulse-shadow {
     font-weight: bold;
-    border-radius: 50%; /* Optional round shape */
+    border-radius: 50%;
+    /* Optional round shape */
 }
 
 
@@ -434,6 +453,28 @@ Colour Palette:
 }
 
 
+
+
+.holiday {
+    position: relative;
+    background-color: lightgray; /* Light background */
+    border-radius: 50px; /* Rounded corners */
+    color: #2c3e50;
+    font-weight: bold;
+    text-align: center;
+}
+
+.holiday::after {
+    content: '✖'; /* Big red cross */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* Adjust size as needed */
+    color: #e63946; /* Bright red color */
+    opacity: 0.8; /* Slight transparency */
+    pointer-events: none; /* Ensure the cross doesn’t interfere with hover/click events */
+}
 
 
 
@@ -742,7 +783,6 @@ form label {
 /* ---------------------------------------------- */
 
 
-/* PAPER COSTS Styles */
 
 
 /* PAPER COSTS Styles */
@@ -786,7 +826,8 @@ form label {
 }
 
 .paper-table tr:hover {
-    background-color: #f9f9f9; /* Highlight rows on hover */
+    background-color: #f9f9f9;
+    /* Highlight rows on hover */
 }
 
 .paper_search {
@@ -808,13 +849,79 @@ form label {
 }
 
 /* Column Widths */
-.paper-table th:nth-child(1) { width: 6%; }
-.paper-table th:nth-child(2) { width: 20%; }
-.paper-table th:nth-child(3) { width: 8%; }
-.paper-table th:nth-child(4) { width: 6%; }
-.paper-table th:nth-child(5) { width: 6%; }
-.paper-table th:nth-child(6) { width: 6%; }
-.paper-table th:nth-child(7) { width: 6%; }
-.paper-table th:nth-child(8) { width: 6%; }
-.paper-table th:nth-child(9) { width: 8%; }
-.paper-table th:nth-child(10) { width: 12%; }
+.paper-table th:nth-child(1) {
+    width: 6%;
+}
+
+.paper-table th:nth-child(2) {
+    width: 20%;
+}
+
+.paper-table th:nth-child(3) {
+    width: 8%;
+}
+
+.paper-table th:nth-child(4) {
+    width: 6%;
+}
+
+.paper-table th:nth-child(5) {
+    width: 6%;
+}
+
+.paper-table th:nth-child(6) {
+    width: 6%;
+}
+
+.paper-table th:nth-child(7) {
+    width: 6%;
+}
+
+.paper-table th:nth-child(8) {
+    width: 6%;
+}
+
+.paper-table th:nth-child(9) {
+    width: 8%;
+}
+
+.paper-table th:nth-child(10) {
+    width: 12%;
+}
+
+
+
+
+/* ---------------------------------------------- */
+
+
+
+
+/* TASKS */
+
+
+
+
+.todo-container {
+    display: flex;
+    gap: 20px;
+}
+
+.todo-left-column,
+.todo-right-column {
+    width: 50%;
+}
+
+.todo-left-column ul,
+.todo-right-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.todo-left-column ul li {
+    cursor: pointer;
+}
+
+.todo-left-column ul li.active {
+    font-weight: bold;
+}
