@@ -175,7 +175,7 @@
             }
 
             tasksContainer.innerHTML = ""; // Clear existing tasks
-            
+
             tasks.forEach((task) => {
                 const li = document.createElement("li");
                 li.textContent = task.description;
@@ -322,7 +322,7 @@
                 importantBtn.addEventListener("click", () => updateTaskImportance(task.id, !task.is_important));
                 li.appendChild(importantBtn);
 
-                tasksContainer.appendChild(li);
+                importantTasksContainer.appendChild(li); // Append to the correct container
             });
 
 
