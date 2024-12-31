@@ -1094,16 +1094,21 @@ form label {
     color: #333; /* Text color */
     padding: 5px; /* Add some padding */
     line-height: 1.5; /* Improve readability */
-    overflow: hidden; /* Ensure no overflow */
-    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-    white-space: nowrap; /* Prevent wrapping */
-    cursor: pointer; /* Indicate interactivity */
+    display: -webkit-box; /* Enable clamping */
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    cursor: pointer;
+    transition: max-height 0.3s ease, font-size 0.3s ease;
 }
 
 .task_text.expanded {
-    font-size: 15px; /* Larger font size for expanded text */
+    -webkit-line-clamp: unset; /* Remove clamping for expanded text */
+    display: block; /* Allow full content */
     font-weight: bold;
-    color: #000; /* Change text color if desired */
     white-space: normal; /* Allow wrapping for expanded text */
     max-height: none; /* Remove height limit */
+    color: #1e5fe0;
+    font-size: 14px;
+
 }
