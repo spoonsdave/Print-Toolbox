@@ -175,17 +175,17 @@
             }
 
             tasksContainer.innerHTML = ""; // Clear existing tasks
-            
+
+
             tasks.forEach((task) => {
                 const li = document.createElement("li");
-                li.textContent = task.description;
+                li.classList.add("task_item"); // Add a class for custom styling
 
                 // Complete Button with Tick Icon
                 const completeBtn = document.createElement("button");
                 completeBtn.classList.add("task_button", "task_complete_button");
                 completeBtn.innerHTML = '<i class="fas fa-check"></i>'; // Tick icon for complete
                 completeBtn.addEventListener("click", () => deleteTask(task.id));
-                li.appendChild(completeBtn);
 
                 // Important Button
                 const importantBtn = document.createElement("button");
@@ -194,9 +194,21 @@
                     ? '<i class="fas fa-star"></i>' // Filled star
                     : '<i class="far fa-star"></i>'; // Outlined star
                 importantBtn.addEventListener("click", () => updateTaskImportance(task.id, !task.is_important));
-                li.appendChild(importantBtn);
 
-                tasksContainer.appendChild(li);
+                // Task Text
+                const taskText = document.createElement("div");
+                taskText.classList.add("task_text"); // Add the task_text class
+                taskText.innerHTML = task.description.replace(/\n/g, "<br>"); // Preserve line breaks
+                taskText.addEventListener("click", () => {
+                    taskText.classList.toggle("expanded");
+                });
+
+                // Append buttons first, then task text
+                li.appendChild(completeBtn);
+                li.appendChild(importantBtn);
+                li.appendChild(taskText);
+
+                tasksContainer.appendChild(li); // Append the list item to the tasks container
             });
 
             console.log("Tasks loaded:", tasks);
@@ -304,27 +316,37 @@
 
             tasks.forEach((task) => {
                 const li = document.createElement("li");
-                li.innerHTML = task.description.replace(/\n/g, "<br>"); // Replace line breaks with <br>
+                li.classList.add("task_item"); // Add a class for custom styling
 
                 // Complete Button with Tick Icon
                 const completeBtn = document.createElement("button");
                 completeBtn.classList.add("task_button", "task_complete_button");
-                completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+                completeBtn.innerHTML = '<i class="fas fa-check"></i>'; // Tick icon for complete
                 completeBtn.addEventListener("click", () => deleteTask(task.id));
-                li.appendChild(completeBtn);
 
                 // Important Button
                 const importantBtn = document.createElement("button");
                 importantBtn.classList.add("task_button", "task_important_button");
                 importantBtn.innerHTML = task.is_important
-                    ? '<i class="fas fa-star"></i>'
-                    : '<i class="far fa-star"></i>';
+                    ? '<i class="fas fa-star"></i>' // Filled star
+                    : '<i class="far fa-star"></i>'; // Outlined star
                 importantBtn.addEventListener("click", () => updateTaskImportance(task.id, !task.is_important));
+
+                // Task Text
+                const taskText = document.createElement("div");
+                taskText.classList.add("task_text"); // Add the task_text class
+                taskText.innerHTML = task.description.replace(/\n/g, "<br>"); // Preserve line breaks
+                taskText.addEventListener("click", () => {
+                    taskText.classList.toggle("expanded");
+                });
+
+                // Append buttons first, then task text
+                li.appendChild(completeBtn);
                 li.appendChild(importantBtn);
+                li.appendChild(taskText);
 
-                tasksContainer.appendChild(li);
+                importantTasksContainer.appendChild(li); // Append the list item to the important tasks container
             });
-
 
 
 
