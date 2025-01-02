@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="supabase-init.js"></script>
     <script src="auth-check.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
     <title>Tasks</title>
     <link rel="stylesheet" href="styles.css">
@@ -167,7 +168,8 @@
             const { data: tasks, error } = await supabase
                 .from("tasks")
                 .select("*")
-                .eq("list_id", listId);
+                .eq("list_id", listId)
+                .order("order", { ascending: true }); // Place .order before the semicolon
 
             if (error) {
                 console.error("Error loading tasks:", error);
@@ -176,10 +178,11 @@
 
             tasksContainer.innerHTML = ""; // Clear existing tasks
 
-
             tasks.forEach((task) => {
                 const li = document.createElement("li");
-                li.classList.add("task_item"); // Add a class for custom styling
+                li.classList.add("task_item");
+                li.dataset.taskId = task.id; // Add task ID
+                li.dataset.taskOrder = task.order; // Add task order
 
                 // Complete Button with Tick Icon
                 const completeBtn = document.createElement("button");
@@ -260,7 +263,32 @@
         }
 
 
+        // Make it sortable
+        const sortable = new Sortable(tasksContainer, {
+            animation: 150, // Smooth animations during drag
+            onEnd: async (event) => {
+                // Reordering logic: Update task order in database
+                const items = Array.from(tasksContainer.children);
+                const updatedOrder = items.map((item, index) => ({
+                    id: item.dataset.taskId, // Ensure each task item has a data-task-id attribute
+                    order: index
+                }));
 
+                // Save the new order in the database
+                for (let task of updatedOrder) {
+                    const { error } = await supabase
+                        .from("tasks")
+                        .update({ order: task.order })
+                        .eq("id", task.id);
+
+                    if (error) {
+                        console.error("Error updating task order:", error);
+                        break;
+                    }
+                }
+                console.log("Task order updated:", updatedOrder);
+            }
+        });
 
 
         // Delete a list
