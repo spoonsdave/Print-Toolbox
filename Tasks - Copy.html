@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-init.js"></script>
+    <script src="auth-check.js"></script>
+
+    <title>Tasks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main TASKS Content) -->
+        <div class="column middle">
+            <h1>TASKS</h1>
+
+            <div class="task_container">
+                <div class="task_left_column">
+                    <h2>LISTS</h2>
+                    <div class="task_list">
+                        <ul id="task_lists_container"></ul>
+                    </div>
+                    <input type="text" id="task_new_list_name" class="task_input" placeholder="New list name">
+                    <button id="task_add_list_button" class="task_button task_add_button">ADD LIST</button>
+                </div>
+                <div class="task_middle_column">
+                    <h2 id="task_selected_list_name">TASKS</h2>
+                    <div class="task_tasks_container" id="task_tasks_container"></div>
+                    <textarea id="task_new_task_name" class="task_input" placeholder="New task description"></textarea>
+                    <button id="task_add_task_button" class="task_button task_add_button" disabled>ADD TASK</button>
+                </div>
+                <div class="task_right_column">
+                    <h2>IMPORTANT</h2>
+                    <div class="task_important_tasks_container" id="task_important_tasks_container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column (Phone List) -->
+        <div class="column right" id="phonelist"></div>
+
+
+
+    </div>
+
+
+
+
+    <script>
+        const listsContainer = document.getElementById("task_lists_container");
+        const tasksContainer = document.getElementById("task_tasks_container");
+        const importantTasksContainer = document.getElementById("task_important_tasks_container");
+        const newListInput = document.getElementById("task_new_list_name");
+        const newTaskInput = document.getElementById("task_new_task_name");
+        const addListBtn = document.getElementById("task_add_list_button");
+        const addTaskBtn = document.getElementById("task_add_task_button");
+        let selectedListId = null; // Tracks the currently selected list
+        let user = null; // Global user variable
+
+        // Fetch user information and load lists
+        async function fetchUser() {
+            const { data, error } = await supabase.auth.getUser();
+            if (error) {
+                console.error("Error fetching user:", error);
+                return;
+            }
+            user = data.user;
+            console.log("User fetched:", user);
+
+            if (user) {
+                loadLists(); // Load lists once the user is available
+                loadImportantTasks(); // Load important tasks on page load
+            } else {
+                console.error("No user logged in. Redirect or handle error.");
+            }
+        }
+
+        // Fetch and display all lists for the user
+
+        async function loadLists() {
+            if (!user || !user.id) {
+                console.error("User is not defined or has no ID");
+                return;
+            }
+
+            const { data: lists, error } = await supabase
+                .from("lists")
+                .select("*")
+                .eq("user_id", user.id);
+
+            if (error) {
+                console.error("Error loading lists:", error);
+                return;
+            }
+
+            listsContainer.innerHTML = ""; // Clear existing lists
+            lists.forEach((list) => {
+                const li = document.createElement("li");
+                li.textContent = list.name;
+                li.dataset.listId = list.id;
+
+                // Select List on Click
+                li.addEventListener("click", () => selectList(list));
+
+                // Add Delete Button for List
+                const deleteBtn = document.createElement("button");
+                deleteBtn.classList.add("task_button", "task_delete_button");
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'; // Trash icon
+                deleteBtn.addEventListener("click", (e) => {
+                    e.stopPropagation(); // Prevent triggering the selectList event
+                    deleteList(list.id); // Call deleteList with the correct list ID
+                });
+                li.appendChild(deleteBtn);
+
+                listsContainer.appendChild(li);
+            });
+
+            console.log("Lists loaded:", lists);
+        }
+
+
+
+        // Add a new list
+        async function addList() {
+            const listName = newListInput.value.trim();
+            if (!listName) return;
+
+            const { error } = await supabase
+                .from("lists")
+                .insert([{ name: listName, user_id: user.id }]);
+
+            if (error) {
+                console.error("Error adding list:", error);
+                return;
+            }
+
+            newListInput.value = ""; // Clear input
+            loadLists(); // Refresh lists
+        }
+
+        // Handle list selection
+        function selectList(list) {
+            selectedListId = list.id;
+            document.getElementById("task_selected_list_name").textContent = list.name;
+
+            // Highlight selected list
+            document.querySelectorAll("#task_lists_container li").forEach((li) => {
+                li.classList.toggle("task_active", li.dataset.listId == selectedListId);
+            });
+
+            loadTasks(selectedListId); // Load tasks for the selected list
+            addTaskBtn.disabled = false; // Enable Add Task button
+        }
+
+        // Fetch and display tasks for a specific list
+        async function loadTasks(listId) {
+            const { data: tasks, error } = await supabase
+                .from("tasks")
+                .select("*")
+                .eq("list_id", listId);
+
+            if (error) {
+                console.error("Error loading tasks:", error);
+                return;
+            }
+
+            tasksContainer.innerHTML = ""; // Clear existing tasks
+
+
+            tasks.forEach((task) => {
+                const li = document.createElement("li");
+                li.classList.add("task_item"); // Add a class for custom styling
+
+                // Complete Button with Tick Icon
+                const completeBtn = document.createElement("button");
+                completeBtn.classList.add("task_button", "task_complete_button");
+                completeBtn.innerHTML = '<i class="fas fa-check"></i>'; // Tick icon for complete
+                completeBtn.addEventListener("click", () => deleteTask(task.id));
+
+                // Important Button
+                const importantBtn = document.createElement("button");
+                importantBtn.classList.add("task_button", "task_important_button");
+                importantBtn.innerHTML = task.is_important
+                    ? '<i class="fas fa-star"></i>' // Filled star
+                    : '<i class="far fa-star"></i>'; // Outlined star
+                importantBtn.addEventListener("click", () => updateTaskImportance(task.id, !task.is_important));
+
+                // Task Text
+                const taskText = document.createElement("div");
+                taskText.classList.add("task_text"); // Add the task_text class
+                taskText.innerHTML = task.description.replace(/\n/g, "<br>"); // Preserve line breaks
+                taskText.addEventListener("click", () => {
+                    taskText.classList.toggle("expanded");
+                });
+
+                // Append buttons first, then task text
+                li.appendChild(completeBtn);
+                li.appendChild(importantBtn);
+                li.appendChild(taskText);
+
+                tasksContainer.appendChild(li); // Append the list item to the tasks container
+            });
+
+            console.log("Tasks loaded:", tasks);
+        }
+
+
+
+
+
+        // Add a new task to the selected list
+        async function addTask() {
+            const taskDescription = newTaskInput.value.trim();
+            if (!taskDescription || !selectedListId) return;
+
+            const { error } = await supabase
+                .from("tasks")
+                .insert([{ description: taskDescription, list_id: selectedListId }]);
+
+            if (error) {
+                console.error("Error adding task:", error);
+                return;
+            }
+
+            newTaskInput.value = ""; // Clear the textarea
+            loadTasks(selectedListId); // Refresh tasks
+        }
+
+
+
+
+
+        // Delete a task
+        async function deleteTask(taskId) {
+            console.log(`Attempting to delete task ID: ${taskId}`);
+
+            const { error } = await supabase
+                .from("tasks")
+                .delete()
+                .eq("id", taskId);
+
+            if (error) {
+                console.error("Error deleting task:", error);
+                return;
+            }
+
+            console.log(`Task ID: ${taskId} deleted successfully.`);
+            loadTasks(selectedListId); // Refresh tasks in the selected list
+            loadImportantTasks(); // Refresh the Important Tasks column
+        }
+
+
+
+
+
+        // Delete a list
+        async function deleteList(listId) {
+            const { error } = await supabase
+                .from("lists")
+                .delete()
+                .eq("id", listId);
+
+            if (error) {
+                console.error("Error deleting list:", error);
+                return;
+            }
+
+            loadLists(); // Refresh the lists view
+        }
+
+        // Load and display important tasks
+
+        async function loadImportantTasks() {
+            const { data: lists, error: listError } = await supabase
+                .from("lists")
+                .select("id")
+                .eq("user_id", user.id);
+
+            if (listError) {
+                console.error("Error fetching lists for important tasks:", listError);
+                return;
+            }
+
+            const listIds = lists.map((list) => list.id);
+            if (listIds.length === 0) {
+                importantTasksContainer.innerHTML = "<p>No important tasks found.</p>";
+                return;
+            }
+
+            const { data: tasks, error: taskError } = await supabase
+                .from("tasks")
+                .select("*")
+                .in("list_id", listIds)
+                .eq("is_important", true);
+
+            if (taskError) {
+                console.error("Error loading important tasks:", taskError);
+                return;
+            }
+
+            importantTasksContainer.innerHTML = ""; // Clear existing tasks
+            if (tasks.length === 0) {
+                importantTasksContainer.innerHTML = "<p>No important tasks found.</p>";
+                return;
+            }
+
+            tasks.forEach((task) => {
+                const li = document.createElement("li");
+                li.classList.add("task_item"); // Add a class for custom styling
+
+                // Complete Button with Tick Icon
+                const completeBtn = document.createElement("button");
+                completeBtn.classList.add("task_button", "task_complete_button");
+                completeBtn.innerHTML = '<i class="fas fa-check"></i>'; // Tick icon for complete
+                completeBtn.addEventListener("click", () => deleteTask(task.id));
+
+                // Important Button
+                const importantBtn = document.createElement("button");
+                importantBtn.classList.add("task_button", "task_important_button");
+                importantBtn.innerHTML = task.is_important
+                    ? '<i class="fas fa-star"></i>' // Filled star
+                    : '<i class="far fa-star"></i>'; // Outlined star
+                importantBtn.addEventListener("click", () => updateTaskImportance(task.id, !task.is_important));
+
+                // Task Text
+                const taskText = document.createElement("div");
+                taskText.classList.add("task_text"); // Add the task_text class
+                taskText.innerHTML = task.description.replace(/\n/g, "<br>"); // Preserve line breaks
+                taskText.addEventListener("click", () => {
+                    taskText.classList.toggle("expanded");
+                });
+
+                // Append buttons first, then task text
+                li.appendChild(completeBtn);
+                li.appendChild(importantBtn);
+                li.appendChild(taskText);
+
+                importantTasksContainer.appendChild(li); // Append the list item to the important tasks container
+            });
+
+
+
+            console.log("Important tasks loaded:", tasks);
+        }
+
+
+
+
+
+        // Update task importance
+        async function updateTaskImportance(taskId, isImportant) {
+            const { error } = await supabase
+                .from("tasks")
+                .update({ is_important: isImportant })
+                .eq("id", taskId);
+
+            if (error) {
+                console.error("Error updating task importance:", error);
+                return;
+            }
+
+            loadImportantTasks(); // Refresh important tasks
+            if (selectedListId) loadTasks(selectedListId); // Refresh tasks for selected list
+        }
+
+        // Add event listeners
+        addListBtn.addEventListener("click", addList);
+        addTaskBtn.addEventListener("click", addTask);
+
+        // Fetch user and load data on page load
+        fetchUser();
+    </script>
+
+
+
+
+
+
+
+
+    </div>
+    <!-- Right Column (Phone List) -->
+    <div class="column right" id="phonelist"></div>
+
+
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+</body>
+
+</html>
