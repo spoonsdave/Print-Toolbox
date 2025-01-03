@@ -163,13 +163,20 @@
             addTaskBtn.disabled = false; // Enable Add Task button
         }
 
+
+
+
+
+
+
+
         // Fetch and display tasks for a specific list
         async function loadTasks(listId) {
             const { data: tasks, error } = await supabase
                 .from("tasks")
                 .select("*")
                 .eq("list_id", listId)
-                .order("order", { ascending: true }); // Place .order before the semicolon
+                .order("order", { ascending: true });
 
             if (error) {
                 console.error("Error loading tasks:", error);
@@ -184,38 +191,116 @@
                 li.dataset.taskId = task.id; // Add task ID
                 li.dataset.taskOrder = task.order; // Add task order
 
-                // Complete Button with Tick Icon
+                // Complete Button
                 const completeBtn = document.createElement("button");
                 completeBtn.classList.add("task_button", "task_complete_button");
-                completeBtn.innerHTML = '<i class="fas fa-check"></i>'; // Tick icon for complete
+                completeBtn.innerHTML = '<i class="fas fa-check"></i>';
                 completeBtn.addEventListener("click", () => deleteTask(task.id));
 
                 // Important Button
                 const importantBtn = document.createElement("button");
                 importantBtn.classList.add("task_button", "task_important_button");
                 importantBtn.innerHTML = task.is_important
-                    ? '<i class="fas fa-star"></i>' // Filled star
-                    : '<i class="far fa-star"></i>'; // Outlined star
+                    ? '<i class="fas fa-star"></i>'
+                    : '<i class="far fa-star"></i>';
                 importantBtn.addEventListener("click", () => updateTaskImportance(task.id, !task.is_important));
 
                 // Task Text
                 const taskText = document.createElement("div");
-                taskText.classList.add("task_text"); // Add the task_text class
-                taskText.innerHTML = task.description.replace(/\n/g, "<br>"); // Preserve line breaks
-                taskText.addEventListener("click", () => {
-                    taskText.classList.toggle("expanded");
+                taskText.classList.add("task_text");
+                taskText.innerHTML = task.description.replace(/\n/g, "<br>");
+
+                // Editable Input (hidden initially)
+                const editInput = document.createElement("textarea");
+                editInput.classList.add("task_edit_input");
+                editInput.style.display = "none";
+                editInput.value = task.description;
+
+                // Save Button
+                const saveButton = document.createElement("button");
+                saveButton.classList.add("task_save_button");
+                saveButton.textContent = "SAVE";
+                saveButton.style.display = "none"; // Hide by default
+                saveButton.addEventListener("click", () => {
+                    saveTask(editInput, task.id, taskText); // Save the task
+                    exitEditMode(taskText, editInput, saveButton); // Exit edit mode
                 });
 
-                // Append buttons first, then task text
+                // Toggle Edit Mode
+                taskText.addEventListener("click", () => {
+                    if (taskText.classList.contains("edit_task")) {
+                        // Exit edit mode
+                        exitEditMode(taskText, editInput, saveButton);
+                    } else {
+                        // Enter edit mode
+                        enterEditMode(taskText, editInput, saveButton);
+                    }
+                });
+
+                // Append elements
                 li.appendChild(completeBtn);
                 li.appendChild(importantBtn);
                 li.appendChild(taskText);
+                li.appendChild(editInput);
+                li.appendChild(saveButton);
 
-                tasksContainer.appendChild(li); // Append the list item to the tasks container
+                tasksContainer.appendChild(li);
             });
 
             console.log("Tasks loaded:", tasks);
         }
+
+        // Enter Edit Mode Function
+        function enterEditMode(taskText, editInput, saveButton) {
+            taskText.classList.remove("task_text"); // Remove normal view styles
+            taskText.style.display = "none"; // Hide task text
+            editInput.classList.add("edit_task"); // Add editing view styles
+            editInput.style.display = "block"; // Show input
+            saveButton.style.display = "inline-block"; // Show save button
+            editInput.focus(); // Focus on the input
+        }
+
+        // Exit Edit Mode Function
+        function exitEditMode(taskText, editInput, saveButton) {
+            editInput.classList.remove("edit_task"); // Remove editing view styles
+            editInput.style.display = "none"; // Hide input
+            taskText.classList.add("task_text"); // Restore normal view styles
+            taskText.style.display = "block"; // Show task text
+            saveButton.style.display = "none"; // Hide save button
+        }
+
+        // Save Task Function
+        async function saveTask(editInput, taskId, taskText) {
+            const updatedText = editInput.value.trim();
+            if (!updatedText) return;
+
+            const { error } = await supabase
+                .from("tasks")
+                .update({ description: updatedText })
+                .eq("id", taskId);
+
+            if (error) {
+                console.error("Error saving task:", error);
+                return;
+            }
+
+            console.log(`Task ID ${taskId} updated successfully.`);
+
+            // Update the UI with the new description
+            taskText.innerHTML = updatedText.replace(/\n/g, "<br>");
+            exitEditMode(taskText, editInput, saveButton); // Exit edit mode after saving
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -305,6 +390,8 @@
 
             loadLists(); // Refresh the lists view
         }
+
+
 
         // Load and display important tasks
 

@@ -1091,28 +1091,48 @@ form label {
 
 .task_text {
     width: 100%;
-    font-size: 12px; /* Adjust font size */
-    color: #333; /* Text color */
-    padding: 5px; /* Add some padding */
-    line-height: 1.5; /* Improve readability */
-    display: -webkit-box; /* Enable clamping */
-    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    font-size: 12px;
+    color: #333;
+    padding: 5px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     cursor: pointer;
     transition: max-height 0.3s ease, font-size 0.3s ease;
 }
 
-.task_text.expanded {
-    -webkit-line-clamp: unset; /* Remove clamping for expanded text */
-    display: block; /* Allow full content */
+.edit_task {
+    width: 100%;
+    font-size: 14px; /* Larger font for editing */
+    color: #1e5fe0; /* Different color for editing */
+    padding: 5px;
+    line-height: 1.5;
+    display: block;
+    white-space: pre-wrap; /* Preserve line breaks */
+    max-height: none; /* Allow full content */
+    min-height: 200px;
     font-weight: bold;
-    white-space: normal; /* Allow wrapping for expanded text */
-    max-height: none; /* Remove height limit */
-    color: #1e5fe0;
-    font-size: 14px;
-
+    overflow: visible; /* Ensure all content is visible */
+    resize: none; /* Disable manual resizing if not needed */
 }
+
+
+.expanded {
+    width: 100%;
+    font-size: 14px; /* Larger font for editing */
+    color: #1e5fe0; /* Different color for editing */
+    padding: 5px;
+    line-height: 1.5;
+    display: block;
+    white-space: pre-wrap; /* Preserve line breaks */
+    max-height: none; /* Allow full content */
+    font-weight: bold;
+    overflow: visible; /* Ensure all content is visible */
+}
+
+
 
 /* Remove bullet points and spacing */
 .task_item {
@@ -1136,4 +1156,22 @@ form label {
     overflow: hidden; /* Prevent scrollbars */
     background: none; /* Match the background */
     outline: none; /* Remove focus outline */
+}
+
+
+
+.task_save_button {
+    font-size: 10px;
+    background-color: #052c4f;
+    color: white;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px #021a33;
+}
+
+.task_save_button:hover {
+    background-color: #c0392b;
+    box-shadow: 0px 0px 3px 0px #c0392b;
 }
