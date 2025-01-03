@@ -47,3 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Run initialization in case the button is already present
     initializeLogoutButton();
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const { data: { user }, error } = await supabase.auth.getUser();
+
+    if (user && user.email) {
+        // Display the email (or replace with a custom username field if available)
+        document.getElementById("username-display").textContent = user.email;
+    } else {
+        document.getElementById("username-display").textContent = "Guest";
+    }
+});
