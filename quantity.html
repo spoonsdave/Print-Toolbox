@@ -77,10 +77,43 @@ form.addEventListener('submit', function (e) {
 
         </div>
 
-        <!-- Right Column (Phone List) -->
-        <div class="column right" id="phonelist"></div>
-    </div>
 
+        <div class="right">
+
+            <a href="Tasks.html" id="important-tasks-link" style="color: #dc3545; font-family: 'Roboto Mono'; font-weight: bold; display: block; text-align: center;">
+                Tasks: <span id="important-task-count">0</span>
+            </a>
+        
+            <!-- Right Column (Phone List) -->
+            <div class="hrightTop" id="phonelist">
+            </div>
+
+            <!-- Bottom Right Column (Calendar) -->
+            <div class="hrightBottom" id="calendar-container">
+                <div id="calendar-container">
+                    <div id="calendar-header">
+                        <button id="prev-month" onclick="changeMonth(-1)">&#9664;</button>
+                        <span id="month-year"></span>
+                        <button id="next-month" onclick="changeMonth(1)">&#9654;</button>
+                    </div>
+                    <table id="calendar">
+                        <thead>
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Load sidebar content
@@ -94,11 +127,5 @@ form.addEventListener('submit', function (e) {
             .then(data => document.getElementById("phonelist").innerHTML = data);
     </script>
 
-
-
-
-
-
 </body>
 </html>
-
