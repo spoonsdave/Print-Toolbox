@@ -307,6 +307,17 @@ html, body {
 
 /* PHONE LIST */
 
+#important-tasks-link {
+    text-decoration: none;
+}
+
+#important-task-count {
+    font-size: 1.2em;
+    margin-left: 5px;
+    text-align: center;
+}
+
+
 .phone h2 {
     text-align: center;
     white-space: nowrap;

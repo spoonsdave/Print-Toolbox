@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-init.js"></script>
+    <script src="auth-check.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+
+    <title>Barcode Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="column left" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle">
+            <h1>BARCODE GENERATOR</h1>
+
+
+
+
+
+
+            <form id="barcodeForm" onsubmit="generateBarcode(event)">
+                <label for="isbnInput">Enter ISBN Number:</label>
+                <input type="text" id="isbnInput" name="isbnInput" required placeholder="978-1-0369-0873-7" />
+                <br><br><br>
+                <button type="submit">GENERATE BARCODE</button>
+                <br>
+            </form>
+            <div id="barcodeContainer" style="margin-top: 20px;">
+                <svg id="barcode"></svg>
+            </div>
+            <br>
+            <button id="downloadButton" style="margin-top: 10px;" onclick="downloadBarcode()">DOWNLOAD BARCODE</button>
+            <br>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+        <script>
+            function generateBarcode(event) {
+                event.preventDefault();
+                const isbnInput = document.getElementById('isbnInput').value;
+                const barcodeSvg = document.getElementById('barcode');
+                if (isbnInput) {
+                    JsBarcode(barcodeSvg, isbnInput, {
+                        format: "EAN13", // Use the appropriate barcode format (e.g., EAN13 for ISBN)
+                        lineColor: "#000",
+                        width: 2,
+                        height: 100,
+                        displayValue: true,
+                    });
+                }
+            }
+
+            function downloadBarcode() {
+                const svg = document.getElementById('barcode');
+                const serializer = new XMLSerializer();
+                const svgBlob = new Blob([serializer.serializeToString(svg)], { type: "image/svg+xml;charset=utf-8" });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(svgBlob);
+                link.download = 'barcode.svg';
+                link.click();
+                URL.revokeObjectURL(link.href); // Clean up
+            }
+        </script>
+
+
+
+
+
+
+
+<div class="right">
+
+    <a href="Tasks.html" id="important-tasks-link" style="color: #dc3545; font-weight: bold; text-decoration: none; display: block; text-align: center;">
+        Tasks: <span id="important-task-count">0</span>
+    </a>
+                
+ 
+
+    <!-- Right Column (Phone List) -->
+    <div class="hrightTop" id="phonelist">
+
+        
+    </div>
+    <!-- Bottom Right Column (Calendar) -->
+    <div class="hrightBottom" id="calendar-container">
+        <div id="calendar-container">
+            <div id="calendar-header">
+                <button id="prev-month" onclick="changeMonth(-1)">&#9664;</button>
+                <span id="month-year"></span>
+                <button id="next-month" onclick="changeMonth(1)">&#9654;</button>
+            </div>
+            <table id="calendar">
+                <thead>
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+// Load sidebar content
+fetch("sidebar.html")
+    .then(response => response.text())
+    .then(data => document.getElementById("sidebar").innerHTML = data);
+
+// Load phonelist content
+fetch("phonelist.html")
+    .then(response => response.text())
+    .then(data => document.getElementById("phonelist").innerHTML = data);
+</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

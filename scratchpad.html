@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="supabase-init.js"></script>
+    <script src="auth-check.js"></script>
+
+    <title>DAVE'S PRINT TOOLBOX</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<div id="fade-overlay"></div>
+
+
+<body>
+
+    <div class="container">
+        <!-- Left Column (Sidebar) -->
+        <div class="hleft" id="sidebar"></div>
+
+        <!-- Middle Column (Main Content) -->
+
+  
+
+
+        
+
+        <div class="right">
+
+            <a href="Tasks.html" id="important-tasks-link" style="color: #dc3545; font-family: 'Roboto Mono'; font-weight: bold; display: block; text-align: center;">
+                Tasks: <span id="important-task-count">0</span>
+            </a>
+                        
+         
+        
+            <!-- Right Column (Phone List) -->
+            <div class="hrightTop" id="phonelist">
+
+                
+            </div>
+            <!-- Bottom Right Column (Calendar) -->
+            <div class="hrightBottom" id="calendar-container">
+                <div id="calendar-container">
+                    <div id="calendar-header">
+                        <button id="prev-month" onclick="changeMonth(-1)">&#9664;</button>
+                        <span id="month-year"></span>
+                        <button id="next-month" onclick="changeMonth(1)">&#9654;</button>
+                    </div>
+                    <table id="calendar">
+                        <thead>
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Load sidebar content
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("sidebar").innerHTML = data);
+
+        // Load phonelist content
+        fetch("phonelist.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("phonelist").innerHTML = data);
+    </script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
