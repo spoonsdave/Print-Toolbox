@@ -201,7 +201,7 @@ html, body {
     color: black;
     font-weight: Semi-bold;
     font-size: 13px;
-    line-height: 160%;
+    line-height: 150%;
     white-space: nowrap;
     /* Prevents wrapping */
     overflow: hidden;
@@ -1139,7 +1139,7 @@ form label {
     display: block;
     white-space: pre-wrap; /* Preserve line breaks */
     max-height: none; /* Allow full content */
-    min-height: 200px;
+    min-height: 550px;
     font-weight: bold;
     overflow: visible; /* Ensure all content is visible */
     resize: none; /* Disable manual resizing if not needed */
